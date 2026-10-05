@@ -1,0 +1,15 @@
+applies_to:
+  # Grant-equivalent series: references/flow-types.md's 2018 break to
+  # grant-equivalent reporting for concessional lending.
+  - dcid:grantEquivalent
+  # Loan, mezzanine and equity series: references/grants-loans-psi.md's
+  # grant-element thresholds for concessional debt and equity.
+  - dcid:CRSTypeOfFinance420
+  - dcid:CRSTypeOfFinance430
+  - dcid:CRSTypeOfFinance500
+  # Guarantee, PSI and OOF series: references/grants-loans-psi.md's PSI and
+  # OOF accounting, outside ODA concessionality.
+  - dcid:CRSTypeOfFinance1000
+  - dcid:CRSTypeOfFlow60
+  - dcid:CRSTypeOfFlow21
+sources: []

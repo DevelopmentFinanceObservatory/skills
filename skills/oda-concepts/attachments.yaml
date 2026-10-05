@@ -1,0 +1,17 @@
+applies_to:
+  # In-donor refugee costs, debt relief and imputed student costs: the items
+  # references/core-oda.md's Core ODA measure subtracts from the OECD total.
+  # Refugee costs also carry CRSCooperationModalityH02 and H06 (refugee costs
+  # in the donor country and in another provider country), not their parent
+  # H, which also covers development awareness and administrative costs.
+  # Debt relief also carries CRSTypeOfFinance600 (debt relief finance types)
+  # and CRSCooperationModalityF01 (debt relief modality). Imputed student
+  # costs carry CRSCooperationModalityE02.
+  - dcid:CRSPurposeCode930
+  - dcid:CRSCooperationModalityH02
+  - dcid:CRSCooperationModalityH06
+  - dcid:CRSPurposeCode600
+  - dcid:CRSTypeOfFinance600
+  - dcid:CRSCooperationModalityF01
+  - dcid:CRSCooperationModalityE02
+sources: []

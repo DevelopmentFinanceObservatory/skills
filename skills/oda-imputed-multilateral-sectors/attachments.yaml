@@ -1,0 +1,6 @@
+applies_to: []
+# The skill explains ONE's imputed multilateral sectors dataset itself, so it
+# attaches to the provenance of that export and surfaces on every series the
+# export publishes.
+sources:
+  - dcid:provenance/ONEImputedMultilateralSectors
