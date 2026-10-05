@@ -1,4 +1,5 @@
-# Validates every skill bundle under skills/ on each push and pull request.
+# Validates every skill bundle under skills/ on each push to main and on each pull
+# request that is ready for review.
 #
 # The checks live in scripts/validate_skills.py and enforce what README.md's
 # Format section commits to: the front matter fields, the references/ layout,
@@ -16,12 +17,17 @@
 # from the organisation's reader GitHub App (READER_APP_CLIENT_ID variable and
 # READER_APP_PRIVATE_KEY secret). DFO_ONTOLOGY_REF pins the ontology release
 # the check runs against. Remove the token step once the repository is public.
+#
+# A draft pull request runs no job. `ready_for_review` is in the types so that
+# marking it ready starts the run: without it the skipped job would stand as a
+# passing check on the commit and nothing would have tested it.
 name: Validate skills
 
 on:
   push:
     branches: [main]
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch: {}
 
 env:
@@ -32,7 +38,7 @@ jobs:
     # Mints a dfo-reader token, which prod keeps only in main-limited
     # environments, so this runs in ONEcampaign only. The identical tree
     # ran it here before it was synced.
-    if: github.repository_owner == 'ONEcampaign'
+    if: github.repository_owner == 'ONEcampaign' && github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
