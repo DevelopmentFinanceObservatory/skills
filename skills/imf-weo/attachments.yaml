@@ -1,0 +1,5 @@
+applies_to: []
+# The skill explains the WEO dataset itself, so it attaches to the provenance
+# of the WEO export and surfaces on every series that export publishes.
+sources:
+  - dcid:provenance/IMFWorldEconomicOutlook
