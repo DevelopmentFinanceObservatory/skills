@@ -1,0 +1,71 @@
+# Validates every skill bundle under skills/ on each push and pull request.
+#
+# The checks live in scripts/validate_skills.py and enforce what README.md's
+# Format section commits to: the front matter fields, the references/ layout,
+# that every pointer from a SKILL.md resolves, and that no reference file is
+# left unreachable. Warnings are printed and do not fail the job; anything the
+# validator calls an error does.
+#
+# The validator parses front matter with PyYAML, pinned in
+# requirements-dev.txt. A skill author running the same command locally needs
+# that one package installed first (pip install -r requirements-dev.txt).
+#
+# Each skill's attachments.yaml names ontology nodes, so the job also compiles
+# the DFO ontology and checks every 'applies_to' entry is a node in it. The
+# ontology repository is private, so the job mints a read-only token for it
+# from the organisation's reader GitHub App (READER_APP_CLIENT_ID variable and
+# READER_APP_PRIVATE_KEY secret). DFO_ONTOLOGY_REF pins the ontology release
+# the check runs against. Remove the token step once the repository is public.
+name: Validate skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+env:
+  DFO_ONTOLOGY_REF: v0.2.0
+
+jobs:
+  validate:
+    # Mints a dfo-reader token, which prod keeps only in main-limited
+    # environments, so this runs in ONEcampaign only. The identical tree
+    # ran it here before it was synced.
+    if: github.repository_owner == 'ONEcampaign'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Test the validator
+        run: python -m unittest discover
+
+      - name: Mint a read-only token for dfo-ontology
+        id: reader
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.READER_APP_CLIENT_ID }}
+          private-key: ${{ secrets.READER_APP_PRIVATE_KEY }}
+          owner: ONEcampaign
+          repositories: dfo-ontology
+          permission-contents: read
+
+      - name: Install the DFO ontology compiler
+        env:
+          READER_TOKEN: ${{ steps.reader.outputs.token }}
+        run: pip install "git+https://x-access-token:${READER_TOKEN}@github.com/ONEcampaign/dfo-ontology@${DFO_ONTOLOGY_REF}"
+
+      - name: Compile the DFO ontology
+        run: dfo-ontology compile --bench prod --output "$RUNNER_TEMP/ontology/dfo.mcf"
+
+      - name: Validate every skill
+        run: python scripts/validate_skills.py --ontology-mcf "$RUNNER_TEMP/ontology/dfo.mcf"

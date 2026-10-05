@@ -1,0 +1,8 @@
+applies_to:
+  # The breakdown table's DAC1 rows: in-donor costs, core contributions to
+  # multilaterals, and grant-equivalent totals by donor, against the CRS for
+  # grant-equivalent figures at activity level.
+  - dcid:CRSPurposeCode930
+  - dcid:CRSCooperationModalityB02
+  - dcid:grantEquivalent
+sources: []

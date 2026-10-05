@@ -1,0 +1,8 @@
+applies_to:
+  # Core multilateral contributions and earmarked funds:
+  # references/bilateral-multilateral.md's channel split, and
+  # references/sector-imputations.md's B02 exclusion that keeps a CRS total
+  # plus an imputed multilateral total from double counting.
+  - dcid:CRSCooperationModalityB02
+  - dcid:CRSCooperationModalityB03
+sources: []
