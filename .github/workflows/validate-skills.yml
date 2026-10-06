@@ -31,7 +31,7 @@ on:
   workflow_dispatch: {}
 
 env:
-  DFO_ONTOLOGY_REF: v0.2.0
+  DFO_ONTOLOGY_REF: v0.2.1
 
 jobs:
   validate:
