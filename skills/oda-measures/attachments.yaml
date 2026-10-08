@@ -1,15 +1,36 @@
 applies_to:
   # Grant-equivalent series: references/flow-types.md's 2018 break to
-  # grant-equivalent reporting for concessional lending.
+  # grant-equivalent reporting for concessional lending. DAC1's grant-equivalent
+  # series carry the same node.
   - dcid:grantEquivalent
   # Loan, mezzanine and equity series: references/grants-loans-psi.md's
-  # grant-element thresholds for concessional debt and equity.
+  # grant-element thresholds for concessional debt and equity. DAC1 and DAC2A
+  # split their flows the same way under the non-grant type of finance, which
+  # covers loans, mezzanine finance and equity. The DAC tables share that node:
+  # it marks 116 of DAC1's 639 series and 7 of DAC2A's 25, and it is the only
+  # oda-measures node on a DAC1 flow-basis loan series. It marks 9 of DAC2B's
+  # 14, but only 3 of those are OOF loans or equity; the other 6 are export
+  # credits, interest received and offsetting entries, which
+  # grants-loans-psi.md does not cover.
   - dcid:CRSTypeOfFinance420
   - dcid:CRSTypeOfFinance430
   - dcid:CRSTypeOfFinance500
+  - dcid:DACTypeOfFinanceNonGrants
   # Guarantee, PSI and OOF series: references/grants-loans-psi.md's PSI and
-  # OOF accounting, outside ODA concessionality.
+  # OOF accounting, outside ODA concessionality. In DAC1 these are other
+  # official flows (DAC1AidType200), private sector instruments in bilateral
+  # ODA (11030) and as a flow (3400), the PSI memo items for the other
+  # accounting approach (1042, 1044), and private finance mobilised
+  # (2233), which PSI ODA excludes and does not add to. In DAC2B this is the
+  # PSI flow (DAC2bAidType260).
   - dcid:CRSTypeOfFinance1000
   - dcid:CRSTypeOfFlow60
   - dcid:CRSTypeOfFlow21
+  - dcid:DAC1AidType200
+  - dcid:DAC1AidType11030
+  - dcid:DAC1AidType3400
+  - dcid:DAC1AidType1042
+  - dcid:DAC1AidType1044
+  - dcid:DAC1AidType2233
+  - dcid:DAC2bAidType260
 sources: []

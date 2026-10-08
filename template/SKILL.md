@@ -5,6 +5,7 @@ description: >-
   agent should load it. Discovery matches against this text, so write it for
   the match, not for a human browsing the repo. Name the domain, the
   questions the skill answers, and the trigger vocabulary.
+license: CC-BY-4.0
 ---
 
 # Skill title
