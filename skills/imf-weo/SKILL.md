@@ -2,6 +2,7 @@
 name: imf-weo
 description: >-
   Context for working with the IMF World Economic Outlook (WEO) database, the IMF staff's annual macroeconomic estimates and projections for 197 economies. Covers which years are actual and which are projections, which currencies and units can be compared or summed across countries, fiscal-year reporters and level breaks, how IMF country groups are built, countries with suspended data, and how the DFO's version of the data is shaped. Load once WEO has been chosen for an analysis, or when working with WEO figures.
+license: CC-BY-4.0
 ---
 
 # IMF World Economic Outlook (WEO)

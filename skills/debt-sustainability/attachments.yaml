@@ -1,0 +1,5 @@
+applies_to: []
+# The frameworks' indicators are built from IDS stocks, debt service and
+# ratios, so the skill attaches to the IDS export as a whole.
+sources:
+  - dcid:provenance/WorldBankInternationalDebtStatistics

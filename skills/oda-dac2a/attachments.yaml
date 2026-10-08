@@ -1,2 +1,5 @@
 applies_to: []
-sources: []
+# The skill explains the DAC2A table itself, so it attaches to the provenance
+# of the DAC2A export and surfaces on every series that export publishes.
+sources:
+  - dcid:provenance/OECDDAC2A

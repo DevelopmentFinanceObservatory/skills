@@ -94,12 +94,12 @@ Do not suggest policy marker analysis when the user's question is about:
 Always note these limitations:
 
 1. Self-reported and subjective. Donors apply markers themselves. Reporting practices differ across donors, which limits strict comparability.
-2. Partial screening. Not all activities are screened against all markers. "Not screened" (never assessed) does not mean "not targeted" (assessed and found not to qualify). See the policy-markers skill for the full distinction.
+2. Partial screening. Not all activities are screened against all markers. "Not screened" (never assessed) does not mean "not targeted" (assessed and found not to qualify). See the oda-policy-markers skill for the full distinction.
 3. Whole-project counting. The full project value is counted, not just the share attributable to the policy objective.
 
 ## Pitfalls
 
-Treating "not screened" as "not targeted." These are different values with different meanings. A large share of "not screened" activities in a portfolio may indicate incomplete reporting, not absence of policy intent. See the policy-markers skill for the full distinction.
+Treating "not screened" as "not targeted." These are different values with different meanings. A large share of "not screened" activities in a portfolio may indicate incomplete reporting, not absence of policy intent. See the oda-policy-markers skill for the full distinction.
 
 Adding Rio marker totals without checking for overlap. A single activity can be marked for both climate mitigation and adaptation. Adding the two totals produces double counting. Use the microdataset to identify and handle overlap.
 
@@ -109,6 +109,6 @@ Using the environment marker as a proxy for climate. The environment marker is a
 
 1. Confirm which marker applies and what it covers.
 2. State the coverage (bilateral allocable ODA only) and the time period available.
-3. Note whether the analysis uses commitments or disbursements and why (see the policy-markers skill for when to use commitments vs. disbursements).
+3. Note whether the analysis uses commitments or disbursements and why (see the oda-policy-markers skill for when to use commitments vs. disbursements).
 4. Flag the self-reporting caveat and any known issues with the specific marker.
 5. If the user asks about totals combining principal and significant, label this clearly as "gender-related" or "climate-related" ODA (not "gender ODA" or "climate ODA"), to reflect that the marker captures intent, not outcome.

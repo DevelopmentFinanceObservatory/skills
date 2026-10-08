@@ -1,0 +1,16 @@
+{
+  "name": "dfo",
+  "owner": {
+    "name": "Development Finance Observatory"
+  },
+  "metadata": {
+    "description": "Development-finance domain knowledge from the Development Finance Observatory, packaged as Agent Skills."
+  },
+  "plugins": [
+    {
+      "name": "dfo",
+      "source": "./",
+      "description": "Development-finance domain knowledge from the Development Finance Observatory, packaged as Agent Skills."
+    }
+  ]
+}

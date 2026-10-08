@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Validate the skill bundles under ``skills/`` against the Agent Skills spec
-and this repository's own README.
+"""Validate the skill bundles under ``skills/`` and ``internal/skills/``
+against the Agent Skills spec and this repository's own CONTRIBUTING.md.
 
 Every rule this script enforces traces to one of three sources, cited inline
 next to the rule that implements it:
@@ -9,16 +9,17 @@ next to the rule that implements it:
 - Anthropic's Claude-specific requirements, which add constraints the generic
   spec omits: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
   and https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
-- This repository's own README.md, in particular its "Format" section, for
+- This repository's own CONTRIBUTING.md, in particular its "Format" section, for
   rules the spec leaves to each project (reference pointers, loose markdown,
-  and each skill's ``attachments.yaml``).
+  each skill's ``attachments.yaml``, and ``skills/categories.yaml``).
 
 The three-tier policy this script applies: **error** on anything the spec
-forbids, or that README.md commits to and a skill breaks; **warn** where a
-skill is spec-legal but departs from a convention this README states (a
-warning prints and exits zero); **allow silently** anything the spec permits
-that README.md says nothing about. The goal is that a skill author doing
-something the spec explicitly blesses never gets a red CI run for it.
+forbids, or that CONTRIBUTING.md commits to and a skill breaks; **warn**
+where a skill is spec-legal but departs from a convention CONTRIBUTING.md
+states (a warning prints and exits zero); **allow silently** anything the spec
+permits that CONTRIBUTING.md says nothing about. The goal is that a skill
+author doing something the spec explicitly blesses never gets a red CI run for
+it.
 
 Front matter is parsed with PyYAML's ``yaml.safe_load``, so every scalar form
 YAML defines -- plain, single-quoted, double-quoted, and the block forms
@@ -28,11 +29,16 @@ YAML, or that parses to anything other than a top-level mapping, is reported
 as an error naming the file; it never crashes the run and never passes
 silently.
 
-``skills/_template/`` is skipped entirely (not walked, not counted). It is a
-seed file for authors to copy, not a published skill: its ``name`` field is
-deliberately ``skill-template`` while its directory is ``_template``, which
-would otherwise fail the "name matches directory" rule for no good reason.
-Any directory whose name starts with an underscore gets the same pass.
+The repository holds skills under two roots, and every rule for a skill's
+files applies under both. ``skills/`` holds the skills offered for install:
+the plugin at the repository root loads every directory there. The sibling
+``internal/skills/`` holds skills that are published to the knowledge graph
+and the docs site and are not offered for install; a repository may have no
+such directory. ``skills/categories.yaml`` lists the skills under ``skills/``
+only.
+
+``template/``, the scaffold authors copy, sits outside both roots and is not
+validated as a skill.
 """
 
 from __future__ import annotations
@@ -129,11 +135,14 @@ COMPATIBILITY_MAX_LEN = 500
 # The six frontmatter fields the Agent Skills spec defines:
 # https://agentskills.io/specification#frontmatter
 SPEC_KEYS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}
-# Of those six, the two README.md's "Format" section says do the work. A key
-# outside SPEC_KEYS is an error (the spec doesn't define it); a key inside
-# SPEC_KEYS but outside README_KEYS is spec-legal but departs from what this
+# Of those six, the three CONTRIBUTING.md's "Format" section says do the work.
+# A key outside SPEC_KEYS is an error (the spec doesn't define it); a key inside
+# SPEC_KEYS but outside DOCUMENTED_KEYS is spec-legal but departs from what this
 # repo's own docs commit to, so it is a warning rather than an error.
-README_KEYS = {"name", "description"}
+DOCUMENTED_KEYS = {"name", "description", "license"}
+# The licence of every skill in this repository (an SPDX id), which each
+# SKILL.md names in its own front matter (rule 54).
+LICENSE_ID = "CC-BY-4.0"
 # The frontmatter fields the spec defines as plain string scalars. 'metadata'
 # is checked separately (it is a mapping, not a scalar); 'allowed-tools' is
 # one of these -- the spec defines it as a single space-separated string, and
@@ -147,7 +156,7 @@ MAX_FILE_BYTES = 256 * 1024
 MAX_REFERENCES = 50
 MAX_PATH_CHARACTERS = 512
 # Each skill's graph attachments, read by dfo-pipelines and left out of the
-# graph; README.md's "Graph attachments" section describes them. Each key maps to the pattern every entry
+# graph; CONTRIBUTING.md's "Graph attachments" section describes them. Each key maps to the pattern every entry
 # in its list must match in full, and the shape named in the error when one
 # does not. An 'applies_to' entry is an ontology reference, 'dcid:' followed
 # by a token with no whitespace, quote or comma; a '/' is allowed because
@@ -165,14 +174,29 @@ ATTACHMENT_KEYS = {
         "a provenance reference such as 'dcid:provenance/OECDCreditorReportingSystem'",
     ),
 }
+# The index that files every skill in skills/ under one category, read by
+# dfo-docs to group the published skill pages; CONTRIBUTING.md's "Categories" section describes
+# it. 'sources' and 'uncategorised' each hold a list of skill names, and
+# 'domains' maps each domain's name to one.
+CATEGORIES_FILENAME = "categories.yaml"
+CATEGORY_LIST_KEYS = ("sources", "uncategorised")
+CATEGORY_DOMAINS_KEY = "domains"
+# The second skill root, relative to the directory that holds skills/.
+INTERNAL_SKILLS_PATH = Path("internal") / "skills"
+# What happens to a directory whose name starts with '_' under each root, for
+# rule 50's message. dfo-pipelines and dfo-docs both skip such a directory.
+UNDERSCORE_CONSEQUENCE = {
+    "installable": "the plugin at the repository root loads every directory there, so users would install it",
+    "internal": "dfo-pipelines and dfo-docs skip it, so it would never be published",
+}
 
 
 class FrontMatterError(ValueError):
     """Raised when SKILL.md front matter isn't the shape this repo commits to."""
 
 
-class AttachmentsError(ValueError):
-    """Raised when attachments.yaml cannot be read as a YAML mapping."""
+class YamlMappingError(ValueError):
+    """Raised when attachments.yaml or categories.yaml cannot be read as a YAML mapping."""
 
 
 class OntologyError(ValueError):
@@ -193,7 +217,7 @@ class _NoAnchorLoader(yaml.SafeLoader):
         return super().compose_node(parent, index)
 
 
-class _AttachmentsLoader(_NoAnchorLoader):
+class _UniqueKeyLoader(_NoAnchorLoader):
     """``_NoAnchorLoader`` that also refuses repeated keys.
 
     A repeated key would load as its last value alone, silently dropping every
@@ -267,29 +291,29 @@ def parse_front_matter(text: str) -> tuple[dict, str]:
     return {str(k): v for k, v in fields.items()}, body
 
 
-def parse_attachments(text: str) -> dict:
-    """Parse attachments.yaml with ``_AttachmentsLoader``.
+def parse_yaml_mapping(text: str) -> dict:
+    """Parse attachments.yaml or categories.yaml with ``_UniqueKeyLoader``.
 
     Returns the top-level mapping with its keys coerced to ``str``, the same
     way parse_front_matter does. An empty file, or one holding only comments,
     is an empty mapping: every key is optional.
 
-    Raises AttachmentsError when the text is not valid YAML, uses an anchor,
+    Raises YamlMappingError when the text is not valid YAML, uses an anchor,
     an alias or a repeated key, or parses to anything other than a mapping.
     """
     try:
-        data = yaml.load(text, Loader=_AttachmentsLoader)
+        data = yaml.load(text, Loader=_UniqueKeyLoader)
     except yaml.MarkedYAMLError as exc:
         mark = exc.problem_mark
         where = f" at line {mark.line + 1}, column {mark.column + 1}" if mark else ""
-        raise AttachmentsError(f"{exc.problem}{where}") from exc
+        raise YamlMappingError(f"{exc.problem}{where}") from exc
     except yaml.YAMLError as exc:
-        raise AttachmentsError(str(exc).replace(chr(10), " ")) from exc
+        raise YamlMappingError(str(exc).replace(chr(10), " ")) from exc
 
     if data is None:
         return {}
     if not isinstance(data, dict):
-        raise AttachmentsError(f"must be a YAML mapping at the top level, got {type(data).__name__}")
+        raise YamlMappingError(f"must be a YAML mapping at the top level, got {type(data).__name__}")
     return {str(k): v for k, v in data.items()}
 
 
@@ -317,7 +341,7 @@ def load_ontology_nodes(mcf_path: Path) -> set[str]:
 def validate_attachments(
     skill_dir: Path, repo_root: Path, ontology_nodes: set[str] | None = None
 ) -> list[Finding]:
-    """Check a skill's attachments.yaml against README.md's "Graph attachments" section.
+    """Check a skill's attachments.yaml against CONTRIBUTING.md's "Graph attachments" section.
 
     With ``ontology_nodes``, also check that every 'applies_to' entry is one
     of them (rule 34). 'sources' entries name dfo-pipelines provenance nodes,
@@ -339,13 +363,13 @@ def validate_attachments(
                 "ERROR",
                 path,
                 f"{ATTACHMENTS_FILENAME} is missing; every skill has one, with empty lists when "
-                "it attaches nowhere (README 'Format')",
+                "it attaches nowhere (CONTRIBUTING.md 'Format')",
             )
         ]
 
     try:
-        data = parse_attachments(attachments.read_text(encoding="utf-8"))
-    except AttachmentsError as exc:
+        data = parse_yaml_mapping(attachments.read_text(encoding="utf-8"))
+    except YamlMappingError as exc:
         return [Finding(29, "ERROR", path, f"{ATTACHMENTS_FILENAME} is malformed: {exc}")]
 
     findings: list[Finding] = []
@@ -381,6 +405,101 @@ def validate_attachments(
                         Finding(34, "ERROR", path, f"'applies_to' entry {entry!r} is not a node in the ontology")
                     )
 
+    return findings
+
+
+def validate_categories(skills_root: Path, skill_names: list[str]) -> list[Finding]:
+    """Check categories.yaml against CONTRIBUTING.md's "Categories" section.
+
+    ``skill_names`` is every skill directory under ``skills_root``.
+
+    Rules 42 to 49, all errors: the file is missing (42); it is not UTF-8 or
+    valid YAML, uses an anchor, an alias or a repeated key, or is not a
+    mapping (43); it holds a key outside 'sources', 'domains' and
+    'uncategorised' (44); 'domains' is not a mapping, or a list of skills is
+    not a list of strings (45); a domain's name is outside the skill name
+    format (46); an entry names no skill directory (47); a skill is listed
+    more than once (48); a skill directory is listed nowhere (49).
+    """
+    categories = skills_root / CATEGORIES_FILENAME
+    path = categories.relative_to(skills_root.parent).as_posix()
+    if not categories.is_file():
+        return [
+            Finding(
+                42,
+                "ERROR",
+                path,
+                f"{CATEGORIES_FILENAME} is missing; it lists every skill under 'sources', a domain "
+                "or 'uncategorised' (CONTRIBUTING.md 'Categories')",
+            )
+        ]
+
+    try:
+        data = parse_yaml_mapping(categories.read_text(encoding="utf-8"))
+    except (YamlMappingError, UnicodeDecodeError) as exc:
+        return [Finding(43, "ERROR", path, f"{CATEGORIES_FILENAME} is malformed: {exc}")]
+
+    findings: list[Finding] = []
+    known_keys = (*CATEGORY_LIST_KEYS, CATEGORY_DOMAINS_KEY)
+    for key in sorted(k for k in data if k not in known_keys):
+        findings.append(Finding(44, "ERROR", path, f"key '{key}' is not one of {', '.join(known_keys)}"))
+
+    domains = data.get(CATEGORY_DOMAINS_KEY, {})
+    if not isinstance(domains, dict):
+        got = "null" if domains is None else type(domains).__name__
+        findings.append(
+            Finding(
+                45,
+                "ERROR",
+                path,
+                f"'{CATEGORY_DOMAINS_KEY}' must map each domain to a list of skills, got {got}; "
+                "leave the key out when there is no domain",
+            )
+        )
+        domains = {}
+    for domain in domains:
+        if not NAME_RE.fullmatch(str(domain)):
+            findings.append(
+                Finding(
+                    46,
+                    "ERROR",
+                    path,
+                    f"domain '{domain}' must be lowercase letters, digits and single hyphens, with "
+                    "no leading, trailing or doubled hyphen, matching the skill name format",
+                )
+            )
+
+    lists = {f"'{key}'": data.get(key, []) for key in CATEGORY_LIST_KEYS}
+    lists.update({f"domain '{domain}'": entries for domain, entries in domains.items()})
+    listed: Counter[str] = Counter()
+    for label, entries in lists.items():
+        if not isinstance(entries, list):
+            got = "null" if entries is None else type(entries).__name__
+            findings.append(
+                Finding(45, "ERROR", path, f"{label} must be a list of skills, got {got}; write '[]' when it is empty")
+            )
+            continue
+        for entry in entries:
+            if isinstance(entry, str):
+                listed[entry] += 1
+            else:
+                findings.append(Finding(45, "ERROR", path, f"{label} entry {entry!r} is not a skill name"))
+
+    for name in sorted(listed.keys() - set(skill_names)):
+        findings.append(Finding(47, "ERROR", path, f"'{name}' is not a skill directory under {skills_root.name}/"))
+    for name in sorted(name for name, count in listed.items() if count > 1):
+        findings.append(
+            Finding(48, "ERROR", path, f"'{name}' is listed {listed[name]} times; a skill sits in one category")
+        )
+    for name in sorted(set(skill_names) - listed.keys()):
+        findings.append(
+            Finding(
+                49,
+                "ERROR",
+                path,
+                f"skill '{name}' is not listed; add it under 'sources', a domain or 'uncategorised'",
+            )
+        )
     return findings
 
 
@@ -609,6 +728,12 @@ def _soft_line_break_message(lines: list[int]) -> str:
 
 
 def validate_skill(skill_dir: Path, repo_root: Path) -> list[Finding]:
+    """Check one skill's SKILL.md: its front matter, its body, and the files it points at.
+
+    Rule 54, an error: front matter 'license' is missing or is not LICENSE_ID.
+    A skill downloaded on its own travels without the repository's LICENSE, so
+    each skill names the licence itself.
+    """
     findings: list[Finding] = []
 
     def rel(p: Path) -> str:
@@ -628,7 +753,7 @@ def validate_skill(skill_dir: Path, repo_root: Path) -> list[Finding]:
 
     # Rule 8 (ERROR): https://agentskills.io/specification#frontmatter defines
     # exactly six frontmatter fields. A key outside that set is not part of
-    # the spec at all, so it errors regardless of what this repo's README says.
+    # the spec at all, so it errors regardless of what CONTRIBUTING.md says.
     unknown_keys = sorted(k for k in fields if k not in SPEC_KEYS)
     for key in unknown_keys:
         findings.append(
@@ -641,19 +766,19 @@ def validate_skill(skill_dir: Path, repo_root: Path) -> list[Finding]:
             )
         )
 
-    # Rule 15 (WARNING): a key the spec allows but that README.md's "Format"
+    # Rule 15 (WARNING): a key the spec allows but that CONTRIBUTING.md's "Format"
     # section doesn't mention -- spec-legal, repo-convention departure. This
     # is the case the governing principle exists for: a skill using something
     # the spec blesses must not fail CI for it.
-    undocumented_keys = sorted(k for k in fields if k in SPEC_KEYS and k not in README_KEYS)
+    undocumented_keys = sorted(k for k in fields if k in SPEC_KEYS and k not in DOCUMENTED_KEYS)
     for key in undocumented_keys:
         findings.append(
             Finding(
                 15,
                 "WARNING",
                 rel(skill_md),
-                f"front matter key '{key}' is allowed by the Agent Skills spec, but README.md's "
-                "'Format' section documents only 'name' and 'description'",
+                f"front matter key '{key}' is allowed by the Agent Skills spec, but CONTRIBUTING.md's "
+                "'Format' section documents only 'name', 'description' and 'license'",
             )
         )
 
@@ -668,6 +793,19 @@ def validate_skill(skill_dir: Path, repo_root: Path) -> list[Finding]:
     compatibility = _string_field(fields, "compatibility", findings, rel(skill_md), null_as_empty=True)
     _string_field(fields, "license", findings, rel(skill_md))
     _string_field(fields, "allowed-tools", findings, rel(skill_md))
+
+    # Rule 54 (ERROR): see the docstring. A non-string value differs from
+    # LICENSE_ID too, beside rule 20.
+    if fields.get("license") != LICENSE_ID:
+        findings.append(
+            Finding(
+                54,
+                "ERROR",
+                rel(skill_md),
+                f"front matter 'license' is missing or is not '{LICENSE_ID}'; a skill downloaded on its own "
+                "travels without the repository's LICENSE, so each skill names the licence itself",
+            )
+        )
 
     if not name or not name.strip():
         findings.append(Finding(3, "ERROR", rel(skill_md), "front matter 'name' is missing or empty"))
@@ -868,7 +1006,7 @@ def validate_skill(skill_dir: Path, repo_root: Path) -> list[Finding]:
         if not Path(resolved).is_file():
             findings.append(Finding(9, "ERROR", rel(skill_md), f"pointer '{pointer}' does not resolve to a real file"))
 
-    # Rule 27 (ERROR): README.md's "Format" section commits to pointers
+    # Rule 27 (ERROR): CONTRIBUTING.md's "Format" section commits to pointers
     # written as relative Markdown links, "[references/a.md](references/a.md)".
     # dfo-docs publishes each SKILL.md and its reference files as linked
     # pages, and only a link survives that as something a reader can follow.
@@ -881,7 +1019,7 @@ def validate_skill(skill_dir: Path, repo_root: Path) -> list[Finding]:
                 rel(skill_md),
                 "bare reference pointer outside a Markdown link: "
                 + ", ".join(bare)
-                + f". Write each one as a Markdown link, e.g. '[{bare[0]}]({bare[0]})' (README 'Format').",
+                + f". Write each one as a Markdown link, e.g. '[{bare[0]}]({bare[0]})' (CONTRIBUTING.md 'Format').",
             )
         )
 
@@ -908,7 +1046,7 @@ def validate_skill(skill_dir: Path, repo_root: Path) -> list[Finding]:
     # bare "<name>.md" token in prose. Rule 12 only sees "references/<name>.md"
     # tokens and "[label](target)" link targets, so a pointer written as a bare
     # filename ("See grants-loans-psi.md") used to pass silently; this closes
-    # that gap. README.md's "Format" section commits to pointers staying one
+    # that gap. CONTRIBUTING.md's "Format" section commits to pointers staying one
     # level deep, so naming a sibling reference file at all breaks the rule:
     # carry the material inline or reach it from SKILL.md.
     for relpath, p in sorted(actual_files.items()):
@@ -923,7 +1061,7 @@ def validate_skill(skill_dir: Path, repo_root: Path) -> list[Finding]:
                     "reference file names another reference file by bare filename: "
                     + ", ".join(sorted(bare_names))
                     + ". A reference file must not point at another reference file; carry the "
-                    "material inline or reach it from SKILL.md (README 'Format').",
+                    "material inline or reach it from SKILL.md (CONTRIBUTING.md 'Format').",
                 )
             )
 
@@ -1065,24 +1203,121 @@ def validate_bundle(skill_dir: Path, repo_root: Path) -> list[Finding]:
     return findings
 
 
+def _symlink_on_the_way(root: Path, repo_root: Path) -> Path | None:
+    """Return the first symlink among ``root`` and its parents below ``repo_root``, if any."""
+    path = repo_root
+    for part in root.relative_to(repo_root).parts:
+        path /= part
+        if path.is_symlink():
+            return path
+    return None
+
+
 def validate_repo(
     skills_root: Path, ontology_nodes: set[str] | None = None
 ) -> tuple[list[Finding], int]:
+    """Validate the skills under ``skills_root`` and under ``internal/skills/`` beside it.
+
+    Returns (findings, skill_count), counting the skills of both roots.
+
+    Rules 50 to 53, all errors: a directory under either root has a name
+    that starts with '_' (50), and it is neither validated nor counted as a
+    skill; a skill name appears under both roots (51); a file sits under a
+    root, where only skill directories are allowed, apart from
+    categories.yaml under skills/ (52); internal/ holds anything other than
+    the skills/ directory (53). A symlink under a root raises rule 35, and
+    it is neither validated nor counted as a skill.
+
+    skills/, internal/ and internal/skills/ are real directories: each one
+    that is a symlink raises rule 35, because dfo-pipelines refuses to
+    publish a repository it would have to read through a link. Nothing
+    behind the link is read, so its skills are not counted, and the
+    categories.yaml and rule 53 checks that would read through it are
+    skipped. ``skills_root`` is the path as given, with a symlink in its
+    last component left unresolved.
+    """
     repo_root = skills_root.parent
+    roots = {"installable": skills_root, "internal": repo_root / INTERNAL_SKILLS_PATH}
     findings: list[Finding] = []
-    skill_count = 0
-    for entry in sorted(skills_root.iterdir()):
-        if not entry.is_dir() or entry.name.startswith("_"):
+    skill_names: dict[str, list[str]] = {}
+    for kind, root in roots.items():
+        skill_names[kind] = []
+        where = root.relative_to(repo_root).as_posix()
+        link = _symlink_on_the_way(root, repo_root)
+        if link is not None:
+            findings.append(
+                Finding(
+                    35,
+                    "ERROR",
+                    link.relative_to(repo_root).as_posix(),
+                    f"is a symlink. {where}/ must be reached through real directories: "
+                    "dfo-pipelines refuses to publish a repository that reads its skills through a link",
+                )
+            )
             continue
-        skill_count += 1
-        bundle_findings = validate_bundle(entry, repo_root)
-        findings.extend(bundle_findings)
-        # The content checks read every file as text, so they wait for the
-        # files to decode.
-        if not any(f.rule == 37 for f in bundle_findings):
-            findings.extend(validate_skill(entry, repo_root))
-            findings.extend(validate_attachments(entry, repo_root, ontology_nodes))
-    return findings, skill_count
+        for entry in sorted(root.iterdir()) if root.is_dir() else []:
+            shown = entry.relative_to(repo_root).as_posix()
+            if entry.is_symlink():
+                findings.append(Finding(35, "ERROR", shown, "symlinks are not allowed under a skill root"))
+                continue
+            if not entry.is_dir():
+                if kind == "installable" and entry.name == CATEGORIES_FILENAME:
+                    continue
+                holds = "one directory per skill"
+                if kind == "installable":
+                    holds += f", and {CATEGORIES_FILENAME}"
+                findings.append(Finding(52, "ERROR", shown, f"{where}/ holds {holds}. This is a file"))
+                continue
+            if entry.name.startswith("_"):
+                findings.append(
+                    Finding(
+                        50,
+                        "ERROR",
+                        shown,
+                        f"directory name starts with '_', and {UNDERSCORE_CONSEQUENCE[kind]}. "
+                        f"Rename it, or move it out of {where}/ if it is not a skill",
+                    )
+                )
+                continue
+            skill_names[kind].append(entry.name)
+            bundle_findings = validate_bundle(entry, repo_root)
+            findings.extend(bundle_findings)
+            # The content checks read every file as text, so they wait for the
+            # files to decode.
+            if not any(f.rule == 37 for f in bundle_findings):
+                findings.extend(validate_skill(entry, repo_root))
+                findings.extend(validate_attachments(entry, repo_root, ontology_nodes))
+
+    internal_dir = repo_root / INTERNAL_SKILLS_PATH.parent
+    internal_is_real = internal_dir.is_dir() and not internal_dir.is_symlink()
+    for entry in sorted(internal_dir.iterdir()) if internal_is_real else []:
+        # A symlinked internal/skills is reported above, under rule 35.
+        if entry == roots["internal"] and entry.is_symlink():
+            continue
+        if entry.name != INTERNAL_SKILLS_PATH.name or not entry.is_dir():
+            findings.append(
+                Finding(
+                    53,
+                    "ERROR",
+                    entry.relative_to(repo_root).as_posix(),
+                    f"{internal_dir.name}/ holds only the {INTERNAL_SKILLS_PATH.name}/ directory. "
+                    f"A skill goes under {INTERNAL_SKILLS_PATH.as_posix()}/<name>/",
+                )
+            )
+
+    for name in sorted(set(skill_names["installable"]) & set(skill_names["internal"])):
+        findings.append(
+            Finding(
+                51,
+                "ERROR",
+                (roots["internal"] / name).relative_to(repo_root).as_posix(),
+                f"skill '{name}' is also under {skills_root.name}/. A skill's name is its id in the graph, "
+                "the Skills API and the docs site, so it sits under one root",
+            )
+        )
+    if not skills_root.is_symlink():
+        findings.extend(validate_categories(skills_root, skill_names["installable"]))
+    return findings, sum(len(names) for names in skill_names.values())
 
 
 def format_report(findings: list[Finding], skill_count: int) -> str:
@@ -1118,7 +1353,8 @@ def main(argv: list[str] | None = None) -> int:
         nargs="?",
         type=Path,
         default=default_skills_dir,
-        help="path to a skills/ directory (default: this repo's own skills/)",
+        help="path to a skills/ directory (default: this repo's own skills/); "
+        f"{INTERNAL_SKILLS_PATH.as_posix()}/ beside it is validated too",
     )
     parser.add_argument(
         "--ontology-mcf",
@@ -1128,7 +1364,13 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    skills_root = args.skills_dir.resolve()
+    # A symlinked skills/ keeps its own name and parent, so validate_repo sees
+    # the link and reports it against the repository that holds it.
+    skills_dir = args.skills_dir
+    if skills_dir.is_symlink():
+        skills_root = skills_dir.parent.resolve() / skills_dir.name
+    else:
+        skills_root = skills_dir.resolve()
     if not skills_root.is_dir():
         print(f"ERROR: {skills_root} is not a directory", file=sys.stderr)
         return 1

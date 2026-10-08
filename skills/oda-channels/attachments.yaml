@@ -5,4 +5,16 @@ applies_to:
   # plus an imputed multilateral total from double counting.
   - dcid:CRSCooperationModalityB02
   - dcid:CRSCooperationModalityB03
+  # The same split in DAC1, for references/bilateral-multilateral.md:
+  # multilateral ODA (DAC1AidType2000, core contributions), contributions to
+  # specific-purpose programmes and funds (1220, earmarked), and the memo line
+  # for ODA channelled through multilaterals (1904), which is bi-multi and
+  # already inside bilateral ODA.
+  - dcid:DAC1AidType2000
+  - dcid:DAC1AidType1220
+  - dcid:DAC1AidType1904
+  # DAC2A's imputed multilateral ODA: references/sector-imputations.md's rule
+  # that a recipient-side total already counting multilateral outflows
+  # excludes imputed figures.
+  - dcid:DAC2aAidType106
 sources: []

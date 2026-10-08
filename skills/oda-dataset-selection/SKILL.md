@@ -2,6 +2,7 @@
 name: oda-dataset-selection
 description: >-
   Context for choosing the dataset that answers an ODA or development finance question. Summarises what each dataset covers, which breakdowns each supports, and how their totals relate.
+license: CC-BY-4.0
 ---
 
 # Choosing an ODA dataset
