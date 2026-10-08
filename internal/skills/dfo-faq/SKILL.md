@@ -2,6 +2,7 @@
 name: dfo-faq
 description: >-
   Context for answering questions about the Development Finance Observatory itself: what it is, who builds and funds it, what data it holds and from which sources, how answers are sourced and cited, how often data updates, privacy, and where to get help. Load when a user asks about the DFO or this assistant.
+license: CC-BY-4.0
 ---
 
 # The Development Finance Observatory

@@ -1,7 +1,7 @@
-# Validates every skill bundle under skills/ on each push to main and on each pull
-# request that is ready for review.
+# Validates every skill bundle under skills/ and internal/skills/ on each push to
+# main and on each pull request that is ready for review.
 #
-# The checks live in scripts/validate_skills.py and enforce what README.md's
+# The checks live in scripts/validate_skills.py and enforce what CONTRIBUTING.md's
 # Format section commits to: the front matter fields, the references/ layout,
 # that every pointer from a SKILL.md resolves, and that no reference file is
 # left unreachable. Warnings are printed and do not fail the job; anything the
@@ -19,7 +19,7 @@
 # the check runs against. Remove the token step once the repository is public.
 #
 # A draft pull request runs no job. `ready_for_review` is in the types so that
-# marking it ready starts the run: without it the skipped job would stand as a
+# marking it ready starts the run. Without it, the skipped job would stand as a
 # passing check on the commit and nothing would have tested it.
 name: Validate skills
 

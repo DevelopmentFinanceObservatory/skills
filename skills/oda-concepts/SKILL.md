@@ -2,6 +2,7 @@
 name: oda-concepts
 description: >-
   Core definitions, measures and classifications in ODA analysis. Covers the 0.7% ODA/GNI target and how ODA/GNI is calculated, the grant equivalent methodology and its 2018 break in comparability, Core ODA and the items it excludes (in-donor refugee costs, imputed student costs, debt relief), donor groupings (DAC members, DAC associates, non-DAC donors and EU Institutions, with the double-counting risk EU Institutions bring), ONE's sector groupings by CRS purpose code, and indicators of donor prioritisation such as sector shares and the bilateral/multilateral split.
+license: CC-BY-4.0
 ---
 
 # ODA concepts

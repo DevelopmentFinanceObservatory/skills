@@ -1,8 +1,16 @@
 applies_to:
   # The breakdown table's DAC1 rows: in-donor costs, core contributions to
   # multilaterals, and grant-equivalent totals by donor, against the CRS for
-  # grant-equivalent figures at activity level.
+  # grant-equivalent figures at activity level. DAC1 carries the same rows as
+  # in-donor refugee costs (DAC1AidType1820) and multilateral ODA (2000), and
+  # its grant-equivalent series carry grantEquivalent.
   - dcid:CRSPurposeCode930
   - dcid:CRSCooperationModalityB02
   - dcid:grantEquivalent
+  - dcid:DAC1AidType1820
+  - dcid:DAC1AidType2000
+  # The breakdown table's imputed multilateral rows: DAC2A's imputed
+  # multilateral ODA by recipient, against ONE's imputed multilateral sectors
+  # for a breakdown by sector or purpose.
+  - dcid:DAC2aAidType106
 sources: []

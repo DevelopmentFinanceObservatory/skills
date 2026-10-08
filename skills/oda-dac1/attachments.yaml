@@ -1,2 +1,5 @@
 applies_to: []
-sources: []
+# The skill explains the DAC1 table itself, so it attaches to the provenance
+# of the DAC1 export and surfaces on every series that export publishes.
+sources:
+  - dcid:provenance/OECDDAC1

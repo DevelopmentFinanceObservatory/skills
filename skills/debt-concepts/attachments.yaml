@@ -1,0 +1,30 @@
+applies_to:
+  # IDS concessional and non-concessional series: SKILL.md's Concessionality
+  # section, where the World Bank and OECD definitions differ.
+  - dcid:IDSConcessional
+  - dcid:IDSNonConcessional
+  # Short-term debt series: SKILL.md's choices list, since short-term debt is
+  # one figure covering public and private borrowers.
+  - dcid:ShortTermMaturity
+  # Debt forgiven and rescheduled in IDS, and debt relief in aid data:
+  # references/relief-and-restructuring.md, where the same relief appears on
+  # both sides and adding both counts it twice.
+  - dcid:ClaimReduction
+  - dcid:ClaimRescheduling
+  - dcid:CRSPurposeCode600
+  - dcid:CRSTypeOfFinance600
+  # The same relief in the DAC tables, for references/relief-and-restructuring.md:
+  # DAC1's debt relief (DAC1AidType1600, which covers forgiveness and
+  # rescheduling of ODA, OOF, export credit and private claims, other action
+  # on debt and the offsetting entries on ODA claims) and its grant
+  # equivalent (11026);
+  # DAC2A's debt relief total (DAC2aAidType255), debt forgiveness grants (212),
+  # other debt grants (221), rescheduled debt (214) and offsetting entry (215).
+  - dcid:DAC1AidType1600
+  - dcid:DAC1AidType11026
+  - dcid:DAC2aAidType255
+  - dcid:DAC2aAidType212
+  - dcid:DAC2aAidType221
+  - dcid:DAC2aAidType214
+  - dcid:DAC2aAidType215
+sources: []

@@ -2,6 +2,7 @@
 name: oda-dac2a
 description: >-
   Context for working with the OECD DAC2A table, ODA disbursements by donor and recipient country or region. Covers its measures, multilateral agencies reporting as donors and appearing as recipients, how its totals reconcile with DAC1, the OECD's imputed multilateral ODA by recipient, and the double-counting traps with donor and recipient aggregates, EU aggregates and imputed figures. Load once DAC2A has been chosen for an analysis, or when working with DAC2A figures. For choosing between DAC datasets, use oda-dataset-selection.
+license: CC-BY-4.0
 ---
 
 # DAC2A: ODA disbursements to countries and regions
