@@ -2,6 +2,7 @@
 name: oda-channels
 description: >-
   Context for how ODA is channelled from donors to recipients. Covers the OECD distinction between bilateral and multilateral ODA, earmarked (bi-multi) funding through multilaterals, the OECD List of ODA-eligible international organisations, channel of delivery codes, multilateral outflows, and how a donor's core multilateral contributions are attributed to sectors through imputations.
+license: CC-BY-4.0
 ---
 
 # ODA channels

@@ -1,5 +1,5 @@
 # The graph nodes this skill explains. dfo-pipelines links the skill to each
-# one and does not publish this file. README.md's "Graph attachments" section
+# one and does not publish this file. CONTRIBUTING.md's "Graph attachments" section
 # says when a node is worth attaching. Put the reason for each entry in a comment beside
 # it, naming the reference file that covers it.
 #

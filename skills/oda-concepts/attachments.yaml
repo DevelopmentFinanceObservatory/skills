@@ -14,4 +14,21 @@ applies_to:
   - dcid:CRSTypeOfFinance600
   - dcid:CRSCooperationModalityF01
   - dcid:CRSCooperationModalityE02
+  # The same items in DAC1, for references/core-oda.md: in-donor refugee costs
+  # (DAC1AidType1820, which covers refugee costs in another provider country),
+  # imputed student costs (1520), and debt relief (1600, and 11026 for its
+  # grant equivalent).
+  - dcid:DAC1AidType1820
+  - dcid:DAC1AidType1520
+  - dcid:DAC1AidType1600
+  - dcid:DAC1AidType11026
+  # Debt relief in DAC2A, for references/core-oda.md: the debt relief total
+  # (DAC2aAidType255), debt forgiveness grants (212), other debt grants (221),
+  # rescheduled debt (214) and the offsetting entry for debt relief on ODA
+  # claims (215). DAC2A has no refugee or student cost line.
+  - dcid:DAC2aAidType255
+  - dcid:DAC2aAidType212
+  - dcid:DAC2aAidType221
+  - dcid:DAC2aAidType214
+  - dcid:DAC2aAidType215
 sources: []

@@ -2,6 +2,7 @@
 name: oda-measures
 description: >-
   How the OECD DAC measures and reports ODA. Covers the flow types (gross disbursements, net disbursements, grant equivalents and commitments) and which questions each fits, current and constant prices, DAC deflators and base years, and the 2018 switch to the grant-equivalent headline. Also covers how grants, concessional loans and private sector instruments (PSI) qualify as ODA and are counted, including grant elements, discount rates, additionality, the institutional and instrument approaches, PSI transition arrangements and the policy debate on loan and PSI measurement. Relevant to choosing a measure, comparing ODA across donors or years, explaining what an ODA figure represents, and assessing how a financing instrument counts in ODA.
+license: CC-BY-4.0
 ---
 
 This skill covers how ODA figures are measured, including the flow type, the price basis, and how each financing instrument is valued in ODA. oda-dataset-selection covers which dataset to use.

@@ -1,0 +1,6 @@
+applies_to: []
+# The skill explains the World Bank International Debt Statistics dataset
+# itself, so it attaches to the provenance of the IDS export and surfaces on
+# every series that export publishes.
+sources:
+  - dcid:provenance/WorldBankInternationalDebtStatistics

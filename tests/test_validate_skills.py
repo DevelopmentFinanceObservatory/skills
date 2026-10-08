@@ -11,11 +11,15 @@ from __future__ import annotations
 import contextlib
 import importlib.util
 import io
+import json
+import shutil
 import sys
 import tempfile
 import unicodedata
 import unittest
 from pathlib import Path
+
+import yaml
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCRIPT_PATH = REPO_ROOT / "scripts" / "validate_skills.py"
@@ -28,7 +32,7 @@ _spec.loader.exec_module(validate_skills)
 
 
 def front_matter(name: str, description: str = "Covers a narrow test domain and when to load it.") -> str:
-    return f"---\nname: {name}\ndescription: >-\n  {description}\n---\n"
+    return f"---\nname: {name}\ndescription: >-\n  {description}\nlicense: {validate_skills.LICENSE_ID}\n---\n"
 
 
 EMPTY_ATTACHMENTS = "applies_to: []\nsources: []\n"
@@ -68,12 +72,30 @@ def make_skill(
     return skill_dir
 
 
+HELPER_CATEGORIES_MARK = "# written by list_uncategorised\n"
+
+
+def list_uncategorised(skills_root: Path) -> None:
+    """List every skill directory as uncategorised in skills_root/categories.yaml.
+
+    Keeps the categories rules out of a test about another rule. A
+    categories.yaml the test wrote itself is left alone.
+    """
+    path = skills_root / "categories.yaml"
+    if path.exists() and not path.read_text().startswith(HELPER_CATEGORIES_MARK):
+        return
+    names = sorted(d.name for d in skills_root.iterdir() if d.is_dir())
+    path.write_text(HELPER_CATEGORIES_MARK + yaml.safe_dump({"uncategorised": names}, allow_unicode=True))
+
+
 def run(skills_root: Path, ontology_nodes: set[str] | None = None):
     """Return (findings, skill_count) from validate_repo."""
+    list_uncategorised(skills_root)
     return validate_skills.validate_repo(skills_root, ontology_nodes)
 
 
 def run_main(skills_root: Path, *extra_args: str) -> tuple[int, str]:
+    list_uncategorised(skills_root)
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         exit_code = validate_skills.main([str(skills_root), *extra_args])
@@ -95,6 +117,7 @@ class ValidateSkillsTests(unittest.TestCase):
         self.tmp_path = Path(self._tmp.name)
         self.skills_root = self.tmp_path / "skills"
         self.skills_root.mkdir()
+        self.internal_root = self.tmp_path / "internal" / "skills"
 
     # -- Rule 1: SKILL.md missing -----------------------------------------
 
@@ -164,6 +187,7 @@ class ValidateSkillsTests(unittest.TestCase):
             "---\n"
             "name: skill-name\n"
             "description: A description of what this skill does and when to use it.\n"
+            f"license: {validate_skills.LICENSE_ID}\n"
             "---\n\nBody.\n"
         )
         make_skill(self.skills_root, "skill-name", skill_md=skill_md)
@@ -185,7 +209,9 @@ class ValidateSkillsTests(unittest.TestCase):
             with self.subTest(form=label):
                 skills_root = self.tmp_path / f"skills-{label}"
                 skills_root.mkdir()
-                skill_md = f"---\nname: form-skill\n{description_line}\n---\n\nBody.\n"
+                # The licence goes first so that the description stays the last key, which is what
+                # a clipped block scalar needs to end without a trailing line break.
+                skill_md = f"---\nname: form-skill\nlicense: {validate_skills.LICENSE_ID}\n{description_line}\n---\n\nBody.\n"
                 make_skill(skills_root, "form-skill", skill_md=skill_md)
                 findings, count = run(skills_root)
                 self.assertEqual(count, 1)
@@ -310,36 +336,58 @@ class ValidateSkillsTests(unittest.TestCase):
         self.assertEqual(len(hits), 1)
         self.assertIn("author", hits[0].message)
 
-    # -- Rule 15: spec-legal key outside what the README documents (warning) --
+    # -- Rule 15: spec-legal key outside what CONTRIBUTING.md documents (warning) --
 
-    def test_rule15_license_key_is_spec_legal_and_only_warns(self):
-        # https://agentskills.io/specification#frontmatter lists 'license' as
+    def test_rule15_compatibility_key_is_spec_legal_and_only_warns(self):
+        # https://agentskills.io/specification#frontmatter lists 'compatibility' as
         # a defined, optional field -- a skill using it is spec-compliant and
-        # must not fail CI, even though README.md's "Format" section only
-        # commits to 'name' and 'description'.
-        skill_md = "---\nname: has-license\ndescription: >-\n  Some description text.\nlicense: MIT\n---\n\nBody.\n"
-        make_skill(self.skills_root, "has-license", skill_md=skill_md)
+        # must not fail CI, even though CONTRIBUTING.md's "Format" section only
+        # commits to 'name', 'description' and 'license'.
+        skill_md = front_matter("has-compat").replace("license:", "compatibility: Requires git.\nlicense:") + "\nBody.\n"
+        make_skill(self.skills_root, "has-compat", skill_md=skill_md)
         findings, _ = run(self.skills_root)
         self.assertEqual(errors_with_rule(findings, 8), [])
         hits = warnings_with_rule(findings, 15)
         self.assertEqual(len(hits), 1)
-        self.assertIn("license", hits[0].message)
+        self.assertIn("compatibility", hits[0].message)
         exit_code, _ = run_main(self.skills_root)
         self.assertEqual(exit_code, 0)  # a warning alone does not fail the build
 
     def test_rule15_fires_once_per_undocumented_spec_key(self):
         skill_md = (
             "---\nname: many-fields\ndescription: >-\n  Some description text.\n"
-            "license: MIT\ncompatibility: Requires git.\nallowed-tools: Read\n---\n\nBody.\n"
+            f"license: {validate_skills.LICENSE_ID}\ncompatibility: Requires git.\nallowed-tools: Read\n---\n\nBody.\n"
         )
         make_skill(self.skills_root, "many-fields", skill_md=skill_md)
         findings, _ = run(self.skills_root)
         self.assertEqual(errors_with_rule(findings, 8), [])
         hits = warnings_with_rule(findings, 15)
-        self.assertEqual(len(hits), 3)
+        self.assertEqual(len(hits), 2)
         self.assertEqual(
             {hit.message.split("'")[1] for hit in hits},
-            {"license", "compatibility", "allowed-tools"},
+            {"compatibility", "allowed-tools"},
+        )
+
+    # -- Rule 54: 'license' names the repository's licence -------------------------
+
+    def test_rule54_missing_or_wrong_license_is_an_error(self):
+        make_skill(self.skills_root, "no-license", skill_md=front_matter("no-license").replace(
+            f"license: {validate_skills.LICENSE_ID}\n", ""
+        ))
+        make_skill(self.skills_root, "mit-license", skill_md=front_matter("mit-license").replace(
+            validate_skills.LICENSE_ID, "MIT"
+        ))
+        make_skill(self.internal_root, "internal-no-license", skill_md=front_matter("internal-no-license").replace(
+            f"license: {validate_skills.LICENSE_ID}\n", ""
+        ))
+        findings, _ = run(self.skills_root)
+        self.assertEqual(
+            sorted((f.rule, f.level, f.path) for f in findings),
+            [
+                (54, "ERROR", "internal/skills/internal-no-license/SKILL.md"),
+                (54, "ERROR", "skills/mit-license/SKILL.md"),
+                (54, "ERROR", "skills/no-license/SKILL.md"),
+            ],
         )
 
     # -- Rule 16: 'compatibility' length ---------------------------------------
@@ -966,17 +1014,103 @@ class ValidateSkillsTests(unittest.TestCase):
         exit_code, _ = run_main(self.skills_root)
         self.assertEqual(exit_code, 0)
 
-    # -- _template exception ---------------------------------------------------------
+    # -- The two skill roots -----------------------------------------------------------
 
-    def test_template_directory_is_skipped_entirely(self):
-        make_skill(
-            self.skills_root,
-            "_template",
-            skill_md=front_matter("skill-template") + "\nBody.\n",
-        )
+    def test_internal_skill_is_validated_and_counted_and_needs_no_category(self):
+        make_skill(self.skills_root, "installable")
+        make_skill(self.internal_root, "internal-clean")
+        make_skill(self.internal_root, "internal-broken", no_skill_md=True)
+        findings, count = run(self.skills_root)
+        self.assertEqual(count, 3)
+        self.assertEqual([(f.rule, f.path) for f in findings], [(1, "internal/skills/internal-broken")])
+
+    def test_rule50_directory_starting_with_an_underscore_is_an_error_under_either_root(self):
+        # The directory would pass every other rule, so only its name is at fault.
+        make_skill(self.skills_root, "_draft", skill_md=front_matter("_draft") + "\nBody.\n")
+        make_skill(self.internal_root, "_notes", skill_md=front_matter("_notes") + "\nBody.\n")
+        (self.skills_root / "categories.yaml").write_text("uncategorised: []\n")
         findings, count = run(self.skills_root)
         self.assertEqual(count, 0)
-        self.assertEqual(findings, [])
+        self.assertEqual(
+            [(f.rule, f.level, f.path) for f in findings],
+            [(50, "ERROR", "skills/_draft"), (50, "ERROR", "internal/skills/_notes")],
+        )
+        exit_code, _ = run_main(self.skills_root)
+        self.assertEqual(exit_code, 1)
+
+    def test_rule51_skill_name_under_both_roots_is_an_error(self):
+        make_skill(self.skills_root, "twice")
+        make_skill(self.internal_root, "twice")
+        make_skill(self.internal_root, "once")
+        findings, count = run(self.skills_root)
+        self.assertEqual(count, 3)
+        self.assertEqual([(f.rule, f.level, f.path) for f in findings], [(51, "ERROR", "internal/skills/twice")])
+
+    def test_rule35_symlinked_directory_under_a_root_is_an_error_and_is_not_a_skill(self):
+        make_skill(self.skills_root, "real-skill")
+        target = make_skill(self.tmp_path, "elsewhere")
+        (self.skills_root / "linked").symlink_to(target)
+        self.internal_root.mkdir(parents=True)
+        (self.internal_root / "linked-internal").symlink_to(target)
+        (self.skills_root / "categories.yaml").write_text("uncategorised: [real-skill]\n")
+        findings, count = run(self.skills_root)
+        self.assertEqual(count, 1)
+        self.assertEqual(
+            [(f.rule, f.level, f.path) for f in findings],
+            [(35, "ERROR", "skills/linked"), (35, "ERROR", "internal/skills/linked-internal")],
+        )
+
+    def test_rule35_symlinked_root_is_an_error_and_its_skills_are_not_counted(self):
+        # (symlinked path, skills counted): the real skill sits under skills/,
+        # so it goes uncounted only when skills/ itself is the link.
+        cases = [("skills", 0), ("internal", 1), ("internal/skills", 1)]
+        for linked, expected_count in cases:
+            with self.subTest(linked), tempfile.TemporaryDirectory() as tmp:
+                repo = Path(tmp) / "repo"
+                target = Path(tmp) / "elsewhere" / linked
+                make_skill(target if linked != "internal" else target / "skills", "behind-link")
+                if linked != "skills":
+                    make_skill(repo / "skills", "real-skill")
+                link = repo / linked
+                link.parent.mkdir(parents=True, exist_ok=True)
+                link.symlink_to(target, target_is_directory=True)
+                findings, count = run(repo / "skills")
+                self.assertEqual([(f.rule, f.level, f.path) for f in findings], [(35, "ERROR", linked)])
+                self.assertEqual(count, expected_count)
+
+    def test_rule35_symlinked_skills_directory_fails_the_command_line_run(self):
+        target = make_skill(self.tmp_path / "elsewhere", "behind-link").parent
+        self.skills_root.rmdir()
+        self.skills_root.symlink_to(target, target_is_directory=True)
+        exit_code, _ = run_main(self.skills_root)
+        self.assertEqual(exit_code, 1)
+
+    def test_rule52_file_under_a_root_is_an_error_except_categories_yaml_under_skills(self):
+        make_skill(self.skills_root, "real-skill")
+        make_skill(self.internal_root, "internal-skill")
+        (self.skills_root / "notes.md").write_text("notes\n")
+        (self.internal_root / "categories.yaml").write_text("uncategorised: []\n")
+        findings, count = run(self.skills_root)
+        self.assertEqual(count, 2)
+        self.assertEqual(
+            [(f.rule, f.level, f.path) for f in findings],
+            [(52, "ERROR", "skills/notes.md"), (52, "ERROR", "internal/skills/categories.yaml")],
+        )
+
+    def test_rule53_internal_holds_only_the_skills_directory(self):
+        make_skill(self.skills_root, "real-skill")
+        make_skill(self.internal_root, "internal-skill")
+        make_skill(self.tmp_path / "internal", "misplaced")
+        findings, count = run(self.skills_root)
+        self.assertEqual(count, 2)
+        self.assertEqual([(f.rule, f.level, f.path) for f in findings], [(53, "ERROR", "internal/misplaced")])
+
+        shutil.rmtree(self.tmp_path / "internal")
+        (self.tmp_path / "internal").mkdir()
+        (self.internal_root).write_text("not a directory\n")
+        findings, count = run(self.skills_root)
+        self.assertEqual(count, 1)
+        self.assertEqual([(f.rule, f.level, f.path) for f in findings], [(53, "ERROR", "internal/skills")])
 
     # -- Regression guard for the governing principle ---------------------------------
     # A skill using every field the spec defines, with valid values, must produce zero
@@ -989,7 +1123,7 @@ class ValidateSkillsTests(unittest.TestCase):
             "name: full-fields\n"
             "description: >-\n"
             "  Covers a narrow test domain and when to load it.\n"
-            "license: MIT\n"
+            f"license: {validate_skills.LICENSE_ID}\n"
             "compatibility: Requires Python 3.11+ and network access.\n"
             "metadata:\n"
             "  author: example-org\n"
@@ -1027,18 +1161,47 @@ class ValidateSkillsTests(unittest.TestCase):
         real_skills_root = REPO_ROOT / "skills"
         findings, count = run(real_skills_root)
         errors = [f for f in findings if f.level == "ERROR"]
-        self.assertEqual(errors, [], f"the repo's real skills/ must have no errors, got: {errors}")
+        self.assertEqual(errors, [], f"the repo's real skill roots must have no errors, got: {errors}")
         # Guards against a validator that vacuously finds nothing. The count is
         # derived from the tree rather than frozen, so adding a skill does not
         # fail this test, while a validator that silently skips every directory
         # still does.
         expected = sorted(
             d.name
-            for d in real_skills_root.iterdir()
-            if d.is_dir() and not d.name.startswith("_")
+            for root in (real_skills_root, REPO_ROOT / "internal" / "skills")
+            if root.is_dir()
+            for d in root.iterdir()
+            if d.is_dir()
         )
         self.assertGreater(len(expected), 0, "no skills found to validate")
         self.assertEqual(count, len(expected))
+
+    def test_plugin_files_hold_no_component_field_and_name_no_organisation(self):
+        plugin_path = REPO_ROOT / ".claude-plugin" / "plugin.json"
+        marketplace_path = REPO_ROOT / ".claude-plugin" / "marketplace.json"
+        # plugin.json carries the repository's licence beside the LICENSE file.
+        self.assertEqual(json.loads(plugin_path.read_text())["license"], validate_skills.LICENSE_ID)
+        self.assertTrue((REPO_ROOT / "LICENSE").read_text().startswith("Attribution 4.0 International"))
+        # A component field such as 'skills' would change which directories the
+        # plugin loads, so only metadata fields may appear.
+        metadata_fields = {
+            "name", "description", "author", "version", "license",
+            "homepage", "repository", "keywords", "displayName",
+        }  # fmt: skip
+        self.assertLessEqual(set(json.loads(plugin_path.read_text())), metadata_fields)
+        plugins = json.loads(marketplace_path.read_text())["plugins"]
+        self.assertEqual([plugin["source"] for plugin in plugins], ["./"])
+        for path in (plugin_path, marketplace_path):
+            for forbidden in ("github.com", "ONEcampaign", "DevelopmentFinanceObservatory"):
+                self.assertNotIn(forbidden, path.read_text(), path.name)
+
+    def test_readme_lists_every_public_skill_and_no_internal_one(self):
+        readme = (REPO_ROOT / "README.md").read_text()
+        public = sorted(d.name for d in (REPO_ROOT / "skills").iterdir() if d.is_dir())
+        internal = sorted(d.name for d in (REPO_ROOT / "internal" / "skills").iterdir() if d.is_dir())
+        self.assertGreater(len(public), 0, "no skills found to list")
+        self.assertEqual([name for name in public if f"`{name}`" not in readme], [])
+        self.assertEqual([name for name in internal if f"`{name}`" in readme], [])
 
     def test_bare_reference_filenames_in_prose_are_not_pointers(self):
         # A skill can name another skill's reference files in prose (e.g.
@@ -1196,11 +1359,96 @@ class AttachmentsTests(unittest.TestCase):
     # -- The template's scaffold -------------------------------------------------------
 
     def test_template_attachments_scaffold_is_valid(self):
-        # validate_repo skips _template, so this is the only check on the copy
-        # authors start from.
-        template = REPO_ROOT / "skills" / "_template"
+        # template/ is outside both skill roots, so this is the only check on
+        # the copy authors start from.
+        template = REPO_ROOT / "template"
         self.assertTrue((template / "attachments.yaml").is_file())
         self.assertEqual(validate_skills.validate_attachments(template, REPO_ROOT), [])
+
+
+class CategoriesTests(unittest.TestCase):
+    """Rules 42 to 49: skills/categories.yaml."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.skills_root = Path(self._tmp.name) / "skills"
+        self.skills_root.mkdir()
+        make_skill(self.skills_root, "alpha")
+        make_skill(self.skills_root, "beta")
+
+    def findings_for(self, categories: str | None):
+        """Findings for a repo holding skills alpha and beta; None leaves the file out."""
+        if categories is not None:
+            (self.skills_root / "categories.yaml").write_text(categories)
+        findings, _ = validate_skills.validate_repo(self.skills_root)
+        return findings
+
+    def assert_errors(self, categories: str | None, rule: int, *fragments: str, count: int = 1):
+        findings = self.findings_for(categories)
+        self.assertEqual(
+            [(f.rule, f.level) for f in findings], [(rule, "ERROR")] * count, f"unexpected findings: {findings}"
+        )
+        self.assertEqual(findings[0].path, "skills/categories.yaml")
+        for fragment in fragments:
+            self.assertIn(fragment, findings[0].message)
+
+    def test_every_skill_listed_once_passes(self):
+        cases = {
+            "all three keys": "sources:\n  - alpha\ndomains:\n  aid: []\n  debt:\n    - beta\nuncategorised: []\n",
+            "absent keys": "uncategorised:\n  - alpha\n  - beta\n",
+        }
+        for label, categories in cases.items():
+            with self.subTest(label):
+                self.assertEqual(self.findings_for(categories), [])
+
+    def test_rule42_missing_file_is_an_error(self):
+        self.assert_errors(None, 42, "categories.yaml is missing")
+
+    def test_rule43_malformed_file_is_an_error(self):
+        cases = {
+            "invalid yaml": "sources: [alpha\n",
+            "top-level list": "- alpha\n- beta\n",
+            "anchor": "sources: &all\n  - alpha\n  - beta\n",
+            "repeated domain": "domains:\n  aid:\n    - alpha\n  aid:\n    - beta\n",
+        }
+        for label, categories in cases.items():
+            with self.subTest(label):
+                self.assert_errors(categories, 43, "malformed")
+
+    def test_rule43_file_that_is_not_utf8_is_named_without_a_crash(self):
+        (self.skills_root / "categories.yaml").write_bytes(b"sources:\n  - \xff\n")
+        self.assert_errors(None, 43, "malformed")
+
+    def test_rule44_unknown_key_is_an_error(self):
+        self.assert_errors("sources:\n  - alpha\n  - beta\ntopics: []\n", 44, "'topics'")
+
+    def test_rule45_wrong_shapes_are_errors(self):
+        listed = "uncategorised:\n  - alpha\n  - beta\n"
+        cases = {
+            "domains as a list": (listed + "domains:\n  - aid\n", "'domains'"),
+            "null list": (listed + "sources:\n", "'sources'"),
+            "null domain": (listed + "domains:\n  debt:\n", "domain 'debt'"),
+            "entry that is not a string": (listed + "sources:\n  - 2024\n", "2024"),
+        }
+        for label, (categories, fragment) in cases.items():
+            with self.subTest(label):
+                self.assert_errors(categories, 45, fragment)
+
+    def test_rule46_domain_outside_the_name_format_is_an_error(self):
+        self.assert_errors("domains:\n  Health Financing:\n    - alpha\n    - beta\n", 46, "'Health Financing'")
+
+    def test_rule47_entry_that_names_no_skill_is_an_error(self):
+        # delta is a skill under internal/skills/, and the file lists skills/ only.
+        make_skill(self.skills_root.parent / "internal" / "skills", "delta")
+        listed = "uncategorised:\n  - alpha\n  - beta\n"
+        self.assert_errors(listed + "sources:\n  - gamma\n  - delta\n", 47, "'delta'", count=2)
+
+    def test_rule48_skill_listed_under_two_categories_is_an_error(self):
+        self.assert_errors("sources:\n  - alpha\n  - beta\ndomains:\n  aid:\n    - alpha\n", 48, "'alpha'", "2 times")
+
+    def test_rule49_skill_listed_nowhere_is_an_error(self):
+        self.assert_errors("sources:\n  - alpha\n", 49, "'beta'")
 
 
 class BundleTests(unittest.TestCase):

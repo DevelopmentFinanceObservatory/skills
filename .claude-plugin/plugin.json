@@ -1,0 +1,9 @@
+{
+  "name": "dfo",
+  "displayName": "Development Finance Observatory",
+  "description": "Development-finance domain knowledge from the Development Finance Observatory, packaged as Agent Skills.",
+  "author": {
+    "name": "Development Finance Observatory"
+  },
+  "license": "CC-BY-4.0"
+}

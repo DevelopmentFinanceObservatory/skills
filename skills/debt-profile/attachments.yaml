@@ -1,0 +1,5 @@
+applies_to: []
+# A debt profile draws on most IDS series (stocks, debt service, creditor
+# splits, terms), so the skill attaches to the IDS export as a whole.
+sources:
+  - dcid:provenance/WorldBankInternationalDebtStatistics

@@ -1,0 +1,28 @@
+# Where each skill sits in the published list of skills. Every skill directory
+# under skills/ appears here once, and the validator fails a skill that is
+# missing or listed twice. The docs site shows the categories and the skills
+# in this order. CONTRIBUTING.md's "Categories" section says what belongs under each key.
+#
+# sources: skills that explain one dataset.
+# domains: skills that explain a subject across datasets, grouped by domain.
+# uncategorised: skills that are neither.
+sources:
+  - oda-dac1
+  - oda-dac2a
+  - oda-dac2b
+  - oda-crs
+  - oda-imputed-multilateral-sectors
+  - debt-ids
+  - imf-weo
+domains:
+  development-assistance:
+    - oda-dataset-selection
+    - oda-concepts
+    - oda-measures
+    - oda-channels
+    - oda-policy-markers
+  sovereign-debt:
+    - debt-concepts
+    - debt-profile
+    - debt-sustainability
+uncategorised: []
