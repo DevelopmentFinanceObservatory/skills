@@ -12,7 +12,7 @@ license: CC-BY-4.0
 - DAC1 answers how much a donor or donor group gives in total: official headline ODA, ODA/GNI, the bilateral and multilateral split, core contributions by agency family, and spending that goes to no recipient, such as in-donor refugee costs. Skill: oda-dac1.
 - DAC2A answers how much ODA a country or region receives and from whom, including multilateral agencies' disbursements and the OECD's attribution of core multilateral contributions to recipients. Skill: oda-dac2a.
 - DAC2B answers how much non-concessional official lending and export credit a recipient or region receives. Skill: oda-dac2b.
-- The CRS answers any question that needs a sector or subsector, a channel, an agency, a project, or a donor, recipient and sector together, and it holds multilateral organisations' own spending by sector. It carries grant-equivalent values from 2018 alongside flows. Skill: oda-crs.
+- The CRS answers any question that needs a sector or subsector, a channel, an agency, a project, or a donor, recipient, and sector together, and contains multilateral organisations' own spending by sector. It includes grant-equivalent values from 2018 alongside flows. Skill: oda-crs.
 - ONE's imputed multilateral sectors dataset answers how much of a provider's core multilateral contributions reaches each sector and recipient. Skill: oda-imputed-multilateral-sectors.
 
 ## Breakdowns by dataset

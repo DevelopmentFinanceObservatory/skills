@@ -13,5 +13,5 @@ This skill covers how the OECD classifies ODA by channel, where each kind of flo
 
 ## References
 
-- [references/bilateral-multilateral.md](references/bilateral-multilateral.md) — definitions of bilateral, bi-multi and core multilateral ODA, the OECD List of ODA-eligible international organisations, channel of delivery, where each flow is reported, and the pitfalls of each
-- [references/sector-imputations.md](references/sector-imputations.md) — why core contributions are imputed to sectors, how imputed figures combine with bilateral sector ODA, and the double-counting traps
+- [references/bilateral-multilateral.md](references/bilateral-multilateral.md) — definitions of bilateral, bi-multi and core multilateral ODA, the OECD List of ODA-eligible international organisations, channel of delivery, where each flow is reported, and the pitfalls of each.
+- [references/sector-imputations.md](references/sector-imputations.md) — why core contributions are imputed to sectors, how imputed figures combine with bilateral sector ODA, and the double-counting traps.
