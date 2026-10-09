@@ -9,19 +9,19 @@ license: CC-BY-4.0
 
 ## What it is
 
-DAC1 reports each provider's total flows by aid type, with no recipient, sector or channel dimension. It holds the official headline ODA figures and the ODA/GNI ratio. Reporters are DAC member countries, non-DAC countries that report to the DAC, and EU Institutions. EU Institutions are both a donor with their own ODA and a channel for EU members' contributions, which members report as multilateral ODA. They are the only multilateral reporter, so the multilaterals total equals EU Institutions' figures.
+DAC1 reports each provider's total flows by aid type, with no recipient, sector, or channel dimension. It holds the official headline ODA figures and the ODA/GNI ratio. Reporters are DAC member countries, non-DAC countries that report to the DAC, and EU Institutions. EU Institutions are both a donor with their own ODA and a channel for EU members' contributions, which members report as multilateral ODA. They are the only multilateral reporter, so the multilaterals total equals EU Institutions' figures.
 
 The table covers ODA, other official flows (OOF), officially supported export credits, private flows at market terms, net private grants from NGOs and foundations, and the total of official and private flows.
 
-The flow types are grant equivalents (the headline ODA measure from 2018), net disbursements (the headline before 2018), gross disbursements, commitments, and disbursements received, with grant and non-grant splits of commitments and disbursements. Amounts come in current USD, constant USD and national currency. The constant-price base year moves with each release. National currency exists only for individual donors.
+The flow types are grant equivalents (the headline ODA measure from 2018), net disbursements (the headline before 2018), gross disbursements, commitments, and disbursements received, with grant and non-grant splits of commitments and disbursements. Amounts are provided in current USD, constant USD, and national currency. The constant-price base year moves with each release. National currency exists only for individual donors.
 
-Preliminary figures come out in April and cover donor totals only. Final detailed figures come out in December. Preliminary figures get revised.
+Preliminary figures are published in April and cover donor totals only. Final detailed figures are released in December. Preliminary figures get revised.
 
 ## What the ODA total includes
 
-Part of a provider's ODA is spent in the provider's own country and has no recipient country. DAC1 reports it as separate lines for in-donor refugee costs, administrative costs, imputed student costs and development awareness. Recipient-level datasets carry these items only in unspecified buckets or in aggregate, so their totals come out close to DAC1 but seldom equal.
+Part of a provider's ODA is spent in the provider's own country and has no recipient country. DAC1 reports it as separate lines for in-donor refugee costs, administrative costs, imputed student costs, and development awareness. Recipient-level datasets carry these items only in unspecified buckets or in aggregate, so their totals come out close but seldom equal to DAC1.
 
-Multilateral ODA reported in DAC1 is core contributions only, split into the UN, EU Institutions, IDA, other World Bank, regional development banks, the Global Environment Facility, the Montreal Protocol and other agencies. Earmarked contributions managed by international organisations are bilateral ODA, under "specific-purpose programmes and funds managed by international organisations". The memo line "ODA channelled through multilateral organisations" overlaps with bilateral ODA.
+Multilateral ODA reported in DAC1 is core contributions only, split into the UN, EU Institutions, IDA, other World Bank, regional development banks, the Global Environment Facility, the Montreal Protocol, and other agencies. Earmarked contributions managed by international organisations are bilateral ODA, under "specific-purpose programmes and funds managed by international organisations". The memo line "ODA channelled through multilateral organisations" overlaps with bilateral ODA.
 
 ## Grant equivalents and flows
 
@@ -29,19 +29,19 @@ The switch to grant equivalents in 2018 changed how loans count. A concessional 
 
 The grant-equivalent ODA total is published twice with identical values, once as total ODA on a grant-equivalent basis and once as a separate grant-equivalent ODA measure. Summing both doubles the total.
 
-Private sector instruments are reported two ways. The institutional approach counts capital injected into development finance institutions. The instrument approach counts individual loans, equity and guarantees to private companies. Under the institutional approach, decapitalisations and dividends are deducted within PSI ODA, and an offsetting entry in OOF keeps the institutions' onward investments from being counted twice in total official flows. Donors choose between the approaches, which affects comparisons of their totals.
+Private sector instruments are reported two ways. The institutional approach counts capital injected into development finance institutions. The instrument approach counts individual loans, equity, and guarantees to private companies. Under the institutional approach, decapitalisations and dividends are deducted within PSI ODA, and an offsetting entry in OOF keeps the institutions' onward investments from being counted twice in total official flows. Donors choose between the approaches, which affects comparisons of their totals.
 
 ODA/GNI is published on a net-flow basis up to 2017 and on a grant-equivalent basis from 2018, which together form one headline series with a break at 2018. The table also carries each donor's GNI and population.
 
 ## Double counting and aggregates
 
-Donor aggregates sit in the same table as individual donors: DAC countries, DAC members (DAC countries plus EU Institutions), DAC EU countries, the G7, non-DAC countries and multilaterals. Summing individual donors with any aggregate double counts.
+Donor aggregates sit in the same table as individual donors: DAC countries, DAC members (DAC countries plus EU Institutions), DAC EU countries, the G7, non-DAC countries, and multilaterals. Summing individual donors with any aggregate double counts.
 
-EU member states' contributions to EU Institutions are already in their multilateral ODA. The DAC members total adds EU Institutions' own ODA on top, so the same money appears twice. The DAC countries total leaves out that overlap.
+EU member states' contributions to EU Institutions are already accounted for in their multilateral ODA. The DAC members total adds EU Institutions' own ODA on top, so the same money appears twice. The DAC countries total leaves out that overlap.
 
-Aid-type lines are nested. Total ODA is bilateral plus multilateral ODA, and each of those splits further. Memo lines and "of which" lines are subsets of other lines, and adding them to a total counts money twice.
+Aid-type lines are nested. Total ODA is bilateral plus multilateral ODA, and each of those breaks down further. Memo lines and "of which" lines are subsets of other lines, and adding them to a total counts money twice.
 
-A DAC1 value is defined by its flow type, price basis and aid-type line together. A sum across values that differ in any of the three mixes definitions or counts money twice.
+A DAC1 value is defined by its flow type, price basis, and aid-type line together. A sum across values that differ in any of the three mixes definitions or counts money twice.
 
 ## Particularities
 
