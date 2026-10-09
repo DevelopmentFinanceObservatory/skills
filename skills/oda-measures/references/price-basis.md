@@ -14,7 +14,7 @@ Constant prices (real) report every year's data in the prices and exchange rate 
 
 The base year is the reference year of a constant-price series. With the latest year as base, the most recent year's figures are unchanged and earlier years are adjusted up or down, depending on the donor's inflation and its currency's movement against the USD.
 
-DAC deflators are the OECD DAC's own deflators for converting ODA to constant prices. They combine donor-country inflation with exchange-rate movements against the USD, so an earlier year can be adjusted down as well as up. Japan's deflator, for example, falls from 136 in 2013 to 100 in 2024 (base 2024), so its 2013 ODA is lower in constant 2024 prices than in current prices. Consumer price indices (CPI) and GDP deflators are not designed for ODA data and produce figures that cannot be compared with published OECD data.
+DAC deflators are the OECD DAC's own deflators for converting ODA to constant prices. They combine donor-country inflation with exchange-rate movements against the USD, so an earlier year can be adjusted down as well as up. Japan's deflator, for example, falls from 136 in 2013 to 100 in 2024 (base 2024), so its 2013 ODA is lower in constant 2024 prices than in current prices. Consumer price indices and GDP deflators are not designed for ODA data and produce figures that cannot be compared with published OECD data.
 
 A trend analysis covers multiple years of a topic or measure. A ranking analysis concerns the relative ordering of a measure within a single year.
 
