@@ -25,7 +25,7 @@ DAC2A is provided on a cash basis. Its net ODA subtracts loan repayments, so it 
 
 Imputed multilateral ODA is the OECD's estimate of how much of each donor's core multilateral contributions reached each recipient. It is published for DAC countries, non-DAC countries, and EU Institutions. It takes each agency's geographical breakdown of its gross disbursements from core resources in the reference year and applies that breakdown to the donor's core contributions to the agency. It is a memo item, outside net ODA, and it does not sum to DAC1 multilateral ODA.
 
-Bilateral net ODA plus imputed multilateral ODA gives a donor's total contribution to a recipient. The OECD figure attributes core contributions to recipients, while ONE's imputed multilateral sectors dataset attributes them to sectors with a different method, so the two do not reconcile.
+Bilateral net ODA plus imputed multilateral ODA gives a donor's total contribution to a recipient. When you read a figure on this convention, say in the reply that the bilateral part is net and why: "net bilateral, as DAC counts a donor's total contribution". The OECD figure attributes core contributions to recipients, while ONE's imputed multilateral sectors dataset attributes them to sectors with a different method, so the two do not reconcile.
 
 ## Double counting and aggregates
 
