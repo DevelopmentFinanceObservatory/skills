@@ -9,34 +9,34 @@ license: CC-BY-4.0
 
 ## What it is
 
-The WEO database holds the IMF staff's annual estimates and projections for 197 economies, with series from 1980. The IMF publishes a new release in April and October.
+The WEO database contains the IMF staff's annual estimates and projections for 197 economies, with series from 1980. The IMF publishes a new release in April and October.
 
 ## Actual years and projections
 
-Each country and series has its own latest actual year, and every later year is an IMF projection built on assumptions about policies, commodity prices, exchange rates and interest rates. The latest actual year differs across countries, so a comparison or ranking for a recent year can mix reported values for some countries with projections for others. Projections run up to five years ahead and change with each release. Each release also revises past years, so figures from different releases do not combine.
+Each country and series has its own latest actual year, and every later year is an IMF projection built on assumptions about policies, commodity prices, exchange rates, and interest rates. The latest actual year differs across countries, so a comparison or ranking for a recent year can mix reported values for some countries with projections for others. Projections run up to five years ahead and change with each release. Each release also revises past years, so figures from different releases do not combine.
 
 ## Currencies and units
 
-Values in national currency are comparable only within a country. Values in US dollars are comparable across countries and can be summed, and they move with exchange rates as well as with the economy. Values at purchasing power parity (PPP) adjust for price differences, which suits comparisons of living standards and economic size across countries. Per-capita series are published directly, alongside the totals.
+Values in national currency are comparable only within a country. Values in US dollars are comparable across countries and can be summed, and they change with exchange rates and economic shifts. Values at purchasing power parity (PPP) adjust for price differences, which suits comparisons of living standards and economic size across countries. Per-capita series are published directly, alongside the totals.
 
 ## Comparability limits
 
-Most data follow calendar years. Nineteen economies report national accounts and government finance on fiscal years: Afghanistan, Bangladesh, Bhutan, Egypt, Ethiopia, Haiti, India, Iran, Lesotho, Marshall Islands, Micronesia, Myanmar, Nauru, Nepal, Pakistan, Palau, Puerto Rico, Samoa and Tonga. Thirteen report government finance alone on fiscal years: The Bahamas, Barbados, Botswana, Dominica, Eswatini, Fiji, Hong Kong SAR, Jamaica, Mauritius, Singapore, St. Lucia, Thailand and Trinidad and Tobago. The IMF keeps these on their fiscal year without converting them to calendar years, so a cross-country comparison for one year mixes calendar and fiscal years.
+Most data follow calendar years. Nineteen economies report national accounts and government finance on fiscal years: Afghanistan, Bangladesh, Bhutan, Egypt, Ethiopia, Haiti, India, Iran, Lesotho, Marshall Islands, Micronesia, Myanmar, Nauru, Nepal, Pakistan, Palau, Puerto Rico, Samoa, and Tonga. Thirteen report only government finance on fiscal years: The Bahamas, Barbados, Botswana, Dominica, Eswatini, Fiji, Hong Kong SAR, Jamaica, Mauritius, Singapore, St. Lucia, Thailand, and Trinidad and Tobago. The IMF reports these as fiscal years without converting them to calendar years, so a cross-country comparison for one year mixes calendar and fiscal years.
 
-A country's series can jump when it rebases its national accounts or changes its reporting, and the jump is a revision rather than a change in the economy. The IMF smooths breaks by splicing where it can, and some remain.
+A country's series can abruptly shift when it rebases its national accounts or changes its reporting, and the shift reflects a revision rather than a change in the economy. The IMF smooths breaks by splicing where it can, yet some remain.
 
-Government finance covers different parts of the public sector by country, from central government only to the wider public sector. WEO gross debt is what general government owes to residents and non-residents alike. External debt is what all sectors of an economy owe to non-residents.
+Government finance covers different parts of the public sector by country, from central government only to the wider public sector. WEO gross debt is what the general government owes to residents and non-residents alike. External debt is what all sectors of an economy owe to non-residents.
 
 ## Country groups
 
-IMF group figures are weighted composites. Growth rates and ratios are weighted by GDP at PPP, exchange rates and interest rates by GDP at market exchange rates, unemployment by labour force, and fiscal and external totals are sums in US dollars. A group figure is computed only when countries covering at least 90% of the group's weight report. Summing members in US dollars approximates a group total where all members report, and a group growth rate or ratio needs the IMF's weights.
+IMF group figures are weighted composites. Growth rates and ratios are weighted by GDP at PPP, exchange rates and interest rates by GDP at market exchange rates, unemployment by labour force, and fiscal and external totals are sums in US dollars. A group figure is computed only when countries that account for at least 90% of the group's weight report data. Summing members in US dollars approximates a group total where all members report, and a group growth rate or ratio needs the IMF's weights.
 
 ## Missing countries
 
-The IMF omits or suspends data for some countries, and the list changes with each release. In April 2026 it left out projections for Afghanistan and Lebanon from 2026 and for Bolivia from 2027, data and projections for Sri Lanka from 2025 and for Eritrea from 2020, estimates and projections for West Bank and Gaza from 2025 except its 2025 prices, population and fiscal data, data for Syria from 2011, and fiscal projections for Ecuador. Venezuela's recent figures are mostly staff estimates. Cuba and North Korea are outside the WEO as non-members of the IMF.
+The IMF omits or suspends data for some countries, and the list changes with each release. In April 2026 it left out projections for Afghanistan and Lebanon from 2026 and for Bolivia from 2027, data and projections for Sri Lanka from 2025 and for Eritrea from 2020, estimates and projections for West Bank and Gaza from 2025 except its 2025 prices, population, and fiscal data, data for Syria from 2011, and fiscal projections for Ecuador. Venezuela's recent figures are mostly staff estimates. Cuba and North Korea are outside the WEO as non-members of the IMF.
 
 ## In the DFO
 
-For one country and year, a measure the WEO reports in both national currency and US dollars comes as two values told apart by their unit. Countries whose currency is the US dollar have the dollar value only, and each country's national currency is the same for every year. Values are in whole units.
+For one country and year, a measure the WEO reports in both national currency and US dollars is provided as two values distinguished by their unit. Countries whose currency is the US dollar have the dollar value only, and each country's national currency is the same for every year. Values are in whole units.
 
-Years after a series' latest actual year are marked as estimated, and modelled series such as the output gap are marked as modelled in every year. The DFO holds the latest release only. It has no country groups, so a regional or world figure is built from countries, as a sum in US dollars or PPP or with the IMF's weights. Kosovo is country/XKS and West Bank and Gaza is country/PSE.
+Years after a series' latest actual year are marked as estimated, and modelled series such as the output gap are marked as modelled in every year. The DFO contains the latest release only. It has no country groups, so a regional or world figure is built from countries, as a sum in US dollars or PPP or with the IMF's weights. Kosovo is country/XKS and West Bank and Gaza is country/PSE.

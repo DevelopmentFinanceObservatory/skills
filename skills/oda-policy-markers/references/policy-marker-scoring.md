@@ -96,7 +96,7 @@ An activity can carry scores for multiple markers simultaneously. For example, a
 
 ## Pitfalls
 
-Conflating not screened with not targeted. See the distinction above. This is the most consequential error in policy marker analysis.
+Conflating not screened with not targeted. See the distinction above. This is the most consequential error in policy marker analyses.
 
 Treating principal as the only "real" marker. Significant scores represent genuine, deliberate policy intent. Excluding them understates the donor's engagement with the policy objective.
 
@@ -107,7 +107,7 @@ Ignoring partial screening when calculating shares. If 40% of a donor's portfoli
 When explaining scores to a user:
 
 1. Define each score clearly using the "would not have been undertaken" test for principal and the "explicitly formulated or adjusted" test for significant.
-2. Explain not targeted as an active finding (the project was examined and found not to qualify).
+2. Explain not targeted as an active finding (e.g. "the project was examined and found not to qualify").
 3. Explain not screened as an absence of assessment, not a finding.
 4. When presenting totals, state clearly whether the figure combines principal and significant, or is principal-only.
 5. Flag the not-screened share as a caveat on the reliability of the analysis.

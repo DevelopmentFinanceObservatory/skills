@@ -7,34 +7,34 @@ license: CC-BY-4.0
 
 # Debt sustainability
 
-Debt is sustainable when a government can meet its debt obligations without restructuring, arrears or a policy adjustment too large to be feasible. The official judgement comes from a debt sustainability analysis (DSA), which IMF and World Bank staff prepare for IMF programmes and regular IMF reviews (Article IV consultations) and publish in IMF country reports. A DSA rests on ten-year or longer projections, the whole public sector including domestic debt and guarantees, present values, stress tests and staff judgement. Public datasets supply historical stocks and flows and the IMF's World Economic Outlook projections, so indicators built from them describe the pressures a DSA weighs. The verdict comes from the DSA. Where an official rating exists it is the authority, and a different reading of the indicators comes from one of the differences below.
+Debt is sustainable when a government can meet its debt obligations without restructuring, arrears, or a policy adjustment too large to be feasible. The official judgement comes from a debt sustainability analysis (DSA), which IMF and World Bank staff prepare for IMF programmes and regular IMF reviews (Article IV consultations) and publish in IMF country reports. A DSA is based on 10-year or longer projections, the whole public sector including domestic debt and guarantees, present values, stress tests, and staff judgement. Public datasets supply historical stocks and flows and the IMF's World Economic Outlook projections, so indicators built from them describe the pressures a DSA weighs. Where an official rating exists, the DSA is the authority, and a different reading of the indicators comes from one of the differences below.
 
 ## Which framework applies
 
-The IMF and World Bank assess low-income countries under the joint Debt Sustainability Framework for Low-Income Countries (LIC-DSF), and the IMF assesses every other member under the Sovereign Risk and Debt Sustainability Framework for market-access countries (MAC-SRDSF). The IMF's list of LIC DSAs names the countries assessed under the LIC-DSF, with each one's latest rating, and every member off the list is assessed under the MAC-SRDSF, whatever its income group or World Bank lending category. Three countries are exceptions. Guyana is assessed under the LIC-DSF but is left off the list because it is not eligible for the IMF's concessional lending. St Lucia is eligible and is assessed under the MAC-SRDSF. Syria became eligible in 2024 and has no DSA yet. Market-access ratings appear only in each country's IMF report, and no table collects them. The two frameworks use different rating terms and scales, so ratings from different frameworks are not comparable, and a multi-country question spans both.
+The IMF and World Bank assess low-income countries under the joint Debt Sustainability Framework for Low-Income Countries (LIC-DSF). The IMF assesses every other member under the Sovereign Risk and Debt Sustainability Framework for market-access countries (MAC-SRDSF). The IMF's list of LIC DSAs names the countries assessed under the LIC-DSF, with the latest rating, and members not on the list are assessed under the MAC-SRDSF, whatever its income group or World Bank lending category. Three countries are exceptions. Guyana is assessed under the LIC-DSF but is left off the list because it is not eligible for the IMF's concessional lending. Saint Lucia is eligible and is assessed under the MAC-SRDSF. Syria became eligible in 2024 and does not yet have a DSA. Market-access ratings appear only in each country's IMF report, and no table collects them. The two frameworks use different rating terms and scales, so ratings from different frameworks are not comparable, and a multi-country question spans both.
 
 ## Ratings and judgements
 
-A DSA gives two outputs. The risk rating grades how likely debt-related stress is. The LIC-DSF rates it low, moderate, high or in debt distress, and the MAC-SRDSF rates it low, moderate or high for each time horizon. The sustainability judgement asks whether the stress can be resolved without restructuring. They answer different questions. Most countries rated at high risk on the IMF's LIC list have debt assessed as sustainable, and a country in debt distress can have sustainable debt when the distress reflects arrears it is clearing.
+A DSA provides two outputs. The risk rating grades how likely debt-related stress is. The LIC-DSF rates it low, moderate, high, or in debt distress, and the MAC-SRDSF rates it low, moderate, or high for each time horizon. The sustainability judgement asks whether the stress can be resolved without restructuring. They answer different questions. Most countries rated at high risk on the IMF's LIC list have debt assessed as sustainable, and a country in debt distress can have sustainable debt when the distress reflects arrears it is clearing.
 
-Solvency asks whether the debt stock is too large for the economy to carry, measured by debt against GDP or exports. Liquidity asks whether payments falling due can be met, measured by debt service against exports or revenue, financing needs and reserves. A solvent country can face a liquidity crisis, for example a large Eurobond falling due when markets are closed to it.
+Solvency assesses whether the debt stock is too large for the economy to carry, measured by debt against GDP or exports. Liquidity assesses whether payments coming due can be met, measured by debt service against exports or revenue, financing needs, and reserves. A solvent country can face a liquidity crisis; for example, a large Eurobond coming due when markets are closed to it.
 
-Default depends on market access, IMF programmes and political decisions outside the indicators, and no framework predicts it.
+Default depends on market access, IMF programmes, and political decisions outside the indicators, and no framework predicts it.
 
 ## Public-data indicators against DSA indicators
 
-Indicators built from external debt data and IMF macroeconomic data differ from a DSA's for five reasons, and each pushes in a known direction.
+Indicators built from external debt data and IMF macroeconomic data differ from a DSA's for several reasons.
 
 - Face value against present value. The LIC-DSF's external solvency indicator is in present value, which the debt-concepts skill covers.
-- History against projections. DSA risk signals come from projected paths over ten years, so a historical ratio above a threshold describes the past.
-- Revenue. The LIC-DSF divides by revenue excluding grants. Revenue including grants gives a lower ratio for grant-dependent countries.
-- Coverage. A DSA covers state-owned enterprises, guarantees and domestic debt where data allow. External debt data miss some of this, and the IMF's government finance figures cover only central government for some countries.
+- History against projections. DSA risk signals come from projected paths over 10 years, so a historical ratio above a threshold describes the past.
+- Revenue. The LIC-DSF divides by revenue excluding grants. Revenue including grants yields a lower ratio for grant-dependent countries.
+- Coverage. A DSA covers state-owned enterprises, guarantees, and domestic debt where data allow. External debt data miss some of this, and the IMF's government finance figures cover only the central government for some countries.
 - Interest. Interest derived from the IMF's fiscal balances is net of interest received. A DSA uses interest paid.
 
-Timing adds a sixth difference. A DSA can predate the latest data by years, and its rating reflects conditions when it was prepared.
+Timing. A DSA can predate the latest data by years, and its rating reflects the conditions that existed when it was prepared.
 
 ## References
 
-- [references/lic-dsa-list.md](references/lic-dsa-list.md) — the IMF's list of LIC DSAs as of 31 March 2026, with each country's latest rating, sustainability judgement and DSA date, and when the list is next due.
+- [references/lic-dsa-list.md](references/lic-dsa-list.md) — the IMF's list of LIC DSAs as of 31 March 2026, with each country's latest rating, sustainability judgement, and DSA date, and when the list is next due.
 - [references/lic-dsf.md](references/lic-dsf.md) — the LIC-DSF's ratings, thresholds under the 2017 framework and the 2026 review, debt-carrying capacity, and public-data approximations of its indicators.
 - [references/mac-srdsf.md](references/mac-srdsf.md) — the MAC-SRDSF's ratings, what reports publish, the criteria for sovereign stress, and the risk factors its models use.

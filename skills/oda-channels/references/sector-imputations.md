@@ -4,7 +4,7 @@ What this covers: estimating a donor's contribution to a sector through its core
 
 ## Why imputations exist
 
-Core contributions carry no sector, because the multilateral pools them and decides how to spend them. Bilateral sector data therefore understates the engagement of a donor that works through multilaterals, for example a donor that funds malaria mainly through the Global Fund.
+Core contributions carry no sector, because the multilateral pools them and decides how to spend them. Bilateral sector data therefore understates the engagement of a donor that works through multilaterals; for example, a donor that funds malaria mainly through the Global Fund.
 
 ## The idea
 

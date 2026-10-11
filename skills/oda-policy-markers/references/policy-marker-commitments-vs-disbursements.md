@@ -16,7 +16,7 @@ The OECD's rationale, stated in the CRS Statistical Reporting Directives and the
 - Reflect changing political commitments over time, since commitments fluctuate as policies change.
 - Are assigned at the point of project design, which corresponds to the commitment stage, not the disbursement stage.
 
-As a result, the OECD's own published analyses of policy marker data — including the annual DAC statistical charts on gender equality and climate — are based on commitments.
+As a result, the OECD's own published analyses of policy marker data—including the annual DAC statistical charts on gender equality and climate—are based on commitments.
 
 ## Our default
 
@@ -26,7 +26,7 @@ The rationale:
 
 - Disbursements represent money actually spent in a given year, which is more meaningful for tracking actual financial flows.
 - Disbursements are less volatile than commitments for multi-year projects.
-- Disbursements align better with the question most users are asking: "How much did this donor actually spend on gender equality last year?"
+- Disbursements align better with the question most users are asking: for example, "How much did this donor actually spend on gender equality last year?"
 - In practice, donors report and screen markers against what was actually disbursed, and disbursements answer the practical question of how much a donor spent in a given year, which is the basis of our donor-level analysis.
 
 ## How to approach it
