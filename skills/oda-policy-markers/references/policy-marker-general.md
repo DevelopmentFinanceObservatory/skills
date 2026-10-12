@@ -13,13 +13,13 @@ What this covers: The definition of OECD DAC policy markers, the full list of ma
 
 ### What a policy marker is
 
-A policy marker is a classification applied to individual bilateral ODA activities reported in the OECD DAC Creditor Reporting System (CRS). It records whether a project targets a specific cross-cutting policy objective — such as gender equality or climate change — and to what degree.
+A policy marker is a classification applied to individual bilateral ODA activities reported in the OECD DAC Creditor Reporting System (CRS). It records whether a project targets a specific cross-cutting policy objective—such as gender equality or climate change—and to what degree.
 
 Policy markers do not create a separate database. They are a layer of classification on top of CRS activities. Each activity can carry multiple markers simultaneously (for example, a project can be marked for both gender equality and climate adaptation).
 
 ### What the markers cover
 
-The CRS uses two groups of markers: policy markers and Rio markers. Together they are often referred to collectively as "policy markers." The distinction matters for analysis:
+The CRS uses two groups of markers: policy markers and Rio markers. They are often referred to collectively as "policy markers." The distinction matters for analysis:
 
 - Policy markers track cross-cutting social and governance objectives.
 - Rio markers track environmental objectives linked to the 1992 Rio Conventions.
@@ -31,12 +31,12 @@ The table below lists all current markers, their group, and the year they were i
 | **Marker** | **Group** | **Introduced** |
 | --- | --- | --- |
 | Environment | Policy marker | 1992 |
-| Gender equality | Policy marker | 1997 (data from 2002 for commitments; 2009 for disbursements) |
+| Gender equality | Policy marker | 1997 (data from 2002 for commitments, 2009 for disbursements) |
 | Aid to trade | Policy marker | 2007 |
 | Disaster risk reduction (DRR) / Sendai Framework | Policy marker | 2016 |
 | Nutrition | Policy marker | 2016 |
 | Inclusion and empowerment of persons with disabilities | Policy marker | 2016 |
-| Reproductive, maternal, newborn and child health (RMNCH) | Policy marker | 2016 |
+| Reproductive, maternal, newborn, and child health (RMNCH) | Policy marker | 2016 |
 | Human rights-based approach (HRBA) | Policy marker | 2016 |
 | Climate change mitigation | Rio marker | 1998 |
 | Biodiversity | Rio marker | 1998 |
@@ -86,7 +86,7 @@ Suggest policy marker analysis when the user's question is about:
 Do not suggest policy marker analysis when the user's question is about:
 
 - Sector-level spending (use CRS purpose codes instead).
-- Total ODA volumes with no reference to a specific policy objective.
+- Total ODA volumes, with no reference to a specific policy objective.
 - Non-DAC providers (policy markers only apply to DAC members).
 
 ### Caveats to flag in any analysis
