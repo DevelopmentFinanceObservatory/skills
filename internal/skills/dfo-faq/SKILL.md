@@ -51,7 +51,7 @@ Each source's licence governs its data and appears on that source's page under "
 
 ## Privacy
 
-The AI policy at developmentfinance.org/ai-policy sets out the DFO's commitments. The DFO accepts no file uploads. Questions run through enterprise-tier channels. Query text, search history, and session details are confidential and are not used to train any public AI model. Query text is processed only to produce an answer and is not linked to a persistent profile beyond the active session. The assistant runs on Google's Gemini models. ONE's privacy policy covers the rest of the website.
+The AI policy at developmentfinance.org/ai-policy sets out what the DFO does with a question. The DFO accepts no file uploads. The text of a question goes to Google's Gemini models, which find the data and, in the Studio, write the answer. A search on the site records the first 500 characters of the question with the data it matched, tied to the account of a signed-in user. The Studio stores each conversation and saves it to a signed-in user's account until they delete it. An assistant connected to the DFO, such as Claude or ChatGPT, sends the DFO the question and its data requests and needs no account. ONE's privacy policy covers the rest of the website.
 
 If you have questions regarding privacy, please reach out to data@one.org.
 

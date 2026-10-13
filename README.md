@@ -37,8 +37,8 @@ The Development Finance Observatory (DFO) skills give an AI assistant the method
 
 Every route installs from `DevelopmentFinanceObservatory/skills`. The DFO docs site page "Use skills in your own agent" has the steps for each assistant.
 
-- Claude (web, desktop, and Cowork) installs every skill as one plugin, `dfo`, when you add that repository as a plugin marketplace, also named `dfo`.
-- Claude Code installs the same plugin.
+- Claude (web, desktop, and Cowork) installs every skill as one plugin, `dfo`, when you add that repository as a plugin marketplace, also named `dfo`. The plugin also connects the DFO MCP server at `https://developmentfinance.org/mcp`.
+- Claude Code installs the same plugin, which also connects the DFO MCP server at `https://developmentfinance.org/mcp`.
 
   ```text
   /plugin marketplace add DevelopmentFinanceObservatory/skills
