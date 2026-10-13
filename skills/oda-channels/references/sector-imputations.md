@@ -4,11 +4,11 @@ What this covers: estimating a donor's contribution to a sector through its core
 
 ## Why imputations exist
 
-Core contributions carry no sector, because the multilateral pools them and decides how to spend them. Bilateral sector data therefore understates the engagement of a donor that works through multilaterals; for example, a donor that funds malaria mainly through the Global Fund.
+Core contributions carry no sector, because the multilateral pools them and decides how to spend them. Bilateral sector data therefore understates the engagement of a donor that works through multilaterals, such as a donor that funds malaria mainly through the Global Fund.
 
 ## The idea
 
-An imputation spreads a donor's core contribution to a multilateral using that multilateral's own spending mix, then sums across multilaterals. ONE's imputed multilateral sectors dataset takes each multilateral's shares from its CRS spending pooled over years n, n-1 and n-2, in gross disbursements, with ODA and OOF pooled in the shares.
+An imputation spreads a donor's core contribution to a multilateral using that multilateral's own spending mix, then sums across multilaterals. ONE's imputed multilateral sectors dataset takes each multilateral's shares from its CRS spending pooled over the estimate year and the two years before it, in gross disbursements, with ODA and OOF pooled in the shares.
 
 The results are modelled estimates. They assume the donor's money is spent in the same proportions as the multilateral's whole portfolio, and the donor did not direct the allocation.
 

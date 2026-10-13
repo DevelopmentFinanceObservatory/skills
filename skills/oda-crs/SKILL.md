@@ -38,13 +38,13 @@ A bilateral/multilateral flag separates who controls the money.
 - Ex-post reporting on NGO activities funded through core contributions
 - Triangular co-operation
 
-Aid type also flags core funding. Its core categories are support to NGOs and research institutes, contributions to multilateral institutions, and contributions to global funds, the last two split since 2022. Earmarked funding through multilaterals is bilateral. Its channel of delivery is a multilateral organisation, and it can carry any aid type, including projects, specific-purpose programmes, and pooled funds.
+Aid type also flags core funding. Its core categories are support to NGOs and research institutes, contributions to multilateral institutions (B021), and contributions to global funds (B022). The last two were one category (B02) before 2022. Earmarked funding through multilaterals is bilateral. Its channel of delivery is a multilateral organisation, and it can carry any aid type, including projects, specific-purpose programmes, and pooled funds.
 
 ## Double counting and aggregates
 
 Since the April 2026 release, the CRS includes providers' core contributions to multilaterals as records flagged as multilateral inflows. The OECD says these records must be excluded to calculate bilateral flows and avoid double counting.
 
-The CRS in the DFO knowledge graph has these records filtered out, so it contains no providers' core contributions to multilaterals. CRS data drawn directly from the OECD most likely include them, and whether they are present is worth checking before any bilateral total is built.
+The CRS in the DFO knowledge graph has these records filtered out. CRS data drawn directly from the OECD include them, so exclude them before building a bilateral total.
 
 A provider's core contribution to a multilateral and the multilateral's own outflows are the same money, just at two different points in time. A total across all reporters that keeps both counts it twice. Donor-side totals retain the contribution, and recipient-side and sector-wide totals retain the outflow.
 
@@ -58,7 +58,7 @@ Commitments are lumpy. A multi-year programme is committed in one year and disbu
 
 The purpose list grows over time. COVID-19 control is one example. A subsector series can start mid-way through a time range. Broad sector totals include multisector and unallocated purposes, which are part of the total and belong to no single sector.
 
-Policy markers (gender, climate, biodiversity, and others) are scored per activity. A significant-objective score counts the whole activity amount, and blank scores mean the activity was not screened. A share computed over all activities, screened and unscreened together, understates the marked share. The CRS in the DFO knowledge graph carries no policy markers, so a question that depends on them, such as climate- or gender-tagged ODA, cannot be answered from DFO data.
+Policy markers (gender, climate, biodiversity, and others) are scored per activity. A significant-objective score counts the whole activity amount, and blank scores mean the activity was not screened. A share computed over all activities, screened and unscreened together, understates the marked share. The CRS in the DFO knowledge graph carries no policy markers, so a question that depends on them, such as climate- or gender-tagged ODA, needs another source.
 
 Private sector instruments reported under the instrument approach, where each loan, equity stake, or guarantee to a company is recorded, appear in the CRS with a recipient and sector. Under the institutional approach, which records capital injections to development finance institutions, the money has no specific recipient country or sector.
 

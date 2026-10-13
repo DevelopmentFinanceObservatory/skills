@@ -6,7 +6,7 @@ Every skill in this repository follows one format, and a validator checks it in 
 
 Each skill is registered as a node in the DFO knowledge graph, carrying its front matter and the links to the graph nodes its `attachments.yaml` declares. The DFO AI harness consumes that registry at launch. Any other agent loads the skills through the install routes in `README.md`.
 
-The DFO docs hub publishes each skill as a page, with one child page per reference file and its first heading as the title. Renaming or deleting a skill or a reference file changes a published page's address, so the dfo-docs build fails until its `redirects.yaml` declares where the old page went.
+The DFO docs hub publishes each skill as a page, with one child page per reference file and its first heading as the title. Renaming or deleting a skill or a reference file changes or removes a published page's address with no redirect, so a link to the old page from elsewhere breaks.
 
 ## Format
 

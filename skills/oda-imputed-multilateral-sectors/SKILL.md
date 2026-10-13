@@ -56,4 +56,4 @@ EU Institutions are a DAC member and can appear as a provider with their own cor
 
 ## Pitfalls
 
-Reading an imputed share as the provider's choice. A provider that gives heavily to IDA inherits IDA's sector mix. The result describes where the multilateral system spends the provider's money; the provider did not direct it.
+Reading an imputed share as the provider's choice. A provider that gives heavily to IDA inherits IDA's sector mix. The result describes where the multilateral system spends the provider's money. The provider did not direct it.
