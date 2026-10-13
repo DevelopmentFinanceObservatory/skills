@@ -56,7 +56,7 @@ For bilateral loans to the official sector, ODA eligibility rests on income-diff
 
 Loans below the relevant threshold are classified as Other Official Flows (OOF).
 
-The grant equivalent of a loan is its annual disbursements multiplied by its grant element. The grant element is fixed at commitment and is not recalculated at disbursement. A later rescheduling is recorded as a separate debt-relief entry rather than a recalculated grant element.
+The grant equivalent of a loan is its annual disbursements multiplied by its grant element. The grant element is fixed at commitment and is not recalculated at disbursement. A later rescheduling is recorded as a separate debt-relief entry.
 
 The DAC adopted grant-equivalent accounting for loans in 2014 and applied it to headline ODA from 2018 data. Before 2018, headline ODA used cash-flow accounting (net disbursements), so pre-2018 loan figures are not directly comparable with grant-equivalent figures. The OECD publishes both series for time-series comparison, and grant-equivalent data also exists for 2015–2017. For a loan-heavy donor, grant equivalents are well below gross disbursements because only the concessional portion counts.
 
@@ -104,13 +104,14 @@ PSI figures before 2023 may reflect cash-flow accounting and are not comparable 
 
 Civil society organisations and researchers criticise the income-differentiated discount rates (6% to 9%) used to calculate grant elements. They argue that the rates exceed prevailing market rates, which inflates the calculated grant element and so overstates the ODA value of loans. Critics say this gives donors an incentive to lend rather than give grants, particularly for climate finance, where developing countries may take on debt to address problems they did not cause. The OECD DAC has acknowledged the debate, and the discount rates remain in place. The debate bears on any assessment of the ODA value of a donor's loan portfolio.
 
+The DAC's rationale is that the rates add a risk premium that rises as the recipient's income falls, and that grant-equivalent accounting rewards more concessional lending to the poorest countries, an aim of the 2014 reform.
+
 ### PSI measurement
 
-The inclusion of PSI in ODA has been contested since the 2016 DAC High Level Meeting agreed principles for counting it. Provisional methods were adopted later and applied from 2018 ODA. The main concerns are whether additionality is demonstrated in practice, whether the institutional approach records ODA before development outcomes are achieved, and whether transparency is sufficient to assess impact. The 2023 DAC agreement strengthened transparency and accountability requirements, including mandatory ODA-eligibility assessments of PSI vehicles and biennial review reports. The first biennial review is expected in 2026. Data quality and comparability of PSI ODA across donors and years remain under active scrutiny.
+The inclusion of PSI in ODA has been contested since the 2016 DAC High Level Meeting agreed principles for counting it. Provisional methods were adopted later and applied from 2018 ODA. The main concerns are whether additionality is demonstrated in practice, whether the institutional approach records ODA before development outcomes are achieved, and whether transparency is sufficient to assess impact. The 2023 DAC agreement strengthened transparency and accountability requirements, including mandatory ODA-eligibility assessments of PSI vehicles and biennial review reports. The first biennial review is expected in 2026.
 
 ## Pitfalls
 
-- PSI data before 2023 may use cash-flow accounting, and post-2023 data uses grant equivalents subject to the transition arrangements. The two are not comparable without adjustment.
 - Comparing a post-2018 grant-equivalent loan figure with a pre-2018 net disbursement figure without flagging the break is a significant analytical error.
 - PSI ODA measures the official resources provided through PSI vehicles and excludes the private finance those operations mobilise. Mobilised private finance is tracked separately in the OECD's broader development finance statistics. The two measure different things and are not additive.
 - Some DFI operations fail the additionality and development purpose criteria and are classified as OOF. Whether a DFI operation counts in ODA depends on the ODA-eligibility assessment of the specific vehicle.

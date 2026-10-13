@@ -25,7 +25,7 @@ Multilateral ODA reported in DAC1 is core contributions only, split into the UN,
 
 ## Grant equivalents and flows
 
-The switch to grant equivalents in 2018 changed how loans count. A concessional loan counts at its grant element, and repayments are left out of the headline. A series that spans 2018 on the headline measure joins net disbursements to grant equivalents and has a break at 2018.
+The switch to grant equivalents in 2018 changed how loans count. A concessional loan counts at its grant element, and repayments are left out of the headline. A series on the headline measure that runs across 2018 uses net disbursements before 2018 and grant equivalents from 2018, with a break at that year.
 
 The grant-equivalent ODA total is published twice with identical values, once as total ODA on a grant-equivalent basis and once as a separate grant-equivalent ODA measure. Summing both doubles the total.
 

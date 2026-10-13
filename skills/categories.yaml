@@ -20,7 +20,6 @@ domains:
     - oda-concepts
     - oda-measures
     - oda-channels
-    - oda-policy-markers
   sovereign-debt:
     - debt-concepts
     - debt-profile

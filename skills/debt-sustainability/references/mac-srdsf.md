@@ -10,9 +10,9 @@ The framework covers IMF members that are not eligible for the IMF's concessiona
 
 The framework rates the risk of sovereign stress as low, moderate or high for the near term (one to two years), the medium term (up to five years) and the long term (beyond five years), plus an overall rating. Ratings start from model-based indices and staff judgement completes them. The framework sets no debt thresholds, so the same debt ratio can carry low risk in one country and high risk in another.
 
-The near-term rating uses an early-warning model. The medium-term rating combines a fan chart of simulated debt paths with a module testing whether gross financing needs can be met, in which foreign private investors roll over only part of their holdings and domestic banks absorb the rest. A high-risk signal corresponds on average to a probability of stress of about 40% in the near term and 43% in the medium term, and as low as about 20%, so a high rating means roughly a one-in-five to two-in-five chance of stress. The long-term assessment covers demographics, natural resources, large amortisations and climate change where they apply.
+The near-term rating uses an early-warning model. The medium-term rating combines a fan chart of simulated debt paths with a module testing whether gross financing needs can be met, in which foreign private investors roll over only part of their holdings and domestic banks absorb the rest. A high-risk signal corresponds on average to a probability of stress of about 40% in the near term and 43% in the medium term. The long-term assessment covers demographics, natural resources, large amortisations and climate change where they apply.
 
-The sustainability judgement has three outcomes: sustainable with high probability (at least 80%), sustainable but not with high probability (at least 50%), and unsustainable. It is required for DSAs under IMF arrangements and is optional and rare in surveillance-only cases.
+The sustainability judgement has three outcomes: sustainable with high probability (at least 80%), sustainable but not with high probability (at least 50%), and unsustainable. It is required for debt sustainability analyses (DSAs) under IMF arrangements and is optional and rare in surveillance-only cases.
 
 ## What published reports include
 
@@ -24,7 +24,7 @@ The IMF counts a country as in sovereign stress when any one of these occurs:
 
 - default: external arrears of at least 5% of public external debt and rising at least 10% in nominal terms, or default on domestic debt instruments
 - a restructuring of repayment terms, excluding liability management operations
-- a non-precautionary IMF programme with access above 100% of quota and disbursement in its first year, other IFI financing above 5% of GDP, or exceptional donor disbursement above 5% of external debt
+- a non-precautionary IMF programme with access above 100% of quota and disbursement in its first year, other international financial institution (IFI) financing above 5% of GDP, or exceptional donor disbursement above 5% of external debt
 - inflation that doubles and exceeds 25%, or exceeds 100%
 - for emerging markets, sovereign spreads that double to at least 500 basis points
 - loss of market access when there is a financing need
@@ -34,12 +34,12 @@ Public datasets show some of these: arrears against public external debt, inflat
 
 ## Risk factors the models use
 
-The near-term early-warning model uses institutional quality (the World Governance Indicators for government effectiveness and regulatory quality), stress history, the current account balance to GDP, the three-year change in the real effective exchange rate, the credit-to-GDP gap, the change in public debt to GDP, public debt to revenue, foreign-currency public debt to GDP, international reserves to GDP and the change in the VIX.
+The near-term early-warning model uses institutional quality (the World Governance Indicators for government effectiveness and regulatory quality), stress history, the current account balance to GDP, the three-year change in the real effective exchange rate, the credit-to-GDP gap, the change in public debt to GDP, public debt to revenue, foreign-currency public debt to GDP, international reserves to GDP and the change in the VIX (the CBOE index of expected US stock market volatility).
 
-Most of these can be shown from public data as trends and peer comparisons. The models combine them with weights and cut-offs that the IMF keeps confidential, so a score built from public data is not the IMF's. External public debt is a proxy for foreign-currency public debt that understates it where domestic debt is in foreign currency and overstates it where external debt is in local currency. Projections from the IMF World Economic Outlook approximate a DSA baseline. The IMF compares countries with emerging-market peers, split into commodity exporters and others, and peer medians follow the same split.
+In the DFO, the current account, reserves, inflation, central government debt and revenue, and the real effective exchange rate come from the World Development Indicators, as history only. Institutional quality, the credit-to-GDP gap and the VIX are not in it. The factors that are there can be shown as trends and peer comparisons. The models combine them with weights and cut-offs that the IMF keeps confidential, so a score built from public data is not the IMF's. External public debt is a proxy for foreign-currency public debt that understates it where domestic debt is in foreign currency and overstates it where external debt is in local currency. The DFO holds no fiscal projections, so the debt path a DSA projects cannot be approximated from it. The IMF compares countries with emerging-market peers, split into commodity exporters and others, and peer medians follow the same split.
 
 ## Financing needs and debt holders
 
-Gross financing needs are the primary deficit plus interest and amortisation, plus realised contingent liabilities, less interest revenue. Public data give the primary balance, external public debt service and its projections, including Eurobond maturities. Domestic debt repayments are usually the largest component and are missing from public data, so a public-data figure covers only some components.
+Gross financing needs are the primary deficit plus interest and amortisation, plus realised contingent liabilities, less interest revenue. The World Development Indicators give central government's overall balance and interest payments, and so roughly its primary balance, and the World Bank's debt data give external public debt service and its projections, including Eurobond maturities. Domestic debt repayments are usually the largest component and are missing from public data, so a public-data figure covers only some components.
 
 The share of public debt held by foreign private creditors matters because the stress test assumes they pull back first. Bonds, commercial banks and other private creditors in external public debt, over total public debt, approximate it. Domestic bank holdings are missing from public data.

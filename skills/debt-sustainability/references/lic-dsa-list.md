@@ -1,6 +1,6 @@
 # LIC DSA list
 
-What this covers: the IMF's list of the latest LIC debt sustainability assessments for PRGT-eligible countries, which names the countries assessed under the LIC-DSF, in the version dated 31 March 2026.
+What this covers: the IMF's list of the latest low-income country (LIC) debt sustainability assessments (DSAs) for countries eligible for the Poverty Reduction and Growth Trust (PRGT), the IMF's concessional lending facility, which names the countries assessed under the LIC-DSF, in the version dated 31 March 2026.
 
 ## Coverage
 
@@ -8,11 +8,11 @@ The list holds 68 of the 70 countries eligible for the IMF's concessional lendin
 
 ## Timing
 
-Each rating dates from the country's latest published DSA, which can be years old. Yemen's dates from 2014, and Afghanistan's and Sudan's from 2021. Publication can lag the IMF Board discussion, and any rating changes when a new DSA is published. The IMF publishes no schedule for the list. Versions have come every one to six months, at the end of March and September since 2025. The table reproduces the version dated 31 March 2026, online by 14 April 2026, so a later version may replace it.
+Each rating dates from the country's latest published DSA, which can be years old. Yemen's dates from 2014, and Afghanistan's, Myanmar's, and Sudan's from 2021. Publication can lag the IMF Board discussion, and any rating changes when a new DSA is published. The IMF publishes no schedule for the list. Versions have come every one to six months, at the end of March and September since 2025. The table reproduces the version dated 31 March 2026, online by 14 April 2026, so a later version may replace it.
 
 ## The list
 
-IDA-blend marks a PRGT-eligible country that is IDA-eligible and also creditworthy for some IBRD borrowing. The table follows the IMF's rows, which give 28 countries at moderate and 7 at low risk, while the IMF's footnote counts 27 and 8.
+IDA-blend marks a PRGT-eligible country that is eligible for the International Development Association (IDA) and also creditworthy for some borrowing from the International Bank for Reconstruction and Development (IBRD). The table follows the IMF's rows, which give 28 countries at moderate and 7 at low risk, while the IMF's footnote counts 27 and 8.
 
 | Country | Latest DSA publication | Risk of external debt distress | Debt sustainability | IDA-blend | Note |
 | --- | --- | --- | --- | --- | --- |

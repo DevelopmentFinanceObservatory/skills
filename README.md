@@ -20,7 +20,6 @@ The Development Finance Observatory (DFO) skills give an AI assistant the method
 - `oda-concepts`: core definitions, such as the 0.7% ODA/GNI target, Core ODA, and donor groupings.
 - `oda-measures`: flow types, price bases, and how grants and loans count as ODA.
 - `oda-channels`: bilateral, multilateral, and earmarked routes from donor to recipient.
-- `oda-policy-markers`: the OECD DAC policy markers, such as gender and climate, and when marker analysis fits.
 
 ### Sovereign debt
 

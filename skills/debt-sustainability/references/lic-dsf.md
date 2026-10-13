@@ -4,17 +4,17 @@ What this covers: the joint IMF and World Bank Debt Sustainability Framework for
 
 ## Who it covers
 
-The LIC-DSF applies to countries eligible for the IMF's concessional lending (the PRGT) that also have access to IDA resources, and to every country eligible for IDA grants. Countries that borrow on international markets stay under it while they meet those conditions.
+The LIC-DSF applies to countries eligible for the IMF's concessional lending (the Poverty Reduction and Growth Trust, PRGT) that also have access to resources from the International Development Association (IDA), and to every country eligible for IDA grants. Countries that borrow on international markets stay under it while they meet those conditions.
 
 ## Ratings
 
-Each DSA rates the risk of external debt distress in four levels. Low risk means no indicator breaches its threshold under the baseline or the stress tests. Moderate risk means the baseline stays within the thresholds and at least one stress test breaches them, and moderate ratings are graded further by the space to absorb shocks, as limited, some or substantial. High risk means a threshold is breached in the baseline. In debt distress means a distress event, such as arrears or a restructuring, has occurred or is imminent. The model's mechanical signals are combined with staff judgement, so a rating can differ from what the thresholds alone imply. DSAs also rate an overall risk of public debt distress, which adds domestic public debt, and the IMF's list carries the external rating.
+Each debt sustainability analysis (DSA) rates the risk of external debt distress in four levels. Low risk means no indicator breaches its threshold under the baseline or the stress tests. Moderate risk means the baseline stays within the thresholds and at least one stress test breaches them, and moderate ratings are graded further by the space to absorb shocks, as limited, some or substantial. High risk means a threshold is breached in the baseline. In debt distress means a distress event, such as arrears or a restructuring, has occurred or is imminent. The model's mechanical signals are combined with staff judgement, so a rating can differ from what the thresholds alone imply. DSAs also rate an overall risk of public debt distress, which adds domestic public debt, and the IMF's list carries the external rating.
 
 For countries at high risk or in debt distress, the DSA also judges whether debt is sustainable or unsustainable.
 
 ## Debt-carrying capacity
 
-Each country is classed as weak, medium or strong by a composite indicator, and the thresholds depend on the class. The 2017 composite weights the World Bank's CPIA score, real GDP growth, remittances, reserves and world growth. A country's class comes from its DSA.
+Each country is classed as weak, medium or strong by a composite indicator, and the thresholds depend on the class. The 2017 composite weights the World Bank's Country Policy and Institutional Assessment (CPIA) score, real GDP growth, remittances, reserves and world growth. A country's class comes from its DSA.
 
 ## Indicators and thresholds
 
@@ -24,7 +24,7 @@ All thresholds are percentages, for weak, medium and strong capacity in turn. Pr
 
 | Indicator | Weak | Medium | Strong |
 | --- | --- | --- | --- |
-| PV of external PPG debt / GDP | 30 | 40 | 55 |
+| PV of external public and publicly guaranteed (PPG) debt / GDP | 30 | 40 | 55 |
 | PV of external PPG debt / exports | 140 | 180 | 240 |
 | External PPG debt service / exports | 10 | 15 | 21 |
 | External PPG debt service / revenue excluding grants | 14 | 18 | 23 |
@@ -56,14 +56,16 @@ The IMF and World Bank staff paper reviewing the framework is dated 31 July 2026
 
 ## Approximating the indicators from public data
 
-| Indicator | Built from | How close |
+| Indicator | Built from (in the DFO) | How close |
 | --- | --- | --- |
-| External public debt service / exports | PPG debt service plus IMF repurchases and charges, over exports of goods and services | Close, the same measures as the DSA |
-| External public debt service / revenue excluding grants | the same numerator, over revenue excluding grants as a share of GDP times GDP | Moderate, by revenue coverage |
-| PV of external public debt / GDP | PPG debt plus IMF credit at face value, over GDP | Moderate, overstated for concessional debt |
-| Face value of public debt / GDP | general government gross debt as a share of GDP | Moderate, by coverage |
-| Interest / revenue excluding grants | net interest, the primary balance minus the overall balance, over revenue | Weak to moderate, net of interest received and with revenue coverage |
+| External public debt service / exports | PPG debt service (International Debt Statistics, IDS) over exports of goods and services (World Development Indicators, WDI) | Close |
+| External public debt service / revenue excluding grants | the same numerator over revenue excluding grants as a share of GDP (WDI) times GDP (World Economic Outlook, WEO) | Moderate: central government revenue, gaps for low-income countries |
+| PV of external public debt / GDP | PPG debt at face value (IDS) over GDP (WEO) | Moderate: overstated for concessional debt |
+| Face value of public debt / GDP | central government debt as a share of GDP (WDI) | Weak: central government only, missing for many low-income countries |
+| Interest / revenue excluding grants | central government interest payments as a share of revenue (WDI) | Weak to moderate: central government coverage |
 | Gross financing needs / GDP | needs domestic debt repayments | Not buildable |
 | PV of external debt / exports | needs present values | Not buildable |
 
-Debt-carrying capacity, present values and the unsustainability signal cannot be built from public data. With the class unknown, a ratio above the strong threshold is above the benchmark for every class, one below the weak threshold is below it for every class, and one in between depends on a class the data cannot give.
+DSAs count external public debt owed to the IMF where the government is the borrower. ONE's headline PPG figure leaves IMF credit out, so a comparison that follows the framework more closely adds IMF credit, and its numbers differ from the headline figures for countries with IMF programmes.
+
+Exact present values, debt-carrying capacity and the unsustainability signal cannot be built from public data. With the class unknown, a ratio above the strong threshold is above the benchmark for every class, one below the weak threshold is below it for every class, and one in between depends on a class the data cannot give.
