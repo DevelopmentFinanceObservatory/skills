@@ -9,6 +9,6 @@ This skill covers how ODA figures are measured, including the flow type, the pri
 
 ## References
 
-- [references/flow-types.md](references/flow-types.md) — gross disbursements, net disbursements, grant equivalents and commitments: definitions, which questions each fits, ONE's usual choices, and the 2018 methodology break
-- [references/price-basis.md](references/price-basis.md) — current and constant prices, DAC deflators, and base year choice
-- [references/grants-loans-psi.md](references/grants-loans-psi.md) — grants, concessional loans, and private sector instruments: ODA eligibility, how each is counted, PSI additionality and transition arrangements, and the policy debate on loan and PSI measurement
+- [references/flow-types.md](references/flow-types.md): gross disbursements, net disbursements, grant equivalents and commitments: definitions, which questions each fits, ONE's usual choices, and the 2018 methodology break
+- [references/price-basis.md](references/price-basis.md): current and constant prices, DAC deflators, and base year choice
+- [references/grants-loans-psi.md](references/grants-loans-psi.md): grants, concessional loans, and private sector instruments: ODA eligibility, how each is counted, PSI additionality and transition arrangements, and the policy debate on loan and PSI measurement

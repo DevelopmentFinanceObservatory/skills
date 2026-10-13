@@ -11,7 +11,7 @@ This skill covers what the main ODA measures mean, how they are calculated, how 
 
 ## References
 
-- [references/key-indicators.md](references/key-indicators.md) — ODA/GNI, sector shares, and the bilateral/multilateral split: what each measures, how it is calculated, and which question it fits.
-- [references/core-oda.md](references/core-oda.md) — Core ODA: its definition, the items it excludes, and how it compares with total ODA.
-- [references/donor-groupings.md](references/donor-groupings.md) — DAC members, DAC associates, non-DAC donors, and EU Institutions, and what including EU Institutions does to totals and rankings.
-- [references/sector-groupings.md](references/sector-groupings.md) — ONE's sector definitions by CRS purpose code and how they differ from the raw CRS structure.
+- [references/key-indicators.md](references/key-indicators.md): ODA/GNI, sector shares, and the bilateral/multilateral split: what each measures, how it is calculated, and which question it fits.
+- [references/core-oda.md](references/core-oda.md): Core ODA: its definition, the items it excludes, and how it compares with total ODA.
+- [references/donor-groupings.md](references/donor-groupings.md): DAC members, DAC associates, non-DAC donors, and EU Institutions, and what including EU Institutions does to totals and rankings.
+- [references/sector-groupings.md](references/sector-groupings.md): ONE's sector definitions by CRS purpose code and how they differ from the raw CRS structure.

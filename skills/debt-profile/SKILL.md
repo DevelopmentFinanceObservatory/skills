@@ -7,46 +7,50 @@ license: CC-BY-4.0
 
 # Debt profile
 
-A debt profile describes a country's external debt from the debtor's side: its size and trend, its borrowers and creditors, its cost, what it costs to service and what falls due next. Whether the debt is sustainable is the judgement of an IMF and World Bank debt sustainability analysis, which the debt-sustainability skill covers. The debt-concepts skill covers the choices behind an "external public debt" figure, and the debt-ids skill covers the World Bank's International Debt Statistics, the source for most of what follows.
+A debt profile describes a country's external debt from the debtor's side: its size and trend, its borrowers and creditors, its cost, what it costs to service, and what comes due next. Whether the debt is sustainable is the judgement of an IMF and World Bank debt sustainability analysis, which the debt-sustainability skill covers. The debt-concepts skill covers the choices behind an "external public debt" figure, and the debt-ids skill covers the World Bank's International Debt Statistics, the source for most of what follows.
 
 ## Size and trend
 
-An external-only profile understates the debt burden where much public debt is domestic, as in many middle-income countries. General government gross debt as a share of GDP, from the IMF World Economic Outlook, puts the external figure in context, and the ratio of external public debt to total public debt is approximate because the two come from different sources with different coverage.
+An external-only profile understates the debt burden when significant amounts of public debt are domestic, as in many middle-income countries. Total public debt puts the external figure in context. In the DFO it comes from the World Development Indicators as central government debt, which leaves out other levels of government and is missing for many low-income countries, so the share of public debt owed externally is approximate where it can be built at all.
 
-Debt amounts are in current US dollars, the currency most external debt is contracted and repaid in, and ratios to GDP, exports or revenue show a trend with no deflator. A ratio to GDP can fall while the stock rises, because GDP grew. A ratio of dollar debt to dollar GDP rises when the currency depreciates, with no new borrowing, because GDP converted to dollars shrinks. A ten-year window shows a trend, and a comparison against 2020 or 2021 alone measures distance from the pandemic shock, when GDP fell and emergency borrowing rose. The IMF's 2021 SDR allocation raised recorded IMF debt in 2021 for every country with no new borrowing.
+Debt amounts are in current US dollars, the currency most external debt is contracted and repaid in, and ratios to GDP, exports or revenue show a trend with no deflator. A ratio to GDP can fall while the stock rises, because GDP grew. A ratio of dollar debt to dollar GDP rises when the currency depreciates, with no new borrowing, because GDP converted to dollars shrinks. A 10-year window shows a trend, and a comparison against 2020 or 2021 alone measures distance from the pandemic shock, when GDP fell and emergency borrowing rose. The IMF's 2021 allocation of Special Drawing Rights (SDRs) raised recorded IMF debt in 2021 for every country with no new borrowing.
 
 ## Who borrowed and who is owed
 
 Shares of total external debt and shares of public external debt are different measures, so a borrower or creditor share depends on which total it divides by.
 
-Creditor shares shift over years, as in a fall in the multilateral share as Eurobonds and Chinese lending grew. Bondholders and commercial banks lend at higher rates and shorter maturities than multilateral lenders, and the creditor mix decides who negotiates in a restructuring.
+Creditor shares shift over years, for example a decline in the multilateral share as Eurobonds and Chinese lending grew. Bondholders and commercial banks lend at higher rates and shorter maturities than multilateral lenders, and the creditor mix determines who negotiates in a restructuring.
 
 ## Cost and terms
 
-Two interest rates answer "how expensive is the debt". The effective rate on existing debt is interest paid in a year divided by the average of the debt stock at the start and end of that year, and it measures what the country pays now. The average rate on new commitments measures where costs are heading. The two diverge when a country moves from concessional to market borrowing, because the existing stock reprices slowly. A falling grant element on new commitments and rising rates on them together mark that shift. Average maturity and grace period on new commitments complete the terms.
+Two types of interest rates influence the answer to the question "How expensive is the debt?" The effective rate on existing debt is interest paid in a year divided by the average of the debt stock at the start and end of that year, and it measures what the country pays now. The average rate on new commitments measures where costs are heading. The two diverge when a country moves from concessional to market borrowing, because the existing stock reprices slowly. A falling grant element (the concessional share of a loan's face value) on new commitments and rising rates together mark that shift. Average maturity and grace period on new commitments complete the terms.
 
 Variable-rate debt as a share of public external debt measures exposure to global interest rates, and the currency composition of public external debt measures exposure to exchange-rate moves.
 
 ## Debt service
 
-A rising interest share points to costlier debt, and rising principal usually reflects past borrowing falling due. Debt service as a share of exports and of government revenue measures the burden against the resources that pay it. Total external debt service also covers private non-guaranteed debt, which private borrowers pay.
+A rising interest share points to costlier debt, and rising principal usually reflects past borrowing coming due. Debt service as a share of exports and of government revenue measures the burden against the resources that pay it. Total external debt service also covers private non-guaranteed debt, which private borrowers pay.
+
+Exports of goods and services from the World Development Indicators match the denominator the IMF and World Bank frameworks use. The World Bank's ready-made debt ratios divide by exports of goods, services and primary income, a larger base that gives a lower ratio. Revenue excluding grants, also from the World Development Indicators, covers central government and lags by a year or more for many low-income countries.
 
 ## Upcoming payments
 
-Peaks in projected debt service, often Eurobonds repaid in full at maturity, are the main finding, and near-term years are the most reliable. The debt-ids skill covers why projected debt service, disbursements and net transfers fall away in later years.
+The years when projected debt service spikes, often because a Eurobond is repaid in full at maturity, are what this part of a profile should highlight. The nearest years are the most reliable. The debt-ids skill covers why projected debt service, disbursements, and net transfers fall away in later years.
+
+IMF projections of GDP in US dollars run to 2031, so projected debt service can be set against projected GDP. The first is a contractual schedule on signed loans and the second an IMF projection, and the ratio carries both caveats.
 
 ## Debt flows
 
-Net flows and net transfers on debt cover debt only, so they understate support from lenders that also give grants, such as IDA. Large bond issues and repayments swing single years. A negative net transfer is normal at the end of a lending cycle, and it signals pressure when it comes with high debt service or lost access to new finance.
+Net flows and net transfers on debt cover debt only, so they understate support from lenders that also give grants, such as the International Development Association (IDA). Large bond issues and repayments can cause large swings in a single year. A negative net transfer is normal at the end of a lending cycle, and it signals pressure when it comes with high debt service or lost access to new finance.
 
 ## Arrears and buffers
 
-Principal and interest arrears show payments due and unpaid, by creditor group. Reserves against short-term debt and against months of imports measure the cushion against a shock.
+Principal and interest arrears show payments due and unpaid, by creditor group. Reserves, from the World Development Indicators, against short-term debt and against months of imports measure the cushion against a shock.
 
 ## Peers
 
-Peer comparisons use medians, because large economies skew means. Peer groups are the region, the income group and the countries under the same IMF and World Bank debt framework.
+Peer comparisons use medians, because large economies skew means. Peer groups are the region, the income group, and the countries under the same IMF and World Bank debt framework.
 
 ## What makes a result verifiable
 
-A profile is verifiable when it names the debt measure and whether it includes IMF credit and short-term debt, the denominator of every ratio and its source, the data release and latest actual year, which years are projections, and the creditor-group definitions used for China and for multilateral lenders.
+A profile is verifiable when it names the debt measure (long-term public and publicly guaranteed (PPG) debt by default) and says whether IMF credit or short-term debt is shown alongside it, the denominator of every ratio and its source, the data release and latest actual year, which years are projections, and the creditor-group definitions used for China and for multilateral lenders.

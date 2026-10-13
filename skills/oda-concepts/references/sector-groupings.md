@@ -4,8 +4,6 @@ What this covers: ONE's sector definitions by CRS purpose code and where they de
 
 ## Concepts and definitions
 
-CRS purpose codes are the OECD's classification of ODA activities. Each CRS activity carries a five-digit purpose code for its primary development objective, and the three-digit DAC sector codes group these purpose codes. Sector groupings aggregate them into broader categories for analysis.
-
 ONE's usual sector groupings are below. Each row contains the DAC sector code a grouping draws on and a three-digit purpose code beneath it. A CRS record's five-digit purpose code starts with that three-digit code, so a record coded 12220 (basic health care) falls under 122. Where a DAC sector has no subdivisions, such as 130 or 140, its sector and purpose codes are the same. A few CRS records carry only a heading-level code, such as 100 or 200, which falls outside every sector here, so those records count as unallocated.
 
 | Sector name | Sector code | Purpose name | Purpose code |
@@ -53,11 +51,11 @@ ONE's usual sector groupings are below. Each row contains the DAC sector code a 
 | Refugees in donor countries | 930 | Refugees in donor countries | 930 |
 | Unallocated and unspecified | 998 | Unallocated/unspecified | 998 |
 
-These groupings are ONE's analytical convention. The OECD does not define them.
+These groupings are ONE's analytical convention.
 
 Health: ONE's health sector combines DAC sectors 120 (health) and 130 (population policies and programmes, and reproductive health). Non-communicable diseases, including mental health, sit under 123, within 120. Some analyses use 120 alone, which results in a smaller number.
 
-Users and other organisations often define sectors differently. A non-default definition changes the figures, so it's important to state the difference when comparing results across definitions.
+Users and other organisations often define sectors differently. A non-default definition changes the figures, so state the difference when comparing results across definitions.
 
 ## Pitfalls
 

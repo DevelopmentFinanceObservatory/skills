@@ -6,7 +6,7 @@ What this covers: the creditor groups used in debt analysis, how bilateral credi
 
 Multilateral creditors are institutions owned by several governments, such as IDA, IBRD, the African and Asian Development Banks, and the IMF. Bilateral creditors are governments and their agencies, including export credit agencies and development banks. Private creditors are bondholders, commercial banks, and other private lenders, among them commodity traders.
 
-The Paris Club is a group of creditor governments that coordinate their debt restructurings. Its 22 permanent members are Australia, Austria, Belgium, Brazil, Canada, Denmark, Finland, France, Germany, Ireland, Israel, Italy, Japan, the Netherlands, Norway, the Republic of Korea, the Russian Federation, Spain, Sweden, Switzerland, the United Kingdom, and the United States, with Brazil and Korea full members since 2016. A Paris Club total is the sum of debt owed to these creditor countries, and bilateral debt to every other government, including China, India, Saudi Arabia, and Türkiye, is non-Paris Club debt.
+The Paris Club is a group of creditor governments that coordinate their debt restructurings. Its 22 permanent members are Australia, Austria, Belgium, Brazil, Canada, Denmark, Finland, France, Germany, Ireland, Israel, Italy, Japan, the Netherlands, Norway, the Republic of Korea, the Russian Federation, Spain, Sweden, Switzerland, the United Kingdom, and the United States, with Brazil and Korea permanent members since 2016. A Paris Club total is the sum of debt owed to these creditor countries, and bilateral debt to every other government, including China, India, Saudi Arabia, and Türkiye, is non-Paris Club debt.
 
 ## Repayment structures
 
