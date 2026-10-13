@@ -30,7 +30,7 @@ Core multilateral contributions are reported in DAC1. The CRS also carries them 
 
 Double counting bi-multi. Bi-multi sits inside total bilateral ODA, so a breakdown that shows it separately subtracts it from the bilateral total.
 
-Funding that behaves like multilateral core support but is classified as bilateral. For example, CEPI is on the Annex 2 list as a PPP, with an 88% ODA coefficient from 2022, so its core funding is reported as bilateral core support. The Global Financing Facility (GFF) has no Annex 2 entry and contributions to it go through the World Bank as earmarked trust-fund money, so they are bi-multi. In both cases, pooled, flexible money governed by the fund's board counts as bilateral, which affects a donor's measured earmarked share and understates the quality of its multilateral engagement.
+Funding that behaves like multilateral core support but is classified as bilateral. For example, CEPI is on the Annex 2 list as a PPP, with an 88% ODA coefficient from 2022, so its core funding is reported as bilateral core support. The Global Financing Facility (GFF) has no Annex 2 entry and contributions to it go through the World Bank as earmarked trust-fund money, so they are bi-multi. In both cases, money that the fund's board pools and governs counts as bilateral, which raises the donor's measured earmarked share.
 
 Treating multilateral outflows as the donor's ODA. A donor's core contribution to the World Bank is recorded in the year it is paid or, for contributions made in notes, the year the note is issued. The World Bank disburses to recipients over several years according to its own priorities.
 

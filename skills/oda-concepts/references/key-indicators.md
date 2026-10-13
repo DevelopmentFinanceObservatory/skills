@@ -36,13 +36,15 @@ This measures how a donor splits its ODA between direct delivery to recipients a
 
 Calculation: bilateral or multilateral ODA in year i / bilateral + earmarked + multilateral ODA in year i.
 
-A relative preference for bilateral channels tends to signal a wish for control over targeting and implementation and for politically attributable aid. A relative preference for multilateral channels tends to signal priority for collective action and structural solutions, and tolerance of lower visibility. Some donors view core contributions to multilaterals as better value for money, because multilaterals pool resources and cut transaction costs.
+In these formulas, bilateral means bilateral ODA excluding earmarked funding, so the three terms do not overlap.
 
-Earmarked funding is reported as bilateral ODA under OECD rules but is channelled through multilateral organisations, and common usage of "bilateral" treats it inconsistently. Whether it counts as bilateral or multilateral materially changes the split. The oda-channels skill covers ONE's default treatment.
+Donors give different reasons for their channel mix, such as control over targeting and visibility for bilateral aid, or pooled resources and lower transaction costs for multilateral aid. The split shows how a donor delivers its ODA. The reasons come from the donor's own policy documents rather than the data.
+
+Earmarked funding is reported as bilateral ODA under OECD rules but is channelled through multilateral organisations, and common usage of "bilateral" treats it inconsistently. Whether it counts as bilateral or multilateral materially changes the split.
 
 ## Choosing an indicator
 
-ODA/GNI helps assess overall effort, sector shares of total ODA is a good fit for assessing whether an issue is a priority, sub-sector shares of a sector can help answer questions about priorities within a field, and the bilateral/multilateral split fits questions about delivery. A question that pairs a headline figure with a granular breakdown often needs a different indicator for each part.
+ODA/GNI helps assess overall effort, sector shares of total ODA are a good fit for assessing whether an issue is a priority, sub-sector shares of a sector can help answer questions about priorities within a field, and the bilateral/multilateral split fits questions about delivery. A question that pairs a headline figure with a granular breakdown often needs a different indicator for each part.
 
 ## Pitfalls
 

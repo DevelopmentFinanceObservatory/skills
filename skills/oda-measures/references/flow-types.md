@@ -20,7 +20,7 @@ Commitments are the amount a donor formally agrees to provide, regardless of whe
 
 ## The 2018 methodology break
 
-Headline ODA uses grant equivalents from 2018 data, first reported in 2019, and earlier headline figures use the cash-flow methodology, so the two are not directly comparable. The OECD also publishes grant-equivalent figures for 2015–2017 and a parallel cash-flow series that is comparable across the full period. An analysis that spans 2018 can therefore use the cash-flow series throughout, stay on one side of the break, or span the break with a caveat.
+Headline ODA uses grant equivalents from 2018 data, first reported in 2019, and earlier headline figures use the cash-flow methodology, which counts net disbursements, so the two are not directly comparable. The OECD also publishes grant-equivalent figures for 2015–2017 and a parallel cash-flow series that is comparable across the full period. An analysis that spans 2018 can therefore use the cash-flow series throughout, stay on one side of the break, or span the break with a caveat.
 
 ## Choosing a flow type
 
@@ -37,4 +37,4 @@ ONE generally uses grant equivalents for headline aggregates (total ODA and ODA/
 
 ## What makes a result verifiable
 
-A result is verifiable when it states its flow type and the reason for it, states which series the data uses, and flags the 2018 break when the analysis spans it. It should be specified when parts of an analysis use different measures.
+A result is verifiable when it states its flow type and the reason for it, states which series the data uses, and flags the 2018 break when the analysis spans it. The result should state the flow type for each part of an analysis that uses a different measure.

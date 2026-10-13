@@ -23,14 +23,14 @@ Debt data report face value, i.e. the amount owed under the contract. Present va
 
 Published figures under the same label differ because of these choices, and few state which they made:
 
-- IMF credit. PPG debt excludes use of IMF credit, which data sources record separately. Adding it raises both the stock and debt service for countries with IMF programmes.
+- IMF credit. PPG debt excludes use of IMF credit, which data sources record separately. IMF credit in the World Bank's data includes SDR allocations from 1999, so adding it raised every country's figure in 2021 with no new borrowing. Adding it also raises debt service for countries repaying IMF programmes.
 - Where IMF credit sits among creditors. Counted within multilateral creditors, it raises the multilateral share. Left out, the multilateral share covers the development banks only.
 - Chinese lenders. The World Bank records each Chinese lender as a bilateral or a private creditor, depending on how it classifies the lender, and much state-owned bank lending falls under commercial banks. A bilateral-only figure for China can miss most of what a country owes Chinese lenders.
 - "Africa". The World Bank's Sub-Saharan Africa region excludes North Africa. A continental aggregate includes it. Whether high-income countries are included changes the aggregate too.
 - Denominators. Ratios to GDP and ratios to GNI differ where income flows abroad are large. Exports of goods and services differ from exports of goods, services, and primary income, which the World Bank's ready-made debt ratios use.
 - Short-term debt. It is a single figure covering public and private borrowers, so a public debt total that includes it also includes private debt.
 
-ONE's published debt analysis counts external public debt as PPG debt plus IMF credit and debt service as PPG debt service plus IMF repurchases and charges. It counts IMF credit within multilateral creditors, shows Chinese official and commercial lenders separately and combined, defines Africa as every African country except high-income ones, and uses GDP as the denominator. World Bank and IMF publications make their own choices, so a figure matches a published one only when built the same way.
+ONE's published debt analysis counts external public debt as long-term public and publicly guaranteed (PPG) debt, and debt service as principal and interest on that debt. It leaves out short-term debt, which mixes public and private borrowers and is mostly trade credit rolled over within the year, and use of IMF credit, which data sources record separately. That credit includes SDR allocations and is often owed by the central bank. Where IMF credit matters, as for a country with a large IMF programme, it appears beside the PPG figure as a separate amount. ONE shows Chinese official and commercial lenders separately and combined, defines Africa as every African country except high-income ones, and uses GDP as the denominator. These are the DFO's defaults unless a user asks for another measure. World Bank and IMF publications make their own choices, so a figure matches a published one only when built the same way.
 
 ## Concessionality
 
@@ -40,8 +40,12 @@ The World Bank counts a loan as concessional when its grant element at a 10% dis
 
 Aid data and debt data record the same loans from opposite sides. OECD net disbursements subtract the principal a donor received, which resembles debt-side net flows on debt but comes from the creditor's books, so the figures differ. Debt data are in current US dollars, and OECD aid trends are usually in constant prices deflated with DAC deflators, so a comparison of the two needs one price basis. How much aid goes to debt relief is an aid question, and whether a country's debt was restructured or relieved is a debt question.
 
+## Money in and money out
+
+Whether a country receives more external finance than it pays out is a question about aid and debt flows together. The DFO reports aid and debt flows separately. ONE's net flows analysis needs Total Official Support for Sustainable Development (TOSSD) data, which the DFO does not hold. Debt data and aid data each answer part of the question. Net flows and net transfers on debt show what moves through debt, and DAC2A or the CRS show the aid a country receives. Added together they overlap: official loans appear in both, debt relief appears as an aid grant and as lower debt service, and aid trends are usually in constant prices while debt is in current dollars. A figure that combines them is an estimate with known overlaps, not a net flows figure.
+
 ## References
 
-- [references/domestic-debt.md](references/domestic-debt.md) — sources of domestic public debt figures, the instruments and coverage behind them, and how domestic debt differs from external debt in cost, maturity, holders, and restructuring.
-- [references/relief-and-restructuring.md](references/relief-and-restructuring.md) — arrears, rescheduling and restructuring, debt relief counted in aid and debt data, and the relief initiatives.
-- [references/creditors.md](references/creditors.md) — creditor groups, the Paris Club, and repayment structures (bullet and amortising) and how they show in projected debt service.
+- [references/domestic-debt.md](references/domestic-debt.md): sources of domestic public debt figures, the instruments and coverage behind them, and how domestic debt differs from external debt in cost, maturity, holders, and restructuring.
+- [references/relief-and-restructuring.md](references/relief-and-restructuring.md): arrears, rescheduling and restructuring, debt relief counted in aid and debt data, and the relief initiatives.
+- [references/creditors.md](references/creditors.md): creditor groups, the Paris Club, and repayment structures (bullet and amortising) and how they show in projected debt service.

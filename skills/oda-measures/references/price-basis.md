@@ -10,7 +10,7 @@ This reference informs questions that compare ODA across more than one year, ran
 
 Current prices (nominal) report each year's data in the price level of the year it was recorded.
 
-Constant prices (real) report every year's data in the prices and exchange rate of one reference year. This removes the effect of donor-country inflation and of exchange-rate movements against the USD, and allows genuine comparison of volumes across time.
+Constant prices (real) report every year's data in the prices and exchange rate of one reference year. This removes the effect of donor-country inflation and of exchange-rate movements against the USD, and allows comparison of volumes across time.
 
 The base year is the reference year of a constant-price series. With the latest year as base, the most recent year's figures are unchanged and earlier years are adjusted up or down, depending on the donor's inflation and its currency's movement against the USD.
 
@@ -28,7 +28,7 @@ An analysis that combines a trend and a ranking can use constant prices for the 
 
 ## Pitfalls
 
-- Mixing current and constant prices in the same chart or table is the most common error. Where a document needs both, each output carries its own label and a note explains the difference.
+- Mixing current and constant prices in the same chart or table is an error. Where a document needs both, each output carries its own label and a note explains the difference.
 - "Constant prices" without a base year is ambiguous and makes figures unreproducible.
 - In years with high inflation or large exchange-rate movements, donor rankings can change with the price basis.
 - Figures compared with a published OECD source differ when the source uses another price basis or base year. The direction of the difference depends on each donor's inflation and exchange rate, so it can vary across donors.

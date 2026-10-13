@@ -8,13 +8,13 @@ Arrears are payments due and unpaid. Default is a failure to pay beyond any grac
 
 ## Debt relief in aid data and in debt data
 
-Debt relief is recorded on both sides. In OECD aid data, forgiveness by an official creditor counts as ODA under the debt relief sector. In the World Bank's debtor-side data, the same relief appears as debt forgiven or rescheduled, a lower debt stock, and lower debt service. A measure that adds aid inflows to debt flows counts the relief twice if it includes both the aid-side grant and the lower debt service.
+Debt relief is recorded on both sides. In OECD aid data, forgiveness by an official creditor counts as official development assistance (ODA) under the debt relief sector. In the World Bank's debtor-side data, the same relief appears as debt forgiven or rescheduled, a lower debt stock, and lower debt service. A measure that adds aid inflows to debt flows counts the relief twice if it includes both the aid-side grant and the lower debt service.
 
 Relief impacts time series. A debt stock that decreases after forgiveness reflects relief, and debt service projected before a restructuring overstates what is paid after it.
 
 ## Initiatives
 
 - The Heavily Indebted Poor Countries (HIPC) Initiative was launched by the IMF and World Bank in 1996 and enhanced in 1999. It reduced the debt of qualifying low-income countries to all creditors.
-- The Multilateral Debt Relief Initiative (MDRI), created in 2005, cancelled countries' remaining debt to the IMF, IDA, and the African Development Fund once they completed HIPC. The Inter-American Development Bank gave similar relief to five countries from 2007.
+- The Multilateral Debt Relief Initiative (MDRI), created in 2005, cancelled countries' remaining debt to the IMF, the International Development Association (IDA), and the African Development Fund once they completed HIPC. The Inter-American Development Bank gave similar relief to five countries from 2007.
 - The G20 Debt Service Suspension Initiative (DSSI) suspended debt service owed to official bilateral creditors by eligible countries from May 2020 to the end of December 2021. Suspended payments were deferred, so they reappear in later years' debt service.
 - The G20 Common Framework, agreed in November 2020 for DSSI-eligible countries, coordinates restructuring between Paris Club and other official bilateral creditors, including China, and seeks comparable treatment from private creditors. By 2026, Chad, Zambia, Ghana, and Ethiopia had completed restructurings with their official creditors under the Common Framework.

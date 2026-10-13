@@ -86,7 +86,7 @@ The last segment is the unit. CD is current US dollars, ZS a percentage, and CG 
 
 ## Code-level traps
 
-Total external debt (DECT) has no disbursement or principal repayment series. Gross flows exist for long-term debt (DLXF), long-term debt plus IMF credit (DLTF), PPG, PNG and IMF credit, and short-term debt has only a net flow. DT.NFL.DECT.CD is the total net flow.
+Gross flows (disbursements and principal repayments) exist for long-term debt (DLXF), long-term debt plus IMF credit (DLTF), PPG, PNG and IMF credit. Short-term debt has only a net flow. For total external debt (DECT), use DT.NFL.DECT.CD, the total net flow.
 
 Every creditor-type code from OFFT to PROP covers PPG debt. Stock and gross flow names say so ("PPG, bilateral"), while net flow, commitment, undisbursed debt and terms names leave it out. PNG debt has only the PNGB and PNGC split, plus named lenders EBRD and IFC (NEBR, NIFC).
 

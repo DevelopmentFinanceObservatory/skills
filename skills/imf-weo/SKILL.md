@@ -1,7 +1,7 @@
 ---
 name: imf-weo
 description: >-
-  Context for working with the IMF World Economic Outlook (WEO) database, the IMF staff's annual macroeconomic estimates and projections for 197 economies. Covers which years are actual and which are projections, which currencies and units can be compared or summed across countries, fiscal-year reporters and level breaks, how IMF country groups are built, countries with suspended data, and how the DFO's version of the data is shaped. Load once WEO has been chosen for an analysis, or when working with WEO figures.
+  Context for working with the IMF World Economic Outlook (WEO) database, the IMF staff's annual macroeconomic estimates and projections for 197 economies. Covers which years are actual and which are projections, which currencies and units can be compared or summed across countries, fiscal-year reporters and level breaks, how IMF country groups are built, countries with suspended data, and how the DFO's version of the data is shaped. The DFO holds the WEO's national accounts series only. Load once WEO has been chosen for an analysis, or when working with WEO figures.
 license: CC-BY-4.0
 ---
 
@@ -37,6 +37,14 @@ The IMF omits or suspends data for some countries, and the list changes with eac
 
 ## In the DFO
 
-For one country and year, a measure the WEO reports in both national currency and US dollars is provided as two values distinguished by their unit. Countries whose currency is the US dollar have the dollar value only, and each country's national currency is the same for every year. Values are in whole units.
+The DFO holds the WEO's national accounts series only:
 
-Years after a series' latest actual year are marked as estimated, and modelled series such as the output gap are marked as modelled in every year. The DFO contains the latest release only. It has no country groups, so a regional or world figure is built from countries, as a sum in US dollars or PPP or with the IMF's weights. Kosovo is country/XKS and West Bank and Gaza is country/PSE.
+- GDP in national currency, US dollars and PPP international dollars;
+- GDP per person in the same three units;
+- each country's share of world GDP at PPP;
+- gross national savings and gross capital formation (total investment) as shares of GDP;
+- the output gap.
+
+Real growth, government finance, inflation, the current account and trade come from the World Development Indicators, which run to the latest reported year with no projections. The only IMF projections in the DFO are therefore for the series above.
+
+For one country and year, a measure the WEO reports in both national currency and US dollars is provided as two values distinguished by their unit. Countries whose currency is the US dollar have the dollar value only. Values are in whole units. Years after a series' latest actual year are marked as estimated, and the output gap is marked as modelled in every year. The DFO contains the latest release only. A regional or world figure is built from countries, as a sum in US dollars or PPP or with the IMF's weights.
