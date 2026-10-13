@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "dfo": {
+      "type": "http",
+      "url": "https://developmentfinance.org/mcp"
+    }
+  }
+}

@@ -72,6 +72,8 @@ Add a new skill's name to one list. To start a domain, add a key under `domains`
 
 The repository root is one plugin, `dfo`. `.claude-plugin/plugin.json` names it and lists no components, so Claude and Codex load every directory under `skills/` as a skill and load nothing from `internal/skills/` or `template/`. `.claude-plugin/marketplace.json` offers that plugin to a user who adds the repository as a plugin marketplace, which is also named `dfo`. A new skill under `skills/` needs no change to either file.
 
+The root `plugin.json` and `mcp.json` describe the same plugin for ChatGPT's plugin directory, and `.mcp.json` connects the DFO MCP server in the Claude plugin. When skills change, raise `version` in `plugin.json` and `.claude-plugin/plugin.json` together, since each directory publishes an update only under a new version. Then run `python scripts/build_chatgpt_plugin.py`, which writes `dist/dfo-chatgpt-plugin.zip` for upload. It checks the listing against OpenAI's limits and the two manifests against each other, and writes nothing if a check fails.
+
 ## Checking a skill before you open a pull request
 
 CI runs the validator's tests and the validator on every push to `main` and on every pull request once it is ready for review, and they run locally the same way. CI also compiles the DFO ontology and fails an `applies_to` entry that is not a node in it. The workflow reads the private `ONEcampaign/dfo-ontology` repository with a read-only token minted from the organisation's reader GitHub App. To run that check locally, compile the ontology with `dfo-ontology compile --bench prod --output dfo.mcf` and add `--ontology-mcf dfo.mcf` to the validator command.
