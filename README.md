@@ -81,4 +81,4 @@ Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licence
 
-CC BY 4.0. See [LICENSE](LICENSE).
+The code in `scripts/`, `tests/` and `.github/workflows/` is released under the MIT licence; see [LICENSE-CODE](LICENSE-CODE). Everything else, including the skills, is released under CC BY 4.0; see [LICENSE](LICENSE).

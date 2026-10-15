@@ -4,7 +4,7 @@ Issues and pull requests are welcome, whether you want to correct a skill or add
 
 Everyone taking part follows the [Code of Conduct](https://github.com/DevelopmentFinanceObservatory/.github/blob/main/CODE_OF_CONDUCT.md). Report a security problem through GitHub's private vulnerability reporting, as the [security policy](https://github.com/DevelopmentFinanceObservatory/.github/blob/main/SECURITY.md) describes, and do not open a public issue. [SUPPORT.md](https://github.com/DevelopmentFinanceObservatory/.github/blob/main/SUPPORT.md) says where to ask questions.
 
-By contributing you agree that your work is released under the repository's [CC BY 4.0](LICENSE) licence.
+By contributing you agree that your work is released under the repository's licences: code in `scripts/`, `tests/` and `.github/workflows/` under [MIT](LICENSE-CODE), and everything else, including the skills, under [CC BY 4.0](LICENSE).
 
 ## Add or correct a skill
 
