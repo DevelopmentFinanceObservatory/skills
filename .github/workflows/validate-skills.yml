@@ -1,5 +1,5 @@
 # Validates every skill bundle under skills/ and internal/skills/ on each push to
-# main and on each pull request that is ready for review.
+# dev or main and on each pull request that is ready for review.
 #
 # The checks live in scripts/validate_skills.py and enforce what CONTRIBUTING.md's
 # Format section commits to: the front matter fields, the references/ layout,
@@ -13,10 +13,8 @@
 #
 # Each skill's attachments.yaml names ontology nodes, so the job also compiles
 # the DFO ontology and checks every 'applies_to' entry is a node in it. The
-# ontology repository is private, so the job mints a read-only token for it
-# from the organisation's reader GitHub App (READER_APP_CLIENT_ID variable and
-# READER_APP_PRIVATE_KEY secret). DFO_ONTOLOGY_REF pins the ontology release
-# the check runs against. Remove the token step once the repository is public.
+# ontology repository is public, so the job installs it without a token.
+# DFO_ONTOLOGY_REF pins the ontology commit the check runs against.
 #
 # A draft pull request runs no job. `ready_for_review` is in the types so that
 # marking it ready starts the run. Without it, the skipped job would stand as a
@@ -25,20 +23,17 @@ name: Validate skills
 
 on:
   push:
-    branches: [main]
+    branches: [dev, main]
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch: {}
 
 env:
-  DFO_ONTOLOGY_REF: v0.2.1
+  DFO_ONTOLOGY_REF: 617bdb685e79022494132ef3614674c232b395fc
 
 jobs:
   validate:
-    # Mints a dfo-reader token, which prod keeps only in main-limited
-    # environments, so this runs in ONEcampaign only. The identical tree
-    # ran it here before it was synced.
-    if: github.repository_owner == 'ONEcampaign' && github.event.pull_request.draft != true
+    if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
@@ -55,20 +50,8 @@ jobs:
       - name: Test the validator
         run: python -m unittest discover
 
-      - name: Mint a read-only token for dfo-ontology
-        id: reader
-        uses: actions/create-github-app-token@v3
-        with:
-          client-id: ${{ vars.READER_APP_CLIENT_ID }}
-          private-key: ${{ secrets.READER_APP_PRIVATE_KEY }}
-          owner: ONEcampaign
-          repositories: dfo-ontology
-          permission-contents: read
-
       - name: Install the DFO ontology compiler
-        env:
-          READER_TOKEN: ${{ steps.reader.outputs.token }}
-        run: pip install "git+https://x-access-token:${READER_TOKEN}@github.com/ONEcampaign/dfo-ontology@${DFO_ONTOLOGY_REF}"
+        run: pip install "git+https://github.com/DevelopmentFinanceObservatory/ontology@${DFO_ONTOLOGY_REF}"
 
       - name: Compile the DFO ontology
         run: dfo-ontology compile --bench prod --output "$RUNNER_TEMP/ontology/dfo.mcf"

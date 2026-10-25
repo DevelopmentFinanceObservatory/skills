@@ -76,7 +76,7 @@ The root `plugin.json` and `mcp.json` describe the same plugin for ChatGPT's plu
 
 ## Checking a skill before you open a pull request
 
-CI runs the validator's tests and the validator on every push to `main` and on every pull request once it is ready for review, and they run locally the same way. CI also compiles the DFO ontology and fails an `applies_to` entry that is not a node in it. The workflow reads the private `ONEcampaign/dfo-ontology` repository with a read-only token minted from the organisation's reader GitHub App. To run that check locally, compile the ontology with `dfo-ontology compile --bench prod --output dfo.mcf` and add `--ontology-mcf dfo.mcf` to the validator command.
+CI runs the validator's tests and the validator on every push to `dev` or `main` and on every pull request once it is ready for review, and they run locally the same way. CI also compiles the DFO ontology and fails an `applies_to` entry that is not a node in it. The workflow installs the compiler from the public `DevelopmentFinanceObservatory/ontology` repository at the commit `DFO_ONTOLOGY_REF` names. To run that check locally, compile the ontology with `dfo-ontology compile --bench prod --output dfo.mcf` and add `--ontology-mcf dfo.mcf` to the validator command.
 
 ```bash
 pip install -r requirements-dev.txt
