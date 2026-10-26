@@ -21,11 +21,13 @@ At the developing countries total, a donor's DAC2A net ODA equals its DAC1 bilat
 
 DAC2A is provided on a cash basis. Its net ODA subtracts loan repayments, so it will not match the grant-equivalent headline in DAC1 for years from 2018.
 
+Net disbursements are the default measure for a recipient's all-sector total from any donors, because they are the receipts the recipient gets after repayments. A sector, channel, instrument, or modality is not published here and takes gross disbursements from the CRS.
+
 ## Imputed multilateral ODA
 
 Imputed multilateral ODA is the OECD's estimate of how much of each donor's core multilateral contributions reached each recipient. It is published for DAC countries, non-DAC countries, and EU Institutions. It takes each agency's geographical breakdown of its gross disbursements from core resources in the reference year and applies that breakdown to the donor's core contributions to the agency. It is a memo item, outside net ODA, and it does not sum to DAC1 multilateral ODA.
 
-Bilateral net ODA plus imputed multilateral ODA gives a donor's total contribution to a recipient. When you read a figure on this convention, say in the reply that the bilateral part is net and why: "net bilateral, as DAC counts a donor's total contribution". The OECD figure attributes core contributions to recipients, while ONE's imputed multilateral sectors dataset attributes them to sectors with a different method, so the two do not reconcile.
+Bilateral net ODA plus imputed multilateral ODA gives a donor's total contribution to a recipient. When you build a figure on this convention from DAC2A, say in the reply that the bilateral part is net and why: "net bilateral, as DAC counts a donor's total contribution". A "total" for a named donor read from the CRS is gross at current prices, so it differs in basis from this sum. The OECD figure attributes core contributions to recipients, while ONE's imputed multilateral sectors dataset attributes them to sectors with a different method, so the two do not reconcile.
 
 ## Double counting and aggregates
 
@@ -40,7 +42,7 @@ The two aggregates that add EU Institutions to member states (DAC countries plus
 
 A recipient's total receipts are the sum of bilateral donors and multilateral donors. Adding a donor's imputed multilateral ODA to the multilateral agencies' own outflows counts the same money twice.
 
-A regional total built from individual countries misses the region's unspecified bucket.
+A regional total built from individual countries misses the region's unspecified bucket, so a sum over a region adds the region's regional and unspecified buckets to its member countries. A listing or ranking of the region's countries counts members only.
 
 ## Particularities
 
