@@ -50,7 +50,7 @@ A provider's core contribution to a multilateral and the multilateral's own outf
 
 Multilateral reporters include only core-funded activities in the CRS, so earmarked trust funds reported by a bilateral provider do not reappear as the multilateral's outflow. Foundation grants to Gavi or the Global Fund are private flows that then fund those organisations' outflows. A total that adds foundations and multilaterals counts that money twice.
 
-Recipients include regional and unspecified buckets alongside countries, such as "developing countries, unspecified" and "South of Sahara, regional". A regional total from the CRS needs the countries plus the matching regional bucket. A country figure that includes a share of a regional or unspecified amount rests on an assumption about how that amount was spread.
+Recipients include regional and unspecified buckets alongside countries, such as "developing countries, unspecified" and "South of Sahara, regional". A sum over a region from the CRS adds the region's own regional and unspecified buckets, and those of its sub-regions, to its countries. A listing or ranking of the region's countries counts members only. A country figure that includes a share of a regional or unspecified amount rests on an assumption about how that amount was spread.
 
 ## Particularities
 

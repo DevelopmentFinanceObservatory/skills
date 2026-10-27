@@ -21,7 +21,7 @@ At the developing countries total, a donor's DAC2A net ODA equals its DAC1 bilat
 
 DAC2A is provided on a cash basis. Its net ODA subtracts loan repayments, so it will not match the grant-equivalent headline in DAC1 for years from 2018.
 
-Net disbursements are the default measure for a recipient's all-sector total from any donors, because they are the receipts the recipient gets after repayments. A sector, channel, instrument, or modality is not published here and takes gross disbursements from the CRS.
+Net disbursements are the default measure for a recipient's all-sector total from any donors, because they are the receipts the recipient gets after repayments. A sector, a CRS type of finance (instrument), or a cooperation modality is not published here and takes gross disbursements from the CRS. The components listed above (grants, loans, debt relief, and the others) are DAC2A's own aid types, which are a different cut.
 
 ## Imputed multilateral ODA
 
@@ -42,7 +42,7 @@ The two aggregates that add EU Institutions to member states (DAC countries plus
 
 A recipient's total receipts are the sum of bilateral donors and multilateral donors. Adding a donor's imputed multilateral ODA to the multilateral agencies' own outflows counts the same money twice.
 
-A regional total built from individual countries misses the region's unspecified bucket, so a sum over a region adds the region's regional and unspecified buckets to its member countries. A listing or ranking of the region's countries counts members only.
+A regional total built from individual countries misses the region's unallocated-by-country buckets. A sum over a region adds its own bucket and those of its sub-regions to its member countries: Africa takes the buckets of Africa and of Eastern, Middle, North of Sahara, South of Sahara, Southern, and Western Africa, and sub-Saharan Africa takes those of Eastern, Middle, South of Sahara, Southern, and Western Africa. For sub-Saharan Africa, Asia, Europe, the Middle East, North, East, Middle, and West Africa, and South America, Search counts the OECD's member list, which differs from the graph's (the OECD's sub-Saharan Africa includes Sudan), and offers the graph region's own countries as the other reading. A listing or ranking of the region's countries counts members only.
 
 ## Particularities
 
