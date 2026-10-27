@@ -10,11 +10,11 @@ This reference informs questions about which ODA measure to use, what a specific
 
 Disbursements are actual payments made in a given year. They are the measure of ODA flows, and reveal donor intentions and policy implementation.
 
-Gross disbursements are the total a donor disburses in a year, before subtracting loan repayments received from borrowers. Grant-equivalent data is not always available at activity level, so gross disbursements are the measure for detailed breakdowns by sector, recipient country, or channel.
+Gross disbursements are the total a donor disburses in a year, before subtracting loan repayments received from borrowers. Grant-equivalent data is not always available at activity level, so gross disbursements are the measure for breakdowns by sector, channel, instrument, or modality.
 
 Net disbursements are gross disbursements minus loan repayments received in the same year. They show net resource transfers to a recipient, the amount a donor paid out beyond what it received back. They are negative when repayments in a year exceed new disbursements. For example, if Japan disbursed US$5 billion in loans and received US$3 billion in repayments, its net disbursements are US$2 billion. They suit specific questions about resource transfers and are less common in detailed analyses.
 
-Grant equivalents count only the concessional portion of a loan as ODA. A loan's grant equivalent is its disbursement multiplied by its grant element, the share of the loan that is a financial "gift" relative to a market loan. Grants count in full because their grant element is 100%. The grant element is calculated at commitment using income-differentiated discount rates and is not recalculated at disbursement. The DAC adopted the grant-equivalent methodology in 2014 to better reflect donor effort and to encourage more concessional lending to low-income countries. Grant equivalents are the measure for headline ODA figures and ODA/GNI ratios.
+Grant equivalents count only the concessional portion of a loan as ODA. A loan's grant equivalent is its disbursement multiplied by its grant element, the share of the loan that is a financial "gift" relative to a market loan. Grants count in full because their grant element is 100%. The grant element is calculated at commitment using income-differentiated discount rates and is not recalculated at disbursement. The DAC adopted the grant-equivalent methodology in 2014 to better reflect donor effort and to encourage more concessional lending to low-income countries. Grant equivalents are the OECD's headline measure from 2018 data. Before 2018 the headline and the ODA/GNI ratio use net flows.
 
 Commitments are the amount a donor formally agrees to provide, regardless of when it is paid. They measure donor intentions and allow monitoring of resource targeting. A commitment may be disbursed over several years, so commitments are a poor proxy for actual flows. For example, a donor that commits US$200 million to a five-year infrastructure programme in 2022 records the commitment in 2022 and records disbursements each year as payments are made.
 
@@ -24,9 +24,23 @@ Headline ODA uses grant equivalents from 2018 data, first reported in 2019, and 
 
 ## Choosing a flow type
 
-Grant equivalents suit questions about aggregate donor effort and ODA/GNI, because they reflect the true cost to the donor of concessional loans. Gross disbursements suit questions about where ODA went, by sector, country, or channel. A question that combines a headline figure with a granular breakdown can need a different measure for each part. Commitments suit questions about what donors intend to provide.
+Grant equivalents suit questions about aggregate donor effort and ODA/GNI, because they reflect the true cost to the donor of concessional loans. Net disbursements suit questions about what a recipient received. Gross disbursements suit questions about where ODA went, by sector, channel, instrument, or modality. A question that combines a headline figure with a granular breakdown can need a different measure for each part. Commitments suit questions about what donors intend to provide.
 
-ONE generally uses grant equivalents for headline aggregates (total ODA and ODA/GNI) and gross disbursements for sector and recipient breakdowns, and uses disbursements rather than commitments for actual flows. Which measure is best depends on what the user wants to learn from the data, and a user's stated preference can differ from ONE's usual choice.
+When the user names no basis, ONE chooses the measure from the shape of the question and uses disbursements rather than commitments for actual flows:
+
+| Question | Years | Measure |
+| --- | --- | --- |
+| Donor only, no recipient or sector | 2018 or later | Grant equivalents (OECD headline) |
+| Donor only | Before 2018 | Net disbursements (OECD headline before 2018) |
+| Donor only | Crossing 2018 | OECD headline for each year: net disbursements to 2017, grant equivalents from 2018, shown as two periods with the break marked |
+| Recipient, all sectors, from any donors or from a named donor | Any | Net disbursements (DAC2A receipts) |
+| Any sector, or a type of finance (instrument) or cooperation modality | Any | Gross disbursements (CRS) |
+
+A user's stated basis ("net", "gross", "grant equivalent", "commitments", a price basis) overrides the table, and a basis the user chose earlier in the conversation carries over to later questions. When the later question's data holds no series counted on the carried basis, Search uses the basis the table gives for that question's shape. The two periods of a series that crosses 2018 hold different years and do not add, and a growth figure across 2017 to 2018 carries the break marker.
+
+A total for a named donor that is read from the CRS means the donor's bilateral ODA plus its imputed multilateral ODA, in gross disbursements at current prices, unless the user says otherwise. The imputed part is ONE's imputed multilateral sectors dataset, which starts in 2011 and publishes gross disbursements at current USD only. Search adds it only when the dataset covers every year asked for. For a window that starts before 2011 the total counts bilateral flows, and the sum is offered over the years the dataset covers. For constant prices, or a basis other than gross disbursements, the total counts bilateral flows and the sum is not offered.
+
+A named donor's total to a named recipient with no sector is read from DAC2A in net disbursements and counts bilateral flows only. DAC1 total ODA already includes the donor's core multilateral contributions, so it takes no imputed addition.
 
 ## Pitfalls
 
