@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "dfo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Search, fetch, analyse and chart development finance data from the Development Finance Observatory, with analyst skills on aid and sovereign debt.",
   "author": {
     "name": "The ONE Campaign",

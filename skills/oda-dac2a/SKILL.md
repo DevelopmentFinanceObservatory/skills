@@ -40,6 +40,8 @@ Multilateral agencies appear as both recipients and donors. Multilateral recipie
 
 The two aggregates that add EU Institutions to member states (DAC countries plus EU Institutions, and DAC EU countries plus EU Institutions) contain both the members' contributions to EU Institutions and EU Institutions' own ODA. The members' contributions sit under multilateral recipients, so to the developing countries total these aggregates count EU money once. To all recipients they count it twice.
 
+A question that leaves donors unnamed ("major donors", "main donors", "big donors") reads as the OECD's published DAC countries total, which leaves out EU Institutions. State that reading in the answer, and offer the top 10 donors by latest ODA as the alternative.
+
 A recipient's total receipts are the sum of bilateral donors and multilateral donors. Adding a donor's imputed multilateral ODA to the multilateral agencies' own outflows counts the same money twice.
 
 A regional total built from individual countries misses the region's unallocated-by-country buckets. A sum over a region adds its own bucket and those of its sub-regions to its member countries: Africa takes the buckets of Africa and of Eastern, Middle, North of Sahara, South of Sahara, Southern, and Western Africa, and sub-Saharan Africa takes those of Eastern, Middle, South of Sahara, Southern, and Western Africa. For sub-Saharan Africa, Asia, Europe, the Middle East, North, East, Middle, and West Africa, and South America, Search counts the OECD's member list, which differs from the graph's (the OECD's sub-Saharan Africa includes Sudan), and offers the graph region's own countries as the other reading. A listing or ranking of the region's countries counts members only.

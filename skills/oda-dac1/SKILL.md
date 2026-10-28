@@ -39,6 +39,8 @@ Donor aggregates sit in the same table as individual donors: DAC countries, DAC 
 
 EU member states' contributions to EU Institutions are already accounted for in their multilateral ODA. The DAC members total adds EU Institutions' own ODA on top, so the same money appears twice. The DAC countries total leaves out that overlap.
 
+A question that leaves donors unnamed ("major donors", "main donors", "big donors") reads as the OECD's published DAC countries total, which leaves out EU Institutions. State that reading in the answer, and offer the top 10 donors by latest ODA as the alternative.
+
 Aid-type lines are nested. Total ODA is bilateral plus multilateral ODA, and each of those breaks down further. Memo lines and "of which" lines are subsets of other lines, and adding them to a total counts money twice.
 
 A DAC1 value is defined by its flow type, price basis, and aid-type line together. A sum across values that differ in any of the three mixes definitions or counts money twice.
