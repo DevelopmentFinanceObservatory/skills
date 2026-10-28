@@ -1,6 +1,10 @@
-# Development Finance Observatory skills
+# DFO skills
 
-The Development Finance Observatory (DFO) skills give an AI assistant the methods a development-finance analyst brings to a question: which measure fits, what each dataset covers, and where its totals double count. They are Agent Skills, plain-text packages of method, definitions, and dataset caveats that an assistant loads when a question calls for them. The DFO team at ONE Campaign writes them.
+Open-source domain-knowledge packages for AI assistants working with development-finance data. Each skill is a folder of plain-text method, definitions, and dataset caveats in the [Agent Skills](https://agentskills.io/specification) format, which an assistant loads when a question calls for it. They say which measure fits, what a dataset covers, and where its totals double count.
+
+The skills are part of the [Development Finance Observatory](https://github.com/DevelopmentFinanceObservatory) (DFO), an initiative of [ONE Data](https://data.one.org) at the ONE Campaign. The DFO AI layer loads them at runtime, and you can load them in your own agent or in Claude.
+
+This repository is under active development. Interfaces, schemas, and data may change without notice.
 
 ## What the skills cover
 
@@ -33,12 +37,12 @@ The Development Finance Observatory (DFO) skills give an AI assistant the method
 - "A country is rated at high risk of debt distress. Does that mean its debt is unsustainable?" (`debt-sustainability`)
 - "Can I rank countries by last year's GDP growth using the World Economic Outlook?" (`imf-weo`)
 
-## Install
+## Use the skills
 
-Every route installs from `DevelopmentFinanceObservatory/skills`. The DFO docs site page "Use skills in your own agent" has the steps for each assistant.
+Every route below installs from this repository.
 
-- Claude (web, desktop, and Cowork) installs every skill as one plugin, `dfo`, when you add that repository as a plugin marketplace, also named `dfo`. The plugin also connects the DFO MCP server at `https://developmentfinance.org/mcp`.
-- Claude Code installs the same plugin, which also connects the DFO MCP server at `https://developmentfinance.org/mcp`.
+- Claude (web, desktop, and Cowork) installs every skill as one plugin, `dfo`, when you add this repository as a plugin marketplace, also named `dfo`.
+- Claude Code installs the same plugin.
 
   ```text
   /plugin marketplace add DevelopmentFinanceObservatory/skills
@@ -52,16 +56,29 @@ Every route installs from `DevelopmentFinanceObservatory/skills`. The DFO docs s
   codex plugin add dfo@dfo
   ```
 
-- ChatGPT, Gemini, and other assistants that read the Agent Skills format take one skill at a time, as a zip downloaded from the skill's page on the DFO docs site and uploaded in the assistant's skills settings.
+- Any other assistant that reads the Agent Skills format takes one skill at a time. Copy a folder from `skills/` into that assistant's skills directory, or zip it and upload it in the assistant's skills settings.
 
-## Updates
+The plugin also connects the DFO MCP server at `https://developmentfinance.org/mcp`, which serves the data these skills explain. The skills themselves are text and work without it.
 
-A plugin install updates from the repository. A zip is a copy from the day you downloaded it.
+A plugin install updates from this repository. A copied folder or zip stays as it was on the day you took it.
 
-## Licence
+## What's inside
 
-The skills, their reference files, and this documentation are licensed under Creative Commons Attribution 4.0 International (CC BY 4.0), copyright ONE Campaign. The full text is in `LICENSE`.
+- `skills/`: the skills offered for install, one folder each, plus `categories.yaml`, which groups them on the DFO docs site.
+- `internal/skills/`: skills published on the DFO platform and left out of the install routes.
+- `template/`: a working skill to copy when you start a new one.
+- `scripts/` and `tests/`: the validator that CI runs on every skill, and the build script for the ChatGPT plugin package.
+- `.claude-plugin/`, `plugin.json`, `mcp.json`, `.mcp.json`: the plugin manifests for Claude, Codex, and ChatGPT.
+
+## Documentation
+
+- [CONTRIBUTING.md](CONTRIBUTING.md) covers the skill format and the checks to run before a pull request.
+- [docs/development.md](docs/development.md) holds maintainer notes on how skills reach the DFO platform and how the plugin is versioned and released.
 
 ## Contributing
 
-`CONTRIBUTING.md` describes the skill format and the checks.
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Licence
+
+The code in `scripts/`, `tests/` and `.github/workflows/` is released under the MIT licence; see [LICENSE-CODE](LICENSE-CODE). Everything else, including the skills, is released under CC BY 4.0; see [LICENSE](LICENSE).

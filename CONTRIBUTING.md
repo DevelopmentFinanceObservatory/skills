@@ -1,40 +1,45 @@
-# Contributing to the Development Finance Observatory skills
+# Contributing
 
-Every skill in this repository follows one format, and a validator checks it in CI. `README.md` says what the skills are and how to install them.
+Issues and pull requests are welcome, whether you want to correct a skill or add one. The ONE Data team maintains this repository. For a large change, such as a new skill or a restructure, open an issue first so we can agree on scope before you write it.
 
-## How skills reach an agent
+Everyone taking part follows the [Code of Conduct](https://github.com/DevelopmentFinanceObservatory/.github/blob/main/CODE_OF_CONDUCT.md). Report a security problem through GitHub's private vulnerability reporting, as the [security policy](https://github.com/DevelopmentFinanceObservatory/.github/blob/main/SECURITY.md) describes, and do not open a public issue. [SUPPORT.md](https://github.com/DevelopmentFinanceObservatory/.github/blob/main/SUPPORT.md) says where to ask questions.
 
-Each skill is registered as a node in the DFO knowledge graph, carrying its front matter and the links to the graph nodes its `attachments.yaml` declares. The DFO AI harness consumes that registry at launch. Any other agent loads the skills through the install routes in `README.md`.
+By contributing you agree that your work is released under the repository's licences: code in `scripts/`, `tests/` and `.github/workflows/` under [MIT](LICENSE-CODE), and everything else, including the skills, under [CC BY 4.0](LICENSE).
 
-The DFO docs hub publishes each skill as a page, with one child page per reference file and its first heading as the title. Renaming or deleting a skill or a reference file changes or removes a published page's address with no redirect, so a link to the old page from elsewhere breaks.
+## Add or correct a skill
+
+To correct a skill, edit its `SKILL.md` or the file under its `references/` directory and open a pull request. State the source for any changed fact in the pull request.
+
+To add a skill:
+
+1. Copy `template/` to `skills/<name>/`. The directory name is the skill's name, in lowercase with hyphens.
+2. Write `SKILL.md`, and delete or replace `references/example.md`.
+3. Edit `attachments.yaml`.
+4. List the skill in `skills/categories.yaml` and in the skill list in `README.md`.
+5. Run the checks below.
 
 ## Format
 
-One directory per skill, named for the skill, under one of two roots:
-
-- `skills/` holds the skills offered for install. The plugin at the repository root loads every directory there, so each one must be a valid skill.
-- `internal/skills/` holds the skills the DFO publishes to its knowledge graph and docs hub and keeps out of the install routes, such as `dfo-faq`.
-
-A skill's name is its id in the graph, the Skills API and the docs hub, so a name sits under one root. The validator fails a directory under either root whose name starts with `_`. `template/` holds a skill to copy when starting a new one. A new skill under `skills/` also goes in the `README.md` list, under its group. A test fails if the list omits a skill.
-
-Each skill directory holds a `SKILL.md` with YAML front matter, following the Agent Skills convention so agents outside the DFO can load these packages too. Three fields do the work:
+Each skill directory holds a `SKILL.md` with YAML front matter, following the [Agent Skills](https://agentskills.io/specification) convention so that any agent can load it. It uses three fields:
 
 - `name`, matching the directory name.
 - `description`, the text discovery matches against. It says what expertise the skill carries and when an agent should load it.
 - `license`, always `CC-BY-4.0`. A skill downloaded on its own has no `LICENSE` file beside it, so each skill names its licence itself.
 
-Supporting files (reference tables, longer method notes) sit in a `references/` directory inside the skill, and `SKILL.md` points at each one with a relative Markdown link whose label is the path, such as `[references/flow-types.md](references/flow-types.md)`. The body tells the agent when to read them, so a skill loads its cheap summary first and its heavy material only on demand. The link also lets the published documentation site take a reader from the skill's page to each reference page.
+Supporting files such as reference tables and longer method notes sit in a `references/` directory inside the skill. `SKILL.md` points at each one with a relative Markdown link whose label is the path, such as `[references/flow-types.md](references/flow-types.md)`, and says when to read it. The agent loads the cheap summary first and the heavy material on demand.
 
 Keep those pointers one level deep. `SKILL.md` names every reference file the skill has, and a reference file that sends the agent on to another one makes the skill harder to load a piece at a time.
 
-Each paragraph and each list item sits on one line, however long, with a blank line between paragraphs. dfo-pipelines publishes this text to the knowledge graph, which drops line breaks and joins the words on either side of one, so a line break inside a paragraph or a list item would silently corrupt the sentence it splits.
+Each paragraph and each list item sits on one line, however long, with a blank line between paragraphs. The text is published somewhere that joins the words either side of a line break, so a break inside a paragraph would corrupt the sentence it splits.
 
-### Graph attachments
+Skills live under one of two roots. `skills/` holds the skills offered for install, and the plugin at the repository root loads every directory there. `internal/skills/` holds skills published on the DFO platform and left out of the install routes. A skill name sits under one root only, and a name that starts with `_` fails the validator. Add new skills under `skills/`.
 
-Each skill directory also holds an `attachments.yaml` naming the knowledge-graph nodes the skill explains. dfo-pipelines reads it, checks that every entry resolves, and links the skill to each node, leaving the file itself out of the graph. It takes two keys, each a list of unique strings:
+### Attachments
+
+Each skill directory holds an `attachments.yaml` that names the DFO knowledge-graph nodes the skill explains. The file is required. It takes two optional keys, each a list of unique strings:
 
 - `applies_to`, ontology nodes whose series the skill explains, such as `dcid:CRSPurposeCode930`.
-- `sources`, the provenance node of each dfo-pipelines export the skill explains as a whole, such as `dcid:provenance/OECDCreditorReportingSystem`. A data-source skill such as `oda-crs` attaches here, and so reaches every series that export publishes.
+- `sources`, the provenance node of each data export the skill explains as a whole, such as `dcid:provenance/OECDCreditorReportingSystem`. Only a skill about one dataset, such as `oda-crs`, uses this key.
 
 ```yaml
 applies_to:
@@ -43,13 +48,11 @@ applies_to:
 sources: []
 ```
 
-Both keys are optional, and a missing key is an empty list, but the file is required: a skill that attaches nowhere holds `applies_to: []` and `sources: []`. Any other key, a duplicate entry, an entry of the wrong shape, or a YAML anchor or alias fails the validator. `template/attachments.yaml` is the copy to start from.
-
-Attach a skill to an ontology node only when a series carrying that node would be misread without a section of the skill, and only when a minority of a source's series carry it. An attachment covers the node's descendants in the ontology's own hierarchy, so a parent code stands for its children. A node every series of a source carries adds no information over the source itself, so it is not worth attaching. A comment beside each entry gives the reason and names the reference file that covers it, so the attachment moves or goes with the material that justifies it.
+A skill that attaches nowhere holds `applies_to: []` and `sources: []`. Attach a node only when a series carrying it would be misread without a section of the skill, and only when a minority of a source's series carry it. Put a comment beside each entry that gives the reason and names the reference file that covers it. An entry that is not a node in the DFO ontology fails CI. Ask in your pull request if you are unsure which node fits.
 
 ### Categories
 
-`skills/categories.yaml` files every skill in `skills/` under one category. The DFO docs hub reads it to group the skill pages, and shows the categories, and the skills within each, in the file's order. It takes three keys:
+`skills/categories.yaml` files every skill in `skills/` under one category. It takes three keys:
 
 - `sources`, skills that explain one dataset, such as `oda-crs`.
 - `domains`, skills that explain a subject across datasets, each listed under a domain such as `development-assistance` or `sovereign-debt`.
@@ -66,34 +69,30 @@ domains:
 uncategorised: []
 ```
 
-Add a new skill's name to one list. To start a domain, add a key under `domains`. A domain's name follows the skill name format, and the docs hub shows it in sentence case, so `sovereign-debt` appears as "Sovereign debt". The validator fails a directory under `skills/` that the file leaves out, a skill listed more than once, and an entry that names no directory under `skills/`, which includes a skill under `internal/skills/`.
+Add a new skill's name to one list. To start a domain, add a key under `domains`, named like a skill.
 
-### Plugin
+## Check your change
 
-The repository root is one plugin, `dfo`. `.claude-plugin/plugin.json` names it and lists no components, so Claude and Codex load every directory under `skills/` as a skill and load nothing from `internal/skills/` or `template/`. `.claude-plugin/marketplace.json` offers that plugin to a user who adds the repository as a plugin marketplace, which is also named `dfo`. A new skill under `skills/` needs no change to either file.
-
-The root `plugin.json` and `mcp.json` describe the same plugin for ChatGPT's plugin directory, and `.mcp.json` connects the DFO MCP server in the Claude plugin. When skills change, raise `version` in `plugin.json` and `.claude-plugin/plugin.json` together, since each directory publishes an update only under a new version. Then run `python scripts/build_chatgpt_plugin.py`, which writes `dist/dfo-chatgpt-plugin.zip` for upload. It checks the listing against OpenAI's limits and the two manifests against each other, and writes nothing if a check fails.
-
-## Checking a skill before you open a pull request
-
-CI runs the validator's tests and the validator on every push to `dev` or `main` and on every pull request once it is ready for review, and they run locally the same way. CI also compiles the DFO ontology and fails an `applies_to` entry that is not a node in it. The workflow installs the compiler from the public `DevelopmentFinanceObservatory/ontology` repository at the commit `DFO_ONTOLOGY_REF` names. To run that check locally, compile the ontology with `dfo-ontology compile --bench prod --output dfo.mcf` and add `--ontology-mcf dfo.mcf` to the validator command.
+Python 3.13 matches CI. From the repository root:
 
 ```bash
 pip install -r requirements-dev.txt
-python -m unittest discover -s tests
+python -m unittest discover
 python scripts/validate_skills.py
 ```
 
-The validator checks the skills under `skills/` and `internal/skills/`, and enforces this repository's front matter and reference-pointer conventions. It errors on a front matter field outside the Agent Skills specification; a pointer in `SKILL.md` written as a bare path outside a Markdown link; a pointer that fails to resolve; an orphaned reference file; a reference file that names another reference file by bare filename, breaking the one-level-deep rule; a front matter description containing a line break; a soft line break in a skill's or reference file's prose; a reference file or directory name outside the skill name format; a symlink, or a file other than `SKILL.md`, `attachments.yaml` and Markdown under `references/`; a file over 256 KiB or not valid UTF-8; more than 50 reference files; a path longer than 512 characters; a skill directory or front matter name equal to an id the Skills API reader reserves (`healthz`); a YAML anchor or alias in front matter; a front matter `license` that is missing or is not `CC-BY-4.0`; an `attachments.yaml` that is missing, malformed, or breaks the rules under "Graph attachments"; a `skills/categories.yaml` that is missing, malformed, or breaks the rules under "Categories"; a directory under either root whose name starts with `_`; a symlink, or a file other than `skills/categories.yaml`, directly under either root; `skills/`, `internal/` or `internal/skills/` being a symlink; anything under `internal/` other than `skills/`; and a skill name that appears under both roots. It warns, without failing, on a field outside what this repository documents and on a long reference file with no contents list.
+The validator checks every skill against the format above and prints each problem with its file. Errors fail the run, and warnings do not. CI runs the same tests and validator on every pull request once it is ready for review, and also compiles the DFO ontology to check `applies_to` entries. The ontology compiler is in a public repository, so you can run that check locally. [docs/development.md](docs/development.md) has the commands and the full list of validator rules.
 
-## Repo map
+## Pull requests
 
-| Repo           | What it is                                                                                                                             |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `dfo-dcp`      | The knowledge graph engine, ONE's fork of Data Commons, serving the graph and its mixer and SDMX APIs.                                 |
-| `dfo-apis`     | The DFO's product APIs, Datasets and Search, served over the graph.                                                                    |
-| `dfo-ai`       | The agent harness and the DFO's MCP servers, deployed as one Cloud Run service.                                                        |
-| `dfo-spec-kit` | Shared spec models (spec-id hashing, materialisation, manifest and component-spec schemas), published for Python and TS [forthcoming]. |
-| `dfo-website`  | The public Next.js site and the proxy that fronts the platform for external traffic.                                                   |
-| `dfo-skills`   | This repo, the open repository of domain-knowledge packages agents load dynamically at runtime.                                        |
-| `dfo-infra`    | Infrastructure as code: the Cloud Run service definitions, service accounts, scaling, and secrets.                                     |
+Branch from `dev` and open the pull request against `dev`. Branch names such as `feat/skill-name`, `fix/short-description` and `docs/short-description` match the history. Commit messages use a [Conventional Commits](https://www.conventionalcommits.org) prefix, such as `feat:`, `fix:`, `docs:`, `ci:` or `build:`, but no check enforces it.
+
+A pull request needs:
+
+- A passing `Validate skills` check.
+- The skill list in `README.md` and `skills/categories.yaml` updated when a skill is added.
+- A source for every fact you add or change.
+
+Open the pull request as a draft while you work. CI runs when you mark it ready for review.
+
+Maintainer notes on publishing, versioning, and the checks CI runs are in [docs/development.md](docs/development.md).
