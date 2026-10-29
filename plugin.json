@@ -96,7 +96,7 @@
         }
       },
       "publication": {
-        "release_notes": "First release. Search, fetch, analysis and chart tools for the Development Finance Observatory's data, with 14 analyst skills on aid and sovereign debt."
+        "release_notes": "Search, fetch, analysis and chart tools for the Development Finance Observatory's data, with 14 analyst skills on aid and sovereign debt. This release states the data conventions for the health and humanitarian groupings, regional sums, the measure basis by question shape, a named donor's total, and questions that leave donors unnamed."
       }
     }
   }

@@ -53,9 +53,9 @@ ONE's usual sector groupings are below. Each row contains the DAC sector code a 
 
 These groupings are ONE's analytical convention.
 
-Health: ONE's health grouping combines DAC sectors 120 (health) and 130 (population policies and programmes, and reproductive health), and a request for "health" with no code is read as that grouping. Non-communicable diseases, including mental health, sit under 123, within 120. A request that names a code, such as "CRS 120", "basic health" (122) or "reproductive health" (130), is read as that code alone. Reading 120 alone leaves out 130, which gives a smaller number.
+Health: ONE's health grouping combines DAC sectors 120 (health) and 130 (population policies and programmes, and reproductive health), and a request for "health" with no code is read as that grouping. Non-communicable diseases, including mental health, sit under 123, within 120. A request that names a code, such as "CRS 120", "basic health" (122), or "reproductive health" (130), is read as that code alone. Reading 120 alone leaves out 130, which gives a smaller number.
 
-Humanitarian: a request for "humanitarian aid" with no code is read as ONE's humanitarian grouping, 720, 730 and 740 together. A request that names one of the three reads that code alone.
+Humanitarian: a request for "humanitarian aid" with no code is read as ONE's humanitarian grouping, 720, 730, and 740 together. A request that names one of the three reads that code alone.
 
 Users and other organisations often define sectors differently. A non-default definition changes the figures, so state the difference when comparing results across definitions.
 

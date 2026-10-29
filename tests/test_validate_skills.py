@@ -30,6 +30,11 @@ assert _spec.loader is not None
 sys.modules["validate_skills"] = validate_skills  # dataclass() needs this registered to resolve types
 _spec.loader.exec_module(validate_skills)
 
+_sync_spec = importlib.util.spec_from_file_location("sync_shared_rules", REPO_ROOT / "scripts" / "sync_shared_rules.py")
+sync_shared_rules = importlib.util.module_from_spec(_sync_spec)
+assert _sync_spec.loader is not None
+_sync_spec.loader.exec_module(sync_shared_rules)
+
 
 def front_matter(name: str, description: str = "Covers a narrow test domain and when to load it.") -> str:
     return f"---\nname: {name}\ndescription: >-\n  {description}\nlicense: {validate_skills.LICENSE_ID}\n---\n"
@@ -1630,6 +1635,147 @@ class OntologyCheckTests(unittest.TestCase):
                     exit_code, _ = run_main(self.skills_root, "--ontology-mcf", str(path))
                 self.assertEqual(exit_code, 1)
                 self.assertIn("ERROR:", err.getvalue())
+
+
+class SharedRulesTests(unittest.TestCase):
+    """Rules 55 and 56: shared-rules/ and the marked copies of each rule, and
+    scripts/sync_shared_rules.py."""
+
+    RULE = "A shared rule states one convention."
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.repo_root = Path(self._tmp.name)
+        self.skills_root = self.repo_root / "skills"
+        self.skills_root.mkdir()
+        (self.repo_root / "shared-rules").mkdir()
+        (self.repo_root / "shared-rules" / "named-rule.md").write_text(self.RULE + "\n")
+
+    def write_skill(self, name: str, block: str) -> None:
+        make_skill(self.skills_root, name, body=f"\n# Title\n\nFirst paragraph.\n\n{block}\n")
+
+    @staticmethod
+    def block(text: str, rule_id: str = "named-rule") -> str:
+        return f"<!-- shared:{rule_id} -->\n\n{text}\n\n<!-- /shared:{rule_id} -->"
+
+    def shared_errors(self):
+        findings, _ = run(self.skills_root)
+        return errors_with_rule(findings, 55), errors_with_rule(findings, 56)
+
+    def test_matching_copies_pass(self):
+        self.write_skill("alpha", self.block(self.RULE))
+        self.write_skill("beta", self.block(self.RULE))
+        self.assertEqual(self.shared_errors(), ([], []))
+
+    def test_drift_names_only_the_drifted_copy(self):
+        self.write_skill("alpha", self.block(self.RULE))
+        self.write_skill("beta", self.block(self.RULE.replace("one", "a")))
+        broken, drifted = self.shared_errors()
+        self.assertEqual(broken, [])
+        self.assertEqual([f.path for f in drifted], ["skills/beta/SKILL.md"])
+
+    def test_broken_markers_and_sources_are_errors(self):
+        skill, source = "skills/alpha/SKILL.md", "shared-rules/named-rule.md"
+        cases = {
+            "unknown rule": (lambda: self.write_skill("alpha", self.block(self.RULE, "other-rule")), skill),
+            "unclosed block": (
+                lambda: self.write_skill("alpha", f"<!-- shared:named-rule -->\n\n{self.RULE}"),
+                skill,
+            ),
+            "stray close": (lambda: self.write_skill("alpha", "<!-- /shared:named-rule -->"), skill),
+            "source with no copy": (lambda: self.write_skill("alpha", "No markers here."), source),
+            "source not UTF-8": (
+                lambda: (
+                    self.write_skill("alpha", self.block(self.RULE)),
+                    (self.repo_root / "shared-rules" / "bad-bytes.md").write_bytes(b"\xff\xfe"),
+                ),
+                "shared-rules/bad-bytes.md",
+            ),
+        }
+        for case, (build, path) in cases.items():
+            with self.subTest(case):
+                shutil.rmtree(self.skills_root)
+                self.skills_root.mkdir()
+                (self.repo_root / "shared-rules" / "bad-bytes.md").unlink(missing_ok=True)
+                build()
+                broken, drifted = self.shared_errors()
+                self.assertIn(path, [f.path for f in broken])
+                self.assertEqual(drifted, [])
+
+    def test_markers_out_of_written_form_are_errors(self):
+        rule = self.RULE
+        cases = {
+            "extra space": f"<!--  shared:named-rule -->\n\n{rule}\n\n<!-- /shared:named-rule -->",
+            "trailing space": f"<!-- shared:named-rule --> \n\n{rule}\n\n<!-- /shared:named-rule -->",
+            "carriage return": f"<!-- shared:named-rule -->\r\n\r\n{rule}\r\n\r\n<!-- /shared:named-rule -->",
+            "text on the line": f"See <!-- shared:named-rule -->\n\n{rule}\n\n<!-- /shared:named-rule -->",
+            "indented": f"  <!-- shared:named-rule -->\n\n  {rule}\n\n  <!-- /shared:named-rule -->",
+            "blockquote": f"> <!-- shared:named-rule -->\n>\n> {rule}\n>\n> <!-- /shared:named-rule -->",
+            "list item": f"- <!-- shared:named-rule -->\n\n  {rule}\n\n  <!-- /shared:named-rule -->",
+            "upper case": f"<!-- SHARED:named-rule -->\n\n{rule}\n\n<!-- /SHARED:named-rule -->",
+            "invalid id": f"<!-- shared:Named_Rule -->\n\n{rule}\n\n<!-- /shared:Named_Rule -->",
+            "no blank line": f"<!-- shared:named-rule -->\n{rule}\n<!-- /shared:named-rule -->",
+        }
+        for case, block in cases.items():
+            with self.subTest(case):
+                shutil.rmtree(self.skills_root)
+                self.skills_root.mkdir()
+                self.write_skill("alpha", block)
+                broken, drifted = self.shared_errors()
+                self.assertIn("skills/alpha/SKILL.md", [f.path for f in broken])
+                self.assertEqual(drifted, [])
+                updates, problems = sync_shared_rules.sync(self.repo_root)
+                self.assertTrue(problems)
+
+    def test_markers_in_fenced_code_are_ignored(self):
+        fenced = f"```markdown\n<!-- shared:other-rule -->\nDrifted text.\n  <!-- /shared: x -->\n```"
+        self.write_skill("alpha", f"{fenced}\n\n{self.block(self.RULE)}")
+        self.assertEqual(self.shared_errors(), ([], []))
+        self.assertEqual(sync_shared_rules.sync(self.repo_root), ({}, []))
+
+    def test_symlinked_skills_root_is_not_read(self):
+        real = self.repo_root / "elsewhere"
+        real.mkdir()
+        make_skill(real, "alpha", body=f"\n{self.block('Drifted text.')}\n")
+        self.skills_root.rmdir()
+        self.skills_root.symlink_to(real, target_is_directory=True)
+        findings, _ = validate_skills.validate_repo(self.skills_root)
+        self.assertEqual(errors_with_rule(findings, 56), [])
+
+    def test_skill_file_not_utf8_is_left_to_rule_37(self):
+        self.write_skill("alpha", self.block(self.RULE))
+        make_skill(self.skills_root, "beta", skill_md="")
+        (self.skills_root / "beta" / "SKILL.md").write_bytes(b"\xff\xfe")
+        findings, _ = run(self.skills_root)
+        self.assertTrue(errors_with_rule(findings, 37))
+        self.assertEqual(errors_with_rule(findings, 56), [])
+
+    def test_sync_writes_the_source_into_each_copy(self):
+        self.write_skill("alpha", self.block(self.RULE))
+        self.write_skill("beta", self.block("Drifted text."))
+        updates, problems = sync_shared_rules.sync(self.repo_root)
+        self.assertEqual(problems, [])
+        self.assertEqual(list(updates), [self.skills_root / "beta" / "SKILL.md"])
+        for path, text in updates.items():
+            path.write_text(text)
+        self.assertEqual(self.shared_errors(), ([], []))
+
+    def test_sync_main_writes_nothing_on_any_problem(self):
+        self.write_skill("alpha", self.block("Drifted text."))
+        self.write_skill("beta", self.block(self.RULE, "other-rule"))
+        drifted = self.skills_root / "alpha" / "SKILL.md"
+        before = drifted.read_text()
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            exit_code = sync_shared_rules.main(self.repo_root)
+        self.assertEqual(exit_code, 1)
+        self.assertEqual(drifted.read_text(), before)
+
+    def test_sync_refuses_an_unknown_rule(self):
+        self.write_skill("alpha", self.block("Drifted text."))
+        self.write_skill("beta", self.block(self.RULE, "other-rule"))
+        updates, problems = sync_shared_rules.sync(self.repo_root)
+        self.assertEqual(len(problems), 1)
 
 
 if __name__ == "__main__":
