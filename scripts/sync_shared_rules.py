@@ -10,8 +10,10 @@ that states the rule holds a copy between two marker lines:
 
     <!-- /shared:<rule-id> -->
 
-The script replaces the text between every pair of markers with its source.
-It writes nothing if a source is malformed, a file's markers are broken, or a
+The script replaces the text between every pair of markers with its source,
+skipping markers inside fenced code blocks. It writes nothing if a source is
+malformed, a file's markers are broken or out of their written form (indented,
+inside a list item or blockquote, or without blank lines around them), or a
 marker names a rule with no source, and it then exits non-zero.
 scripts/validate_skills.py fails on any copy that differs from its source.
 """
@@ -42,7 +44,7 @@ def sync(repo_root: Path) -> tuple[dict[Path, str], list[str]]:
     for path in skill_markdown_files(repo_root / "skills"):
         shown = path.relative_to(repo_root).as_posix()
         try:
-            text = path.read_text(encoding="utf-8")
+            text = path.read_bytes().decode("utf-8")  # keeps carriage returns for the marker check
         except UnicodeDecodeError:
             problems.append(f"{shown}: is not valid UTF-8")
             continue
@@ -62,14 +64,14 @@ def sync(repo_root: Path) -> tuple[dict[Path, str], list[str]]:
     return updates, problems
 
 
-def main() -> int:
-    updates, problems = sync(REPO_ROOT)
+def main(repo_root: Path = REPO_ROOT) -> int:
+    updates, problems = sync(repo_root)
     if problems:
         print("\n".join(problems), file=sys.stderr)
         return 1
     for path, text in updates.items():
-        path.write_text(text, encoding="utf-8")
-        print(f"updated {path.relative_to(REPO_ROOT).as_posix()}")
+        path.write_bytes(text.encode("utf-8"))
+        print(f"updated {path.relative_to(repo_root).as_posix()}")
     print(f"{len(updates)} file{'' if len(updates) == 1 else 's'} updated")
     return 0
 

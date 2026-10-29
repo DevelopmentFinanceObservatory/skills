@@ -189,7 +189,10 @@ INTERNAL_SKILLS_PATH = Path("internal") / "skills"
 # closing marker line that name the rule. scripts/sync_shared_rules.py writes
 # the source text into every marked copy.
 SHARED_RULES_DIRNAME = "shared-rules"
-SHARED_MARKER_RE = re.compile(r"^<!-- (/?)shared:(\S*) -->$", re.MULTILINE)
+SHARED_MARKER_RE = re.compile(r"<!-- (/?)shared:(\S*) -->")
+# Any line that looks like a shared-rule marker, however spaced or placed, so a
+# near miss is reported rather than skipped.
+SHARED_MARKER_HINT_RE = re.compile(r"<!--\s*/?\s*shared", re.IGNORECASE)
 # What happens to a directory whose name starts with '_' under each root, for
 # rule 50's message. dfo-pipelines and dfo-docs both skip such a directory.
 UNDERSCORE_CONSEQUENCE = {
@@ -523,24 +526,52 @@ class SharedBlock:
 
 def parse_shared_blocks(text: str) -> tuple[list[SharedBlock], list[str]]:
     """The marked copies of shared rules in ``text``, and what is wrong with its
-    markers: a block opened inside another, a closing marker that matches no
-    open block, or a block left open. Parsing stops at the first such problem."""
+    markers. Lines inside fenced code blocks are skipped. Every other line that
+    looks like a marker must be one exactly, '<!-- shared:<id> -->' or
+    '<!-- /shared:<id> -->' flush at the line start with nothing after it, so
+    the block cannot sit in a list item or blockquote; its id must be in the
+    skill name format; it needs a blank line, or the file's edge, on both
+    sides; and blocks pair up without nesting. Parsing stops at the first
+    problem, line numbers counting from 1."""
     blocks: list[SharedBlock] = []
-    opened: re.Match[str] | None = None
-    for marker in SHARED_MARKER_RE.finditer(text):
+    lines = text.split("\n")
+    offsets = [0]
+    for line in lines:
+        offsets.append(offsets[-1] + len(line) + 1)
+    opened: tuple[str, int] | None = None
+    in_fence = False
+    for number, line in enumerate(lines):
+        if FENCE_LINE_RE.match(line.strip()):
+            in_fence = not in_fence
+            continue
+        if in_fence or not SHARED_MARKER_HINT_RE.search(line):
+            continue
+        where = f"line {number + 1}"
+        marker = SHARED_MARKER_RE.fullmatch(line)
+        if marker is None:
+            return blocks, [
+                f"{where} is not a shared-rule marker as written: '<!-- shared:<id> -->' or "
+                "'<!-- /shared:<id> -->', alone on its line and flush left"
+            ]
         closing, rule_id = marker.group(1) == "/", marker.group(2)
+        if not NAME_RE.match(rule_id):
+            return blocks, [f"{where} names invalid rule id '{rule_id}'; ids follow the skill name format"]
+        before = lines[number - 1] if number > 0 else ""
+        after = lines[number + 1] if number + 1 < len(lines) else ""
+        if before.strip() or after.strip():
+            return blocks, [f"{where} needs a blank line before and after its marker"]
         if not closing and opened is not None:
-            return blocks, [f"opens shared rule '{rule_id}' inside shared rule '{opened.group(2)}'"]
+            return blocks, [f"{where} opens shared rule '{rule_id}' inside shared rule '{opened[0]}'"]
         if not closing:
-            opened = marker
-        elif opened is None or opened.group(2) != rule_id:
-            return blocks, [f"closes shared rule '{rule_id}', which no marker above opens"]
+            opened = (rule_id, offsets[number] + len(line))
+        elif opened is None or opened[0] != rule_id:
+            return blocks, [f"{where} closes shared rule '{rule_id}', which no marker above opens"]
         else:
-            body = text[opened.end() : marker.start()]
-            blocks.append(SharedBlock(rule_id, body.strip(), opened.end(), marker.start()))
+            start, end = opened[1], offsets[number]
+            blocks.append(SharedBlock(rule_id, text[start:end].strip(), start, end))
             opened = None
     if opened is not None:
-        return blocks, [f"opens shared rule '{opened.group(2)}' and never closes it"]
+        return blocks, [f"shared rule '{opened[0]}' opens and never closes"]
     return blocks, []
 
 
@@ -607,7 +638,7 @@ def validate_shared_rules(skills_root: Path) -> list[Finding]:
     for path in skill_markdown_files(skills_root):
         shown = path.relative_to(repo_root).as_posix()
         try:
-            text = path.read_text(encoding="utf-8")
+            text = path.read_bytes().decode("utf-8")  # keeps carriage returns for the marker check
         except UnicodeDecodeError:
             continue
         blocks, problems = parse_shared_blocks(text)
@@ -1451,7 +1482,8 @@ def validate_repo(
         )
     if not skills_root.is_symlink():
         findings.extend(validate_categories(skills_root, skill_names["installable"]))
-    findings.extend(validate_shared_rules(skills_root))
+    if not skills_root.is_symlink():
+        findings.extend(validate_shared_rules(skills_root))
     return findings, sum(len(names) for names in skill_names.values())
 
 

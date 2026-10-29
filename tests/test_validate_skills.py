@@ -1703,6 +1703,37 @@ class SharedRulesTests(unittest.TestCase):
                 self.assertIn(path, [f.path for f in broken])
                 self.assertEqual(drifted, [])
 
+    def test_markers_out_of_written_form_are_errors(self):
+        rule = self.RULE
+        cases = {
+            "extra space": f"<!--  shared:named-rule -->\n\n{rule}\n\n<!-- /shared:named-rule -->",
+            "trailing space": f"<!-- shared:named-rule --> \n\n{rule}\n\n<!-- /shared:named-rule -->",
+            "carriage return": f"<!-- shared:named-rule -->\r\n\r\n{rule}\r\n\r\n<!-- /shared:named-rule -->",
+            "text on the line": f"See <!-- shared:named-rule -->\n\n{rule}\n\n<!-- /shared:named-rule -->",
+            "indented": f"  <!-- shared:named-rule -->\n\n  {rule}\n\n  <!-- /shared:named-rule -->",
+            "blockquote": f"> <!-- shared:named-rule -->\n>\n> {rule}\n>\n> <!-- /shared:named-rule -->",
+            "list item": f"- <!-- shared:named-rule -->\n\n  {rule}\n\n  <!-- /shared:named-rule -->",
+            "upper case": f"<!-- SHARED:named-rule -->\n\n{rule}\n\n<!-- /SHARED:named-rule -->",
+            "invalid id": f"<!-- shared:Named_Rule -->\n\n{rule}\n\n<!-- /shared:Named_Rule -->",
+            "no blank line": f"<!-- shared:named-rule -->\n{rule}\n<!-- /shared:named-rule -->",
+        }
+        for case, block in cases.items():
+            with self.subTest(case):
+                shutil.rmtree(self.skills_root)
+                self.skills_root.mkdir()
+                self.write_skill("alpha", block)
+                broken, drifted = self.shared_errors()
+                self.assertIn("skills/alpha/SKILL.md", [f.path for f in broken])
+                self.assertEqual(drifted, [])
+                updates, problems = sync_shared_rules.sync(self.repo_root)
+                self.assertTrue(problems)
+
+    def test_markers_in_fenced_code_are_ignored(self):
+        fenced = f"```markdown\n<!-- shared:other-rule -->\nDrifted text.\n  <!-- /shared: x -->\n```"
+        self.write_skill("alpha", f"{fenced}\n\n{self.block(self.RULE)}")
+        self.assertEqual(self.shared_errors(), ([], []))
+        self.assertEqual(sync_shared_rules.sync(self.repo_root), ({}, []))
+
     def test_symlinked_skills_root_is_not_read(self):
         real = self.repo_root / "elsewhere"
         real.mkdir()
@@ -1729,6 +1760,16 @@ class SharedRulesTests(unittest.TestCase):
         for path, text in updates.items():
             path.write_text(text)
         self.assertEqual(self.shared_errors(), ([], []))
+
+    def test_sync_main_writes_nothing_on_any_problem(self):
+        self.write_skill("alpha", self.block("Drifted text."))
+        self.write_skill("beta", self.block(self.RULE, "other-rule"))
+        drifted = self.skills_root / "alpha" / "SKILL.md"
+        before = drifted.read_text()
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            exit_code = sync_shared_rules.main(self.repo_root)
+        self.assertEqual(exit_code, 1)
+        self.assertEqual(drifted.read_text(), before)
 
     def test_sync_refuses_an_unknown_rule(self):
         self.write_skill("alpha", self.block("Drifted text."))

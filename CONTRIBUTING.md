@@ -80,7 +80,7 @@ The rule's text.
 <!-- /shared:oecd-region-readings -->
 ```
 
-To change a shared rule, edit its source file and run `python scripts/sync_shared_rules.py`, which writes the source into every marked copy. To share a new rule, add its source file and put the markers where each skill states it. Wording that applies to one dataset alone goes outside the markers. The validator fails on a copy that differs from its source, a marker that names no source, a source no skill copies, and markers that do not pair up. The markers are HTML comments, so they stay in the published skill and the ChatGPT package and render as nothing.
+To change a shared rule, edit its source file and run `python scripts/sync_shared_rules.py`, which writes the source into every marked copy. To share a new rule, add its source file and put the markers where each skill states it. Wording that applies to one dataset alone goes outside the markers. Each marker sits flush left, alone on its line, with a blank line on both sides, so a shared rule never sits inside a list item or blockquote, and markers inside a fenced code block are ignored. The validator fails on a copy that differs from its source, a marker that names no source or an id outside the skill name format, a line that looks like a marker without matching the form above, a source no skill copies, and markers that do not pair up. The markers are HTML comments, so they stay in the published skill and the ChatGPT package and render as nothing.
 
 ### Plugin
 
