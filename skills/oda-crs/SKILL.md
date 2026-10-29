@@ -52,7 +52,13 @@ Multilateral reporters include only core-funded activities in the CRS, so earmar
 
 Recipients include regional and unspecified buckets alongside countries, such as "developing countries, unspecified" and "South of Sahara, regional". A country figure that includes a share of a regional or unspecified amount rests on an assumption about how that amount was spread.
 
+<!-- shared:oecd-region-readings -->
+
 Nine regions have an OECD reading: sub-Saharan Africa, North Africa, East Africa, Middle Africa, West Africa, Asia, Europe, the Middle East, and South America. A sum over one of them counts the OECD's member list for the region and adds the region's own regional and unspecified buckets, and those of its sub-regions. The other reading is the region on the UN's list, with the Middle East read as the UN's Western Asia. The two lists differ for six of the nine. Sudan sits in the OECD's sub-Saharan Africa and East Africa, and in the UN's North Africa. The OECD's Asia leaves out Cyprus, Japan, and Türkiye. The OECD's Europe holds only the 13 European countries eligible for ODA. The OECD's Middle East holds Iran, and the UN's Western Asia holds Armenia, Azerbaijan, Cyprus, Georgia, and Türkiye. Middle Africa, West Africa, and South America hold the same countries on both lists. Any other region counts its countries on the UN's list and adds the buckets the OECD keys to that region, as Africa and Oceania do. East Asia and South Asia count the UN's countries alone, because the OECD's Far East Asia and South and Central Asia hold different countries. A listing or ranking of a region's countries counts the countries on the UN's list, with no buckets.
+
+The OECD names North Africa "North of Sahara" and sub-Saharan Africa "South of Sahara". Africa takes the buckets of Africa and of Eastern, Middle, North of Sahara, South of Sahara, Southern, and Western Africa, and sub-Saharan Africa takes those of Eastern, Middle, South of Sahara, Southern, and Western Africa.
+
+<!-- /shared:oecd-region-readings -->
 
 ## Particularities
 

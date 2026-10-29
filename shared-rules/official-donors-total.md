@@ -1,0 +1,1 @@
+A recipient question that leaves donors unnamed ("flows to Kenya", "what Kenya receives") reads as the OECD's official donors total, which sums DAC countries, non-DAC countries, and multilaterals and is the recipient's total receipts from official donors. State that reading in the answer, and offer the donors listed one by one as the other reading.

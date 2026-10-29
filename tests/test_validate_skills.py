@@ -30,6 +30,11 @@ assert _spec.loader is not None
 sys.modules["validate_skills"] = validate_skills  # dataclass() needs this registered to resolve types
 _spec.loader.exec_module(validate_skills)
 
+_sync_spec = importlib.util.spec_from_file_location("sync_shared_rules", REPO_ROOT / "scripts" / "sync_shared_rules.py")
+sync_shared_rules = importlib.util.module_from_spec(_sync_spec)
+assert _sync_spec.loader is not None
+_sync_spec.loader.exec_module(sync_shared_rules)
+
 
 def front_matter(name: str, description: str = "Covers a narrow test domain and when to load it.") -> str:
     return f"---\nname: {name}\ndescription: >-\n  {description}\nlicense: {validate_skills.LICENSE_ID}\n---\n"
@@ -1633,53 +1638,103 @@ class OntologyCheckTests(unittest.TestCase):
 
 
 class SharedRulesTests(unittest.TestCase):
-    """Rules 54 and 55: the copies shared-rules.yaml lists."""
+    """Rules 55 and 56: shared-rules/ and the marked copies of each rule, and
+    scripts/sync_shared_rules.py."""
 
-    RULE = "A shared rule opens here and states one convention."
-    REGISTRY = (
-        "named-rule:\n"
-        "  opening: \"A shared rule opens here\"\n"
-        "  files:\n"
-        "    - skills/alpha/SKILL.md\n"
-        "    - skills/beta/SKILL.md\n"
-    )
+    RULE = "A shared rule states one convention."
 
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmp.cleanup)
-        self.skills_root = Path(self._tmp.name) / "skills"
+        self.repo_root = Path(self._tmp.name)
+        self.skills_root = self.repo_root / "skills"
         self.skills_root.mkdir()
+        (self.repo_root / "shared-rules").mkdir()
+        (self.repo_root / "shared-rules" / "named-rule.md").write_text(self.RULE + "\n")
 
-    def findings_for(self, alpha_rule: str, beta_rule: str, registry: str = REGISTRY):
-        """Findings for skills alpha and beta, each holding its rule after a first paragraph."""
-        for name, rule in (("alpha", alpha_rule), ("beta", beta_rule)):
-            make_skill(self.skills_root, name, body=f"\n# Title\n\nFirst paragraph.\n\n{rule}\n")
-        (self.skills_root.parent / "shared-rules.yaml").write_text(registry)
+    def write_skill(self, name: str, block: str) -> None:
+        make_skill(self.skills_root, name, body=f"\n# Title\n\nFirst paragraph.\n\n{block}\n")
+
+    @staticmethod
+    def block(text: str, rule_id: str = "named-rule") -> str:
+        return f"<!-- shared:{rule_id} -->\n\n{text}\n\n<!-- /shared:{rule_id} -->"
+
+    def shared_errors(self):
         findings, _ = run(self.skills_root)
-        return findings
+        return errors_with_rule(findings, 55), errors_with_rule(findings, 56)
 
-    def test_identical_copies_pass(self):
-        findings = self.findings_for(self.RULE, self.RULE)
-        self.assertEqual(errors_with_rule(findings, 54) + errors_with_rule(findings, 55), [])
+    def test_matching_copies_pass(self):
+        self.write_skill("alpha", self.block(self.RULE))
+        self.write_skill("beta", self.block(self.RULE))
+        self.assertEqual(self.shared_errors(), ([], []))
 
-    def test_drifted_copy_is_an_error(self):
-        findings = self.findings_for(self.RULE, self.RULE.replace("one", "a"))
-        hits = errors_with_rule(findings, 55)
-        self.assertEqual([f.path for f in hits], ["skills/beta/SKILL.md"])
+    def test_drift_names_only_the_drifted_copy(self):
+        self.write_skill("alpha", self.block(self.RULE))
+        self.write_skill("beta", self.block(self.RULE.replace("one", "a")))
+        broken, drifted = self.shared_errors()
+        self.assertEqual(broken, [])
+        self.assertEqual([f.path for f in drifted], ["skills/beta/SKILL.md"])
 
-    def test_registry_problems_are_errors(self):
+    def test_broken_markers_and_sources_are_errors(self):
+        skill, source = "skills/alpha/SKILL.md", "shared-rules/named-rule.md"
         cases = {
-            "copy missing": (self.RULE, "Another paragraph entirely.", self.REGISTRY),
-            "one file": (self.RULE, self.RULE, self.REGISTRY.replace("    - skills/beta/SKILL.md\n", "")),
-            "file missing": (self.RULE, self.RULE, self.REGISTRY.replace("beta/SKILL", "gamma/SKILL")),
+            "unknown rule": (lambda: self.write_skill("alpha", self.block(self.RULE, "other-rule")), skill),
+            "unclosed block": (
+                lambda: self.write_skill("alpha", f"<!-- shared:named-rule -->\n\n{self.RULE}"),
+                skill,
+            ),
+            "stray close": (lambda: self.write_skill("alpha", "<!-- /shared:named-rule -->"), skill),
+            "source with no copy": (lambda: self.write_skill("alpha", "No markers here."), source),
+            "source not UTF-8": (
+                lambda: (
+                    self.write_skill("alpha", self.block(self.RULE)),
+                    (self.repo_root / "shared-rules" / "bad-bytes.md").write_bytes(b"\xff\xfe"),
+                ),
+                "shared-rules/bad-bytes.md",
+            ),
         }
-        for case, (alpha, beta, registry) in cases.items():
+        for case, (build, path) in cases.items():
             with self.subTest(case):
                 shutil.rmtree(self.skills_root)
                 self.skills_root.mkdir()
-                findings = self.findings_for(alpha, beta, registry)
-                self.assertEqual(len(errors_with_rule(findings, 54)), 1)
-                self.assertEqual(errors_with_rule(findings, 55), [])
+                (self.repo_root / "shared-rules" / "bad-bytes.md").unlink(missing_ok=True)
+                build()
+                broken, drifted = self.shared_errors()
+                self.assertIn(path, [f.path for f in broken])
+                self.assertEqual(drifted, [])
+
+    def test_symlinked_skills_root_is_not_read(self):
+        real = self.repo_root / "elsewhere"
+        real.mkdir()
+        make_skill(real, "alpha", body=f"\n{self.block('Drifted text.')}\n")
+        self.skills_root.rmdir()
+        self.skills_root.symlink_to(real, target_is_directory=True)
+        findings, _ = validate_skills.validate_repo(self.skills_root)
+        self.assertEqual(errors_with_rule(findings, 56), [])
+
+    def test_skill_file_not_utf8_is_left_to_rule_37(self):
+        self.write_skill("alpha", self.block(self.RULE))
+        make_skill(self.skills_root, "beta", skill_md="")
+        (self.skills_root / "beta" / "SKILL.md").write_bytes(b"\xff\xfe")
+        findings, _ = run(self.skills_root)
+        self.assertTrue(errors_with_rule(findings, 37))
+        self.assertEqual(errors_with_rule(findings, 56), [])
+
+    def test_sync_writes_the_source_into_each_copy(self):
+        self.write_skill("alpha", self.block(self.RULE))
+        self.write_skill("beta", self.block("Drifted text."))
+        updates, problems = sync_shared_rules.sync(self.repo_root)
+        self.assertEqual(problems, [])
+        self.assertEqual(list(updates), [self.skills_root / "beta" / "SKILL.md"])
+        for path, text in updates.items():
+            path.write_text(text)
+        self.assertEqual(self.shared_errors(), ([], []))
+
+    def test_sync_refuses_an_unknown_rule(self):
+        self.write_skill("alpha", self.block("Drifted text."))
+        self.write_skill("beta", self.block(self.RULE, "other-rule"))
+        updates, problems = sync_shared_rules.sync(self.repo_root)
+        self.assertEqual(len(problems), 1)
 
 
 if __name__ == "__main__":

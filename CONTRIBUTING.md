@@ -70,7 +70,17 @@ Add a new skill's name to one list. To start a domain, add a key under `domains`
 
 ### Shared rules
 
-Some hosts load one skill at a time, so a rule that several skills need is written into each of them. `shared-rules.yaml` at the repository root names each such rule, the words its paragraph starts with, and every file that holds a copy. The validator fails when the copies differ, so a change to a shared rule is made in every listed file at once. A new copy of a shared rule goes in the rule's `files` list.
+Some hosts load one skill at a time, so a rule that several skills need is written into each of them. The rule's text lives once, in `shared-rules/<rule-id>.md` at the repository root, and each skill holds a copy between two marker lines, each a paragraph of its own:
+
+```markdown
+<!-- shared:oecd-region-readings -->
+
+The rule's text.
+
+<!-- /shared:oecd-region-readings -->
+```
+
+To change a shared rule, edit its source file and run `python scripts/sync_shared_rules.py`, which writes the source into every marked copy. To share a new rule, add its source file and put the markers where each skill states it. Wording that applies to one dataset alone goes outside the markers. The validator fails on a copy that differs from its source, a marker that names no source, a source no skill copies, and markers that do not pair up. The markers are HTML comments, so they stay in the published skill and the ChatGPT package and render as nothing.
 
 ### Plugin
 
@@ -88,7 +98,7 @@ python -m unittest discover -s tests
 python scripts/validate_skills.py
 ```
 
-The validator checks the skills under `skills/` and `internal/skills/`, and enforces this repository's front matter and reference-pointer conventions. It errors on a front matter field outside the Agent Skills specification; a pointer in `SKILL.md` written as a bare path outside a Markdown link; a pointer that fails to resolve; an orphaned reference file; a reference file that names another reference file by bare filename, breaking the one-level-deep rule; a front matter description containing a line break; a soft line break in a skill's or reference file's prose; a reference file or directory name outside the skill name format; a symlink, or a file other than `SKILL.md`, `attachments.yaml` and Markdown under `references/`; a file over 256 KiB or not valid UTF-8; more than 50 reference files; a path longer than 512 characters; a skill directory or front matter name equal to an id the Skills API reader reserves (`healthz`); a YAML anchor or alias in front matter; a front matter `license` that is missing or is not `CC-BY-4.0`; an `attachments.yaml` that is missing, malformed, or breaks the rules under "Graph attachments"; a `skills/categories.yaml` that is missing, malformed, or breaks the rules under "Categories"; a directory under either root whose name starts with `_`; a symlink, or a file other than `skills/categories.yaml`, directly under either root; `skills/`, `internal/` or `internal/skills/` being a symlink; anything under `internal/` other than `skills/`; a skill name that appears under both roots; and a `shared-rules.yaml` that is malformed, names a missing file or a file without exactly one paragraph opening with the rule's words, or lists copies that differ. It warns, without failing, on a field outside what this repository documents and on a long reference file with no contents list.
+The validator checks the skills under `skills/` and `internal/skills/`, and enforces this repository's front matter and reference-pointer conventions. It errors on a front matter field outside the Agent Skills specification; a pointer in `SKILL.md` written as a bare path outside a Markdown link; a pointer that fails to resolve; an orphaned reference file; a reference file that names another reference file by bare filename, breaking the one-level-deep rule; a front matter description containing a line break; a soft line break in a skill's or reference file's prose; a reference file or directory name outside the skill name format; a symlink, or a file other than `SKILL.md`, `attachments.yaml` and Markdown under `references/`; a file over 256 KiB or not valid UTF-8; more than 50 reference files; a path longer than 512 characters; a skill directory or front matter name equal to an id the Skills API reader reserves (`healthz`); a YAML anchor or alias in front matter; a front matter `license` that is missing or is not `CC-BY-4.0`; an `attachments.yaml` that is missing, malformed, or breaks the rules under "Graph attachments"; a `skills/categories.yaml` that is missing, malformed, or breaks the rules under "Categories"; a directory under either root whose name starts with `_`; a symlink, or a file other than `skills/categories.yaml`, directly under either root; `skills/`, `internal/` or `internal/skills/` being a symlink; anything under `internal/` other than `skills/`; a skill name that appears under both roots; a `shared-rules/` directory that is a symlink or holds anything other than non-empty UTF-8 `<rule-id>.md` files; and a marked copy of a shared rule that differs from its source, names a rule with no source, or leaves its markers unpaired, or a source that no skill copies. It warns, without failing, on a field outside what this repository documents and on a long reference file with no contents list.
 
 ## Repo map
 

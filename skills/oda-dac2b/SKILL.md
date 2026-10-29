@@ -37,7 +37,13 @@ Donors and recipients are both provided as individual entries and as aggregates,
 
 A regional total built from individual countries misses the region's unallocated-by-country buckets. A sum over a region reads the OECD's published total for the region, which counts the OECD's member list. Bilateral DAC donors report to DAC2B at the region with no country rows, so the region's countries plus its unallocated-by-country buckets fall short of the total for a bilateral donor. A listing or ranking of the region's countries counts the countries on the UN's list, with no buckets, and finds country rows mainly for multilateral lenders. For sub-Saharan Africa, North Africa, East Africa, Asia, Europe, and the Middle East, the UN's list differs from the OECD's, so a listing can hold countries the regional total leaves out and miss countries it counts.
 
-A recipient question that leaves donors unnamed ("OOF to Kenya", "official flows Kenya receives") reads as the OECD's official donors total, which sums DAC countries, non-DAC countries, and multilaterals. DAC2B publishes no private donors total. State that reading in the answer.
+<!-- shared:official-donors-total -->
+
+A recipient question that leaves donors unnamed ("flows to Kenya", "what Kenya receives") reads as the OECD's official donors total, which sums DAC countries, non-DAC countries, and multilaterals and is the recipient's total receipts from official donors. State that reading in the answer, and offer the donors listed one by one as the other reading.
+
+<!-- /shared:official-donors-total -->
+
+DAC2B publishes no private donors total.
 
 The measures include gross and net totals alongside their components. Net OOF is gross OOF minus repayments, and official non-concessional flows combine OOF, export credits and, from 2023, private sector instruments. Adding measures across levels counts flows twice.
 
