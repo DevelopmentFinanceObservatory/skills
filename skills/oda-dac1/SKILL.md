@@ -39,7 +39,7 @@ Donor aggregates sit in the same table as individual donors: DAC countries, DAC 
 
 EU member states' contributions to EU Institutions are already accounted for in their multilateral ODA. The DAC members total adds EU Institutions' own ODA on top, so the same money appears twice. The DAC countries total leaves out that overlap.
 
-A question that leaves donors unnamed ("major donors", "main donors", "big donors") reads as the OECD's published DAC countries total, which holds the DAC's member countries and leaves out EU Institutions, non-DAC reporters, and multilaterals. State that reading in the answer. A question that asks who the donors are, or ranks them, lists donors by latest ODA.
+DAC1 has no recipient side. A DAC1 question that leaves donors unnamed ("major donors", "main donors", "big donors") reads as the OECD's published DAC countries total, which holds the DAC's member countries and leaves out EU Institutions, non-DAC reporters, and multilaterals. State that reading in the answer. A question that asks who the donors are, or ranks them, lists donors by latest ODA. A question about what a recipient receives is answered from DAC2A, where unnamed donors read as the OECD's official donors total.
 
 Aid-type lines are nested. Total ODA is bilateral plus multilateral ODA, and each of those breaks down further. Memo lines and "of which" lines are subsets of other lines, and adding them to a total counts money twice.
 

@@ -50,7 +50,11 @@ A provider's full sector picture is its bilateral ODA to the sector from the CRS
 
 Earmarked (bi-multi) contributions are already accounted for in bilateral ODA with their own sectors. Imputing them again counts the money twice.
 
-The dataset restates each provider's contributions. A total for one named donor read from the CRS is the donor's bilateral ODA plus its imputed multilateral ODA, in gross disbursements at current prices, when ONE's imputed multilateral sectors dataset covers every year asked for (it starts in 2011). Otherwise, and at constant prices or on another basis, the total counts bilateral flows. A total for a recipient or a sector across all providers comes from the CRS alone, where the multilaterals' outflows already count that money. Adding imputed figures to such a total counts it twice.
+The dataset restates each provider's contributions.
+
+A total for one named donor read from the CRS is the donor's bilateral ODA plus its imputed multilateral ODA, in gross disbursements at current prices, when ONE's imputed multilateral sectors dataset covers every year asked for (it starts in 2011). That dataset breaks a donor's imputed ODA down by recipient and sector only. A total restricted to a type of finance, a cooperation modality, or a channel counts bilateral flows, and so does a total at constant prices, on another basis, or over years the dataset does not cover.
+
+A total for a recipient or a sector across all providers comes from the CRS alone, where the multilaterals' outflows already count that money. Adding imputed figures to such a total counts it twice.
 
 EU Institutions are a DAC member and can appear as a provider with their own core contributions. EU member states' contributions to the EU budget and the European Development Fund are core multilateral ODA, so the members' imputed figures already include a share of EU spending. Adding EU Institutions' figures to the members' figures in one total double counts.
 

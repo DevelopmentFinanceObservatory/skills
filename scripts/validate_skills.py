@@ -183,6 +183,11 @@ CATEGORY_LIST_KEYS = ("sources", "uncategorised")
 CATEGORY_DOMAINS_KEY = "domains"
 # The second skill root, relative to the directory that holds skills/.
 INTERNAL_SKILLS_PATH = Path("internal") / "skills"
+# The registry of rules stated word for word in more than one skill, at the
+# repository root. A skill can be installed alone, so each one carries its own
+# copy of a rule it shares; the registry names every copy so that none drifts.
+SHARED_RULES_FILENAME = "shared-rules.yaml"
+SHARED_RULE_KEYS = {"opening", "files"}
 # What happens to a directory whose name starts with '_' under each root, for
 # rule 50's message. dfo-pipelines and dfo-docs both skip such a directory.
 UNDERSCORE_CONSEQUENCE = {
@@ -500,6 +505,90 @@ def validate_categories(skills_root: Path, skill_names: list[str]) -> list[Findi
                 f"skill '{name}' is not listed; add it under 'sources', a domain or 'uncategorised'",
             )
         )
+    return findings
+
+
+def _paragraphs(text: str) -> list[str]:
+    """The blank-line-separated blocks of ``text``, each stripped."""
+    return [block.strip() for block in re.split(r"\n\s*\n", text) if block.strip()]
+
+
+def validate_shared_rules(repo_root: Path) -> list[Finding]:
+    """Check that every copy of a rule shared-rules.yaml names is identical.
+
+    Each key of the registry is a rule id mapping to 'opening', the words its
+    paragraph starts with, and 'files', two or more paths from the repository
+    root. A repository with no registry shares no rules.
+
+    Rules 54 and 55, both errors: the registry is malformed, a rule is not a
+    mapping of 'opening' to a string and 'files' to two or more unique paths,
+    a listed file is missing, or a file holds no paragraph or more than one
+    starting with the opening (54); the copies differ (55).
+    """
+    registry = repo_root / SHARED_RULES_FILENAME
+    if not registry.is_file():
+        return []
+    try:
+        data = parse_yaml_mapping(registry.read_text(encoding="utf-8"))
+    except (YamlMappingError, UnicodeDecodeError) as exc:
+        return [Finding(54, "ERROR", SHARED_RULES_FILENAME, f"{SHARED_RULES_FILENAME} is malformed: {exc}")]
+
+    findings: list[Finding] = []
+    for rule_id, entry in data.items():
+        where = f"{SHARED_RULES_FILENAME}: {rule_id}"
+        files = entry.get("files") if isinstance(entry, dict) else None
+        opening = entry.get("opening") if isinstance(entry, dict) else None
+        if (
+            not isinstance(entry, dict)
+            or set(entry) != SHARED_RULE_KEYS
+            or not isinstance(opening, str)
+            or not opening.strip()
+            or not isinstance(files, list)
+            or len(files) < 2
+            or not all(isinstance(f, str) for f in files)
+            or len(set(files)) != len(files)
+        ):
+            findings.append(
+                Finding(
+                    54,
+                    "ERROR",
+                    where,
+                    "a shared rule maps 'opening' to the words its paragraph starts with and "
+                    "'files' to two or more unique paths from the repository root",
+                )
+            )
+            continue
+        copies: dict[str, str] = {}
+        for rel in files:
+            path = repo_root / rel
+            if not path.is_file():
+                findings.append(Finding(54, "ERROR", where, f"{rel} does not exist"))
+                continue
+            found = [b for b in _paragraphs(path.read_text(encoding="utf-8")) if b.startswith(opening)]
+            if len(found) != 1:
+                findings.append(
+                    Finding(
+                        54,
+                        "ERROR",
+                        rel,
+                        f"holds {_plural(len(found), 'paragraph')} starting with the opening of "
+                        f"shared rule '{rule_id}', and needs exactly one",
+                    )
+                )
+                continue
+            copies[rel] = found[0]
+        first = next(iter(copies), None)
+        for rel, text in copies.items():
+            if text != copies[first]:
+                findings.append(
+                    Finding(
+                        55,
+                        "ERROR",
+                        rel,
+                        f"its copy of shared rule '{rule_id}' differs from {first}'s. Edit every "
+                        f"copy {SHARED_RULES_FILENAME} lists to the same text",
+                    )
+                )
     return findings
 
 
@@ -1226,7 +1315,8 @@ def validate_repo(
     root, where only skill directories are allowed, apart from
     categories.yaml under skills/ (52); internal/ holds anything other than
     the skills/ directory (53). A symlink under a root raises rule 35, and
-    it is neither validated nor counted as a skill.
+    it is neither validated nor counted as a skill. Rules 54 and 55 check
+    the copies of each shared rule (validate_shared_rules).
 
     skills/, internal/ and internal/skills/ are real directories: each one
     that is a symlink raises rule 35, because dfo-pipelines refuses to
@@ -1317,6 +1407,7 @@ def validate_repo(
         )
     if not skills_root.is_symlink():
         findings.extend(validate_categories(skills_root, skill_names["installable"]))
+    findings.extend(validate_shared_rules(repo_root))
     return findings, sum(len(names) for names in skill_names.values())
 
 

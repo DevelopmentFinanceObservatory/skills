@@ -36,11 +36,15 @@ When the user names no basis, ONE chooses the measure from the shape of the ques
 | Recipient, all sectors, from any donors or from a named donor | Any | Net disbursements (DAC2A receipts) |
 | Any sector, channel, type of finance (instrument), or cooperation modality | Any | Gross disbursements (CRS) |
 
-A user's stated basis ("net", "gross", "grant equivalent", "commitments") overrides the table, and a basis the user chose earlier in the conversation carries over to later questions. State a carried basis in the answer. When the later question's data holds no series counted on the carried basis, the answer uses the basis the table gives for that question's shape. The two periods of a series that crosses 2018 hold different years and do not add, and a growth figure across 2017 to 2018 carries the break marker.
+A user's stated basis ("net", "gross", "grant equivalent", "commitments") overrides the table. A stated price basis (current or constant prices) applies to the table's measure. A basis or price basis the user chose earlier in the conversation carries over to later questions, and the answer states the carried choice. When the later question's data holds no series counted on the carried basis, the answer uses the basis the table gives for that question's shape. The two periods of a series that crosses 2018 hold different years and do not add, and a growth figure across 2017 to 2018 carries the break marker.
 
-A total for one named donor read from the CRS is the donor's bilateral ODA plus its imputed multilateral ODA, in gross disbursements at current prices, when ONE's imputed multilateral sectors dataset covers every year asked for (it starts in 2011). Otherwise, and at constant prices or on another basis, the total counts bilateral flows. For a window that starts before 2011, the sum is offered over the years the dataset covers. At constant prices, or on a basis other than gross disbursements, the sum is not offered, because the dataset publishes gross disbursements at current prices only.
+A total for one named donor read from the CRS is the donor's bilateral ODA plus its imputed multilateral ODA, in gross disbursements at current prices, when ONE's imputed multilateral sectors dataset covers every year asked for (it starts in 2011). That dataset breaks a donor's imputed ODA down by recipient and sector only. A total restricted to a type of finance, a cooperation modality, or a channel counts bilateral flows, and so does a total at constant prices, on another basis, or over years the dataset does not cover.
 
-A named donor's total to a named recipient with no sector is read from DAC2A in net disbursements and counts bilateral flows only. DAC1 total ODA already includes the donor's core multilateral contributions, so it takes no imputed addition.
+For a window that starts before 2011, the sum is offered over the years the dataset covers. At constant prices, or on a basis other than gross disbursements, the sum is not offered, because the dataset publishes gross disbursements at current prices only.
+
+A named donor's total to a named recipient, with no sector, is DAC2A total ODA in net disbursements, which counts bilateral flows only. The bilateral-plus-imputed sum applies only when the user asks for the donor's contribution through multilateral channels as well.
+
+DAC1 total ODA already includes the donor's core multilateral contributions, so it takes no imputed addition.
 
 ## Pitfalls
 

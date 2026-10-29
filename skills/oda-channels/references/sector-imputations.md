@@ -18,7 +18,9 @@ A donor's full sector figure is its bilateral sector ODA from the CRS, excluding
 
 Bi-multi flows are already part of bilateral ODA, with their own sectors, and are not imputed.
 
-A total for one named donor read from the CRS is the donor's bilateral ODA plus its imputed multilateral ODA, in gross disbursements at current prices, when ONE's imputed multilateral sectors dataset covers every year asked for (it starts in 2011). Otherwise, and at constant prices or on another basis, the total counts bilateral flows. A recipient-side or sector-wide total across all providers already counts multilateral outflows, so it carries the core money and excludes imputed figures.
+A total for one named donor read from the CRS is the donor's bilateral ODA plus its imputed multilateral ODA, in gross disbursements at current prices, when ONE's imputed multilateral sectors dataset covers every year asked for (it starts in 2011). That dataset breaks a donor's imputed ODA down by recipient and sector only. A total restricted to a type of finance, a cooperation modality, or a channel counts bilateral flows, and so does a total at constant prices, on another basis, or over years the dataset does not cover.
+
+A recipient-side or sector-wide total across all providers already counts multilateral outflows, so it carries the core money and excludes imputed figures.
 
 A result is verifiable when it labels which figures are imputed estimates and states that the bilateral side excludes core-contribution records and keeps bi-multi with its reported sectors.
 

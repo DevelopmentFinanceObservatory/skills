@@ -1632,5 +1632,55 @@ class OntologyCheckTests(unittest.TestCase):
                 self.assertIn("ERROR:", err.getvalue())
 
 
+class SharedRulesTests(unittest.TestCase):
+    """Rules 54 and 55: the copies shared-rules.yaml lists."""
+
+    RULE = "A shared rule opens here and states one convention."
+    REGISTRY = (
+        "named-rule:\n"
+        "  opening: \"A shared rule opens here\"\n"
+        "  files:\n"
+        "    - skills/alpha/SKILL.md\n"
+        "    - skills/beta/SKILL.md\n"
+    )
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.skills_root = Path(self._tmp.name) / "skills"
+        self.skills_root.mkdir()
+
+    def findings_for(self, alpha_rule: str, beta_rule: str, registry: str = REGISTRY):
+        """Findings for skills alpha and beta, each holding its rule after a first paragraph."""
+        for name, rule in (("alpha", alpha_rule), ("beta", beta_rule)):
+            make_skill(self.skills_root, name, body=f"\n# Title\n\nFirst paragraph.\n\n{rule}\n")
+        (self.skills_root.parent / "shared-rules.yaml").write_text(registry)
+        findings, _ = run(self.skills_root)
+        return findings
+
+    def test_identical_copies_pass(self):
+        findings = self.findings_for(self.RULE, self.RULE)
+        self.assertEqual(errors_with_rule(findings, 54) + errors_with_rule(findings, 55), [])
+
+    def test_drifted_copy_is_an_error(self):
+        findings = self.findings_for(self.RULE, self.RULE.replace("one", "a"))
+        hits = errors_with_rule(findings, 55)
+        self.assertEqual([f.path for f in hits], ["skills/beta/SKILL.md"])
+
+    def test_registry_problems_are_errors(self):
+        cases = {
+            "copy missing": (self.RULE, "Another paragraph entirely.", self.REGISTRY),
+            "one file": (self.RULE, self.RULE, self.REGISTRY.replace("    - skills/beta/SKILL.md\n", "")),
+            "file missing": (self.RULE, self.RULE, self.REGISTRY.replace("beta/SKILL", "gamma/SKILL")),
+        }
+        for case, (alpha, beta, registry) in cases.items():
+            with self.subTest(case):
+                shutil.rmtree(self.skills_root)
+                self.skills_root.mkdir()
+                findings = self.findings_for(alpha, beta, registry)
+                self.assertEqual(len(errors_with_rule(findings, 54)), 1)
+                self.assertEqual(errors_with_rule(findings, 55), [])
+
+
 if __name__ == "__main__":
     unittest.main()
