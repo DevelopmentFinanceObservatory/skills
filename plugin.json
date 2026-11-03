@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "dfo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Search, fetch, analyse and chart development finance data from the Development Finance Observatory, with analyst skills on aid and sovereign debt.",
   "author": {
     "name": "The ONE Campaign",
@@ -22,7 +22,7 @@
       "interface": {
         "displayName": "DFO",
         "shortDescription": "Aid, debt and economy data",
-        "longDescription": "The Development Finance Observatory (DFO) brings the main public sources on development finance into one place. Ask a question in plain words and get a sourced figure, a calculation or a chart.\n\nTry: \"How much aid did Germany give last year?\", \"Chart Kenya's external debt since 2010\", \"Rank donors by aid as a share of national income\".\n\nWhat it holds:\n\n- Aid: the OECD's DAC1, DAC2A, DAC2B and Creditor Reporting System tables, for 172 donors and 235 recipients from 1960.\n- Sovereign debt: the World Bank's International Debt Statistics.\n- Economies: the IMF World Economic Outlook, with projections.\n- ONE's own estimates, such as the sectors that core multilateral funding reaches.\n\nWhat it does:\n\n- Finds the dataset that fits a question and explains what it measures.\n- Fetches a series for any country, donor, recipient or year.\n- Aggregates, compares, ranks, filters and joins series, and calculates growth, shares and ratios.\n- Draws the result as an interactive chart, table or stat card.\n- Brings DFO's analyst notes on each dataset: definitions, caveats and common mistakes.\n\nEvery answer names its dataset, publisher, unit and period. The data is public and the plugin needs no account.\n\nDFO is built by the data team at The ONE Campaign.",
+        "longDescription": "The Development Finance Observatory (DFO) brings development finance data together in one place. With this connector, Claude answers from that data and names the source of each number.\n\nThe DFO holds more than 100,000 indicators in 92 datasets. At its core are the OECD's aid statistics (DAC1, DAC2A, DAC2B and the Creditor Reporting System), the World Bank's International Debt Statistics and the IMF World Economic Outlook. Through Data Commons by Google it adds economic, health and social indicators from the World Bank, WHO and other UN agencies, so aid and debt can sit beside the outcomes they pay for.\n\nAsk in plain English: how much aid a donor gave and where it went, how fast a country's debt service is growing, or which donors give the most as a share of national income. Claude finds the right dataset, fetches the series, and can rank, compare, aggregate, filter and join results, or work out growth rates and shares.\n\nClaude can turn a result into a line chart, bar chart, table or stat card inside the chat, and export any result as CSV, Excel or Parquet with its sources.\n\nThe connector also carries the DFO's methodology notes: which OECD table answers an aid question, how grant equivalents differ from net flows, and where totals double count.\n\nNo account is needed. The Development Finance Observatory is an initiative by ONE Data.",
         "developerName": "The ONE Campaign",
         "category": "Data & Analytics",
         "capabilities": [
@@ -36,12 +36,12 @@
         ],
         "websiteURL": "https://developmentfinance.org",
         "supportURL": "https://developmentfinance.org/ai-policy",
-        "privacyPolicyURL": "https://www.one.org/info/privacy-policy/",
-        "termsOfServiceURL": "https://www.one.org/info/privacy-policy/",
+        "privacyPolicyURL": "https://developmentfinance.org/privacy",
+        "termsOfServiceURL": "https://developmentfinance.org/terms",
         "defaultPrompt": [
           "Chart Kenya's external debt stock since 2010.",
           "Chart net ODA from France, Germany, the UK and Japan since 2010.",
-          "Chart the ten DAC donors with the highest ODA as a share of national income in 2024."
+          "Chart the ten donors with the highest ODA as a share of national income in 2024."
         ],
         "logo": "./assets/logo.svg"
       },
@@ -52,7 +52,7 @@
               "description": "Official aid total for one donor",
               "prompt": "How much official development assistance did Germany give in 2023?",
               "tools_triggered": "search, get_skill, get_data",
-              "expected_behavior": "The assistant reports a 2023 figure for Germany in US dollars, cites OECD DAC1 as the source, and names the measure it used, such as net or gross disbursements. It may load the DAC1 skill first."
+              "expected_behavior": "The assistant reports a 2023 figure for Germany in US dollars, either grant equivalents (about 37.9 billion) or net disbursements (about 41.3 billion), cites OECD DAC1 as the source, and names the measure it used. It may load the DAC1 skill first."
             },
             {
               "description": "Line chart of a debt stock",
@@ -62,9 +62,9 @@
             },
             {
               "description": "Ranking against a ratio",
-              "prompt": "Rank the DAC donors by ODA as a share of national income in 2024.",
+              "prompt": "Rank donors by ODA as a share of national income in 2024.",
               "tools_triggered": "search, get_data, rank, write_component",
-              "expected_behavior": "The assistant ranks all DAC members for 2024 and puts Norway and Luxembourg first, both near or above 1% of GNI. It shows the top donors as a bar chart in percent."
+              "expected_behavior": "The assistant ranks the donors DFO holds for 2024 and puts Norway (about 1.02%) and Luxembourg (about 1.00%) first. It shows the top donors as a bar chart in percent of GNI, and the list can include donors outside the DAC, such as Türkiye."
             },
             {
               "description": "Change over a period",
@@ -96,7 +96,7 @@
         }
       },
       "publication": {
-        "release_notes": "Search, fetch, analysis and chart tools for the Development Finance Observatory's data, with 14 analyst skills on aid and sovereign debt. This release states the data conventions for the health and humanitarian groupings, regional sums, the measure basis by question shape, a named donor's total, and questions that leave donors unnamed."
+        "release_notes": "The listing links the Development Finance Observatory's own privacy and terms pages, describes the data as the DFO website does, and ranks donors by aid as a share of national income across every donor the DFO holds."
       }
     }
   }
