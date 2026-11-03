@@ -60,5 +60,6 @@ python scripts/validate_skills.py --ontology-mcf dfo.mcf
 - an `attachments.yaml` that is missing, malformed, or breaks the attachment rules;
 - a `skills/categories.yaml` that is missing, malformed, or breaks the category rules, including a directory under `skills/` that it leaves out;
 - a directory under either root whose name starts with `_`, a file other than `skills/categories.yaml` directly under either root, `skills/`, `internal/` or `internal/skills/` being a symlink, or anything under `internal/` other than `skills/`.
+- a `shared-rules/` directory that is a symlink or holds anything other than non-empty UTF-8 `<rule-id>.md` files, a marked copy of a shared rule that differs from its source, names a rule with no source or an id outside the skill name format, or leaves its markers unpaired, a line that looks like a marker without matching the marker form, or a source that no skill copies.
 
 It warns, without failing, on a front matter field outside what CONTRIBUTING.md documents and on a long reference file with no contents list.

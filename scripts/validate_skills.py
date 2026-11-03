@@ -183,6 +183,16 @@ CATEGORY_LIST_KEYS = ("sources", "uncategorised")
 CATEGORY_DOMAINS_KEY = "domains"
 # The second skill root, relative to the directory that holds skills/.
 INTERNAL_SKILLS_PATH = Path("internal") / "skills"
+# The text of each rule several skills state word for word, one Markdown file
+# per rule id, at the repository root. Some hosts load one skill at a time, so
+# each skill carries its own copy of a shared rule, between an opening and a
+# closing marker line that name the rule. scripts/sync_shared_rules.py writes
+# the source text into every marked copy.
+SHARED_RULES_DIRNAME = "shared-rules"
+SHARED_MARKER_RE = re.compile(r"<!-- (/?)shared:(\S*) -->")
+# Any line that looks like a shared-rule marker, however spaced or placed, so a
+# near miss is reported rather than skipped.
+SHARED_MARKER_HINT_RE = re.compile(r"<!--\s*/?\s*shared", re.IGNORECASE)
 # What happens to a directory whose name starts with '_' under each root, for
 # rule 50's message. dfo-pipelines and dfo-docs both skip such a directory.
 UNDERSCORE_CONSEQUENCE = {
@@ -499,6 +509,160 @@ def validate_categories(skills_root: Path, skill_names: list[str]) -> list[Findi
                 path,
                 f"skill '{name}' is not listed; add it under 'sources', a domain or 'uncategorised'",
             )
+        )
+    return findings
+
+
+@dataclass(frozen=True)
+class SharedBlock:
+    """One marked copy of a shared rule: its id, its text stripped, and the
+    offsets of the text between its two marker lines."""
+
+    rule_id: str
+    body: str
+    start: int
+    end: int
+
+
+def parse_shared_blocks(text: str) -> tuple[list[SharedBlock], list[str]]:
+    """The marked copies of shared rules in ``text``, and what is wrong with its
+    markers. Lines inside fenced code blocks are skipped. Every other line that
+    looks like a marker must be one exactly, '<!-- shared:<id> -->' or
+    '<!-- /shared:<id> -->' flush at the line start with nothing after it, so
+    the block cannot sit in a list item or blockquote; its id must be in the
+    skill name format; it needs a blank line, or the file's edge, on both
+    sides; and blocks pair up without nesting. Parsing stops at the first
+    problem, line numbers counting from 1."""
+    blocks: list[SharedBlock] = []
+    lines = text.split("\n")
+    offsets = [0]
+    for line in lines:
+        offsets.append(offsets[-1] + len(line) + 1)
+    opened: tuple[str, int] | None = None
+    in_fence = False
+    for number, line in enumerate(lines):
+        if FENCE_LINE_RE.match(line.strip()):
+            in_fence = not in_fence
+            continue
+        if in_fence or not SHARED_MARKER_HINT_RE.search(line):
+            continue
+        where = f"line {number + 1}"
+        marker = SHARED_MARKER_RE.fullmatch(line)
+        if marker is None:
+            return blocks, [
+                f"{where} is not a shared-rule marker as written: '<!-- shared:<id> -->' or "
+                "'<!-- /shared:<id> -->', alone on its line and flush left"
+            ]
+        closing, rule_id = marker.group(1) == "/", marker.group(2)
+        if not NAME_RE.match(rule_id):
+            return blocks, [f"{where} names invalid rule id '{rule_id}'; ids follow the skill name format"]
+        before = lines[number - 1] if number > 0 else ""
+        after = lines[number + 1] if number + 1 < len(lines) else ""
+        if before.strip() or after.strip():
+            return blocks, [f"{where} needs a blank line before and after its marker"]
+        if not closing and opened is not None:
+            return blocks, [f"{where} opens shared rule '{rule_id}' inside shared rule '{opened[0]}'"]
+        if not closing:
+            opened = (rule_id, offsets[number] + len(line))
+        elif opened is None or opened[0] != rule_id:
+            return blocks, [f"{where} closes shared rule '{rule_id}', which no marker above opens"]
+        else:
+            start, end = opened[1], offsets[number]
+            blocks.append(SharedBlock(rule_id, text[start:end].strip(), start, end))
+            opened = None
+    if opened is not None:
+        return blocks, [f"shared rule '{opened[0]}' opens and never closes"]
+    return blocks, []
+
+
+def load_shared_sources(repo_root: Path) -> tuple[dict[str, str], list[Finding]]:
+    """Each shared rule's text by id, read from shared-rules/<id>.md, and rule
+    55 findings for that directory: it is a symlink, or holds a symlink, a file
+    other than '<id>.md' with an id in the skill name format, a file that is
+    not UTF-8, or an empty one. A repository without the directory shares no
+    rules."""
+    directory = repo_root / SHARED_RULES_DIRNAME
+    if directory.is_symlink():
+        return {}, [Finding(55, "ERROR", SHARED_RULES_DIRNAME, "is a symlink; it must be a real directory")]
+    sources: dict[str, str] = {}
+    findings: list[Finding] = []
+    for entry in sorted(directory.iterdir()) if directory.is_dir() else []:
+        shown = entry.relative_to(repo_root).as_posix()
+        if entry.is_symlink() or not entry.is_file() or entry.suffix != ".md" or not NAME_RE.match(entry.stem):
+            findings.append(
+                Finding(55, "ERROR", shown, f"{SHARED_RULES_DIRNAME}/ holds one '<rule-id>.md' file per shared rule")
+            )
+            continue
+        try:
+            text = entry.read_text(encoding="utf-8").strip()
+        except UnicodeDecodeError:
+            findings.append(Finding(55, "ERROR", shown, "is not valid UTF-8"))
+            continue
+        if not text:
+            findings.append(Finding(55, "ERROR", shown, "is empty"))
+            continue
+        sources[entry.stem] = text
+    return sources, findings
+
+
+def skill_markdown_files(skills_root: Path) -> list[Path]:
+    """Every SKILL.md and references/*.md under ``skills_root`` and
+    internal/skills/ beside it, reached through real directories only."""
+    repo_root = skills_root.parent
+    files: list[Path] = []
+    for root in (skills_root, repo_root / INTERNAL_SKILLS_PATH):
+        if _symlink_on_the_way(root, repo_root) is not None or not root.is_dir():
+            continue
+        for skill_dir in sorted(root.iterdir()):
+            if skill_dir.is_symlink() or not skill_dir.is_dir() or skill_dir.name.startswith("_"):
+                continue
+            references = skill_dir / REFERENCES_DIRNAME
+            candidates = [skill_dir / "SKILL.md"]
+            if references.is_dir() and not references.is_symlink():
+                candidates += sorted(references.glob("*.md"))
+            files += (path for path in candidates if path.is_file() and not path.is_symlink())
+    return files
+
+
+def validate_shared_rules(skills_root: Path) -> list[Finding]:
+    """Check every marked copy of a shared rule against its source.
+
+    Rules 55 and 56, both errors: shared-rules/ is malformed
+    (load_shared_sources), a skill file's markers are broken or name a rule
+    with no source, or a source has no marked copy (55); a marked copy differs
+    from its source (56). A skill file that is not UTF-8 is left to rule 37.
+    """
+    repo_root = skills_root.parent
+    sources, findings = load_shared_sources(repo_root)
+    used: set[str] = set()
+    for path in skill_markdown_files(skills_root):
+        shown = path.relative_to(repo_root).as_posix()
+        try:
+            text = path.read_bytes().decode("utf-8")  # keeps carriage returns for the marker check
+        except UnicodeDecodeError:
+            continue
+        blocks, problems = parse_shared_blocks(text)
+        findings.extend(Finding(55, "ERROR", shown, problem) for problem in problems)
+        for block in blocks:
+            used.add(block.rule_id)
+            source = f"{SHARED_RULES_DIRNAME}/{block.rule_id}.md"
+            if block.rule_id not in sources:
+                findings.append(
+                    Finding(55, "ERROR", shown, f"marks shared rule '{block.rule_id}', and {source} does not exist")
+                )
+            elif block.body != sources[block.rule_id]:
+                findings.append(
+                    Finding(
+                        56,
+                        "ERROR",
+                        shown,
+                        f"its copy of shared rule '{block.rule_id}' differs from {source}. Edit the "
+                        "source, then run python scripts/sync_shared_rules.py",
+                    )
+                )
+    for rule_id in sorted(sources.keys() - used):
+        findings.append(
+            Finding(55, "ERROR", f"{SHARED_RULES_DIRNAME}/{rule_id}.md", "no skill holds a marked copy of this rule")
         )
     return findings
 
@@ -1226,7 +1390,8 @@ def validate_repo(
     root, where only skill directories are allowed, apart from
     categories.yaml under skills/ (52); internal/ holds anything other than
     the skills/ directory (53). A symlink under a root raises rule 35, and
-    it is neither validated nor counted as a skill.
+    it is neither validated nor counted as a skill. Rules 55 and 56 check
+    the copies of each shared rule (validate_shared_rules).
 
     skills/, internal/ and internal/skills/ are real directories: each one
     that is a symlink raises rule 35, because dfo-pipelines refuses to
@@ -1317,6 +1482,8 @@ def validate_repo(
         )
     if not skills_root.is_symlink():
         findings.extend(validate_categories(skills_root, skill_names["installable"]))
+    if not skills_root.is_symlink():
+        findings.extend(validate_shared_rules(skills_root))
     return findings, sum(len(names) for names in skill_names.values())
 
 

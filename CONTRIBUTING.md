@@ -71,6 +71,20 @@ uncategorised: []
 
 Add a new skill's name to one list. To start a domain, add a key under `domains`, named like a skill.
 
+### Shared rules
+
+Some hosts load one skill at a time, so a rule that several skills need is written into each of them. The rule's text lives once, in `shared-rules/<rule-id>.md` at the repository root, and each skill holds a copy between two marker lines, each a paragraph of its own:
+
+```markdown
+<!-- shared:oecd-region-readings -->
+
+The rule's text.
+
+<!-- /shared:oecd-region-readings -->
+```
+
+To change a shared rule, edit its source file and run `python scripts/sync_shared_rules.py`, which writes the source into every marked copy. To share a new rule, add its source file and put the markers where each skill states it. Wording that applies to one dataset alone goes outside the markers. Each marker sits flush left, alone on its line, with a blank line on both sides, so a shared rule never sits inside a list item or blockquote, and markers inside a fenced code block are ignored. The validator fails on a copy that differs from its source, a marker that names no source or an id outside the skill name format, a line that looks like a marker without matching the form above, a source no skill copies, and markers that do not pair up. The markers are HTML comments, so they stay in the published skill and the ChatGPT package and render as nothing.
+
 ## Check your change
 
 Python 3.13 matches CI. From the repository root:

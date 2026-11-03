@@ -1,0 +1,1 @@
+A named donor's total to a named recipient, with no sector, is DAC2A total ODA in net disbursements, which counts bilateral flows only. The bilateral-plus-imputed sum applies only when the user asks for the donor's contribution through multilateral channels as well.
