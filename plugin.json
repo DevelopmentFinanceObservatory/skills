@@ -96,7 +96,7 @@
         }
       },
       "publication": {
-        "release_notes": "The listing links the Development Finance Observatory's own privacy and terms pages, describes the data as the DFO website does, and ranks donors by aid as a share of national income across every donor the DFO holds."
+        "release_notes": "The oda-dac2a skill says which total a donor's ODA across recipients reads, and that a ranking of one donor's recipients lists countries only."
       }
     }
   }
