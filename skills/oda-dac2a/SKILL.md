@@ -44,6 +44,8 @@ Donors and recipients are provided as both individual entries and aggregates, an
 
 Multilateral agencies appear as both recipients and donors. Multilateral recipients hold donors' core contributions to IDA, UNICEF, EU Institutions, and others. A total that counts money going into multilaterals and money they provide to developing countries counts it twice.
 
+A donor's total or ranking across recipients counts its bilateral flows to developing countries and leaves the multilateral recipients out. A named agency as recipient, such as IDA, reads the donor's core contribution to that agency.
+
 The two aggregates that add EU Institutions to member states (DAC countries plus EU Institutions, and DAC EU countries plus EU Institutions) contain both the members' contributions to EU Institutions and EU Institutions' own ODA. The members' contributions sit under multilateral recipients, so to the developing countries total these aggregates count EU money once. To all recipients they count it twice.
 
 <!-- shared:official-donors-total -->
