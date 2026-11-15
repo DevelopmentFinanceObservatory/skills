@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "dfo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Search, fetch, analyse and chart development finance data from the Development Finance Observatory, with analyst skills on aid and sovereign debt.",
   "author": {
     "name": "The ONE Campaign",
@@ -96,7 +96,7 @@
         }
       },
       "publication": {
-        "release_notes": "The listing links the Development Finance Observatory's own privacy and terms pages, describes the data as the DFO website does, and ranks donors by aid as a share of national income across every donor the DFO holds."
+        "release_notes": "The oda-dac2a skill says which total a donor's ODA across recipients reads, and that a ranking of one donor's recipients lists countries only."
       }
     }
   }
