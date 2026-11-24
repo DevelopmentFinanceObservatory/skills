@@ -50,11 +50,11 @@ A provider's core contribution to a multilateral and the multilateral's own outf
 
 Multilateral reporters include only core-funded activities in the CRS, so earmarked trust funds reported by a bilateral provider do not reappear as the multilateral's outflow. Foundation grants to Gavi or the Global Fund are private flows that then fund those organisations' outflows. A total that adds foundations and multilaterals counts that money twice.
 
-Recipients include regional and unspecified buckets alongside countries, such as "developing countries, unspecified" and "South of Sahara, regional". A country figure that includes a share of a regional or unspecified amount rests on an assumption about how that amount was spread.
+A country figure that includes a share of a regional or unspecified amount rests on an assumption about how that amount was spread.
 
 <!-- shared:recipient-country-ranking -->
 
-A ranking of one donor's recipients, such as "top recipients of Germany's ODA", ranks the countries and territories among them. The donor's recipients also include amounts not allocated to a country: "developing countries, unspecified", labelled "Bilateral, unallocated" in the DFO, and one bucket per region, such as "South of Sahara, regional", labelled "South of Sahara, unallocated by country" in the DFO. Leave these buckets out of the ranking, state in the answer that the ranking leaves them out, and give their combined amount. A ranking of one donor's ODA by region or by income group ranks those groups, and reads each region as the region readings below set out.
+A ranking of recipients ranks the countries and territories among them, whether the ODA is one donor's or a donor total, including the total that a ranking with no donor named reads. The recipients also include amounts not allocated to a country, which the DFO tags with the entity type `DACRecipientUnallocatedByCountry`, such as "Bilateral, unallocated (DAC)" and "South of Sahara, unallocated by country (DAC)". Leave every recipient of that type out of the ranking, state in the answer that the ranking leaves them out, and give their combined amount. A ranking by region, unless the question names the regions, ranks Africa, America, Asia, Europe, and Oceania, each read as the OECD region readings in this skill set out, and gives "Bilateral, unallocated (DAC)" on a line of its own, since it belongs to no region.
 
 <!-- /shared:recipient-country-ranking -->
 

@@ -96,7 +96,7 @@
         }
       },
       "publication": {
-        "release_notes": "The oda-dac2a skill reads one donor's ODA across recipients on the developing countries total, which is the donor's bilateral ODA in net disbursements, and offers the bilateral-plus-imputed sum and all recipients as the other readings. The oda-dac2a and oda-crs skills rank one donor's recipient countries and territories and leave out the amounts not allocated to a country."
+        "release_notes": "The oda-dac2a skill reads a bilateral donor's ODA across recipients on the developing countries total, which is the donor's bilateral ODA in net disbursements, and offers the bilateral-plus-imputed sum and all recipients as the other readings. The oda-dac2a and oda-crs skills rank recipient countries and territories and leave out the amounts not allocated to a country."
       }
     }
   }
