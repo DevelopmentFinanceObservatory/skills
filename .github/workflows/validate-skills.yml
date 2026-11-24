@@ -29,7 +29,7 @@ on:
   workflow_dispatch: {}
 
 env:
-  DFO_ONTOLOGY_REF: 617bdb685e79022494132ef3614674c232b395fc
+  DFO_ONTOLOGY_REF: 56a4d77084ab15f0814bdaae1dc39d5d97ee6355
 
 jobs:
   validate:
