@@ -58,7 +58,7 @@ A ranking of recipients ranks the countries and territories among them, whether 
 
 CRS data drawn directly from the OECD carry no entity type and name these buckets differently: "developing countries, unspecified" is "Bilateral, unallocated (DAC)" in the DFO, and a regional bucket such as "South of Sahara, regional" is "South of Sahara, unallocated by country (DAC)". A country figure that includes a share of a regional or unspecified amount rests on an assumption about how that amount was spread.
 
-In the CRS, a ranking of recipients with no provider named reads official providers (DAC members, non-DAC reporters, and multilaterals) on the ODA flow category. Foundations report private development finance, outside the ODA flow category, so the ODA flow across every provider gives the same figure. State that reading in the answer, and offer all providers, with the foundations' private development finance added, as the other reading.
+In the CRS, a ranking of recipients with no provider named reads official providers (DAC members, non-DAC reporters, and multilaterals) on the ODA flow category. Foundations report private development finance, outside the ODA flow category, so the ODA flow across every provider gives the same figure. State that reading in the answer, and offer the private development finance, mostly from foundations, as a figure of its own beside the ODA total. Do not add the two: foundation grants to Gavi and the Global Fund fund those organisations' outflows, so the sum counts that money twice.
 
 <!-- shared:oecd-region-readings -->
 
