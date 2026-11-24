@@ -44,7 +44,15 @@ Donors and recipients are provided as both individual entries and aggregates, an
 
 Multilateral agencies appear as both recipients and donors. Multilateral recipients hold donors' core contributions to IDA, UNICEF, EU Institutions, and others. A total that counts money going into multilaterals and money they provide to developing countries counts it twice.
 
-For one donor's ODA across recipients, read the developing countries total, which is the donor's bilateral ODA, and the countries under it. All recipients adds the donor's core contributions to multilateral agencies, so the bilateral-plus-imputed sum above sits on the developing countries total. A ranking of one donor's recipients lists countries only.
+For one donor's ODA across recipients, where the donor is a DAC country, a non-DAC country, or EU Institutions, read the developing countries total, which equals the donor's bilateral ODA in net disbursements, and the recipients under it. State that reading in the answer, naming the figure as the donor's bilateral ODA in net disbursements, and offer the bilateral-plus-imputed sum and all recipients as the other readings. Build the bilateral-plus-imputed sum from two figures at the developing countries total: the donor's net ODA and its imputed multilateral ODA. All recipients is the developing countries total plus the donor's core contributions to multilateral agencies. The imputed figure spreads those same core contributions across recipients, so adding it to all recipients counts them twice.
+
+For a multilateral donor, such as IDA or the African Development Fund, the developing countries total is the agency's own ODA in net disbursements, and no imputed multilateral ODA is published for it. A donor aggregate that includes multilaterals, such as official donors, sums the members' bilateral ODA and the multilaterals' own ODA at the developing countries total.
+
+<!-- shared:recipient-country-ranking -->
+
+A ranking of one donor's recipients, such as "top recipients of Germany's ODA", ranks the countries and territories among them. The donor's recipients also include amounts not allocated to a country: "developing countries, unspecified", labelled "Bilateral, unallocated" in the DFO, and one bucket per region, such as "South of Sahara, regional", labelled "South of Sahara, unallocated by country" in the DFO. Leave these buckets out of the ranking, state in the answer that the ranking leaves them out, and give their combined amount. A ranking of one donor's ODA by region or by income group ranks those groups, and reads each region as the region readings below set out.
+
+<!-- /shared:recipient-country-ranking -->
 
 The two aggregates that add EU Institutions to member states (DAC countries plus EU Institutions, and DAC EU countries plus EU Institutions) contain both the members' contributions to EU Institutions and EU Institutions' own ODA. The members' contributions sit under multilateral recipients, so to the developing countries total these aggregates count EU money once. To all recipients they count it twice.
 
